@@ -10,7 +10,7 @@ description = "Dash Material Design components for the Neptune platform."
 # Credentials
 license = "MIT"
 authors = ["Noos Energy <contact@noos.energy>"]
-homepage = "git://github.com/noosenergy/dash-mdc-neptune"
+homepage = "https://github.com/noosenergy/dash-mdc-neptune"
 # Package data
 readme = "README.md"
 packages = [
