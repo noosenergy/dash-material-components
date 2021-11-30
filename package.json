@@ -17,7 +17,7 @@
     "start": "webpack-serve --config ./webpack.serve.config.js --open",
     "build": "yarn run build:js && yarn run build:py",
     "build:js": "webpack --mode production",
-    "build:py": "poetry run dash-generate-components ./src/lib/components ./build/dash_mdc_neptune -p package-info.json",
+    "build:py": "poetry run dash-generate-components ./src/components ./build/dash_mdc_neptune -p package-info.json",
     "validate:py": "poetry run python ./scripts/_validate_init.py",
     "launch:py": "poetry run jupyter lab --port 8000 --notebook-dir ./notebooks"
   },

@@ -2,13 +2,6 @@
 .build_cache
 node_modules
 
-# Dash
-build/*/*.py
-!build/*/__init__.py
-!build/*/_imports_.py
-build/*/*.min.js*
-build/*/*.json
-
 # Python
 __pycache__
 

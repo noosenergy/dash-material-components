@@ -16,6 +16,15 @@ readme = "README.md"
 packages = [
     { include = "dash_mdc_neptune", from = "build" },
 ]
+include = [
+    "dash_mdc_neptune/*.js",
+    "dash_mdc_neptune/*.js.map",
+    "dash_mdc_neptune/metadata.json",
+    "dash_mdc_neptune/package-info.json",
+    "README.md",
+    "LICENSE",
+    "package.json",
+]
 # Distribution
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -28,7 +37,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-dash = { version = ">=1.15.0", extras = ["dev"] }
+dash = ">=1.15.0"
 
 [tool.poetry.dev-dependencies]
 dash = { version = ">=1.15.0", extras = ["dev", "testing"] }

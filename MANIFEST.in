@@ -1,5 +1,0 @@
-include build/dash_mdc_neptune/*.min.js*
-include build/dash_mdc_neptune/*.json
-include README.md
-include LICENSE
-include package.json

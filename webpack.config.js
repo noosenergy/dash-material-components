@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
     filename = `${dashLibraryName}.${modeSuffix}.js`;
   }
 
-  const entry = overrides.entry || {main: './src/lib/index.js'};
+  const entry = overrides.entry || {main: './src/index.js'};
 
   const devtool = overrides.devtool || 'source-map';
 
