@@ -1,0 +1,58 @@
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+# Description
+name = "dash-mdc-neptune"
+version = "0.1.0"
+description = "Dash Material Design components for the Neptune platform."
+# Credentials
+license = "MIT"
+authors = ["Noos Energy <contact@noos.energy>"]
+homepage = "git://github.com/noosenergy/dash-mdc-neptune"
+# Package data
+readme = "README.md"
+packages = [
+    { include = "dash_mdc_neptune", from = "build" },
+]
+# Distribution
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+dash = { version = ">=1.15.0", extras = ["dev"] }
+
+[tool.poetry.dev-dependencies]
+dash = { version = ">=1.15.0", extras = ["dev", "testing"] }
+# Format
+isort = "*"
+black = {version = "*", allow-prereleases = true}
+# Linter
+pydocstyle = "*"
+flake8 = "*"
+mypy = "*"
+# Debugging
+ipdb = "*"
+ipython = "*"
+jupyterlab = "*"
+jupyter-dash = "*"
+
+[tool.isort]
+line_length = 99
+multi_line_output = 3
+lines_after_imports = 2
+default_section = "THIRDPARTY"
+known_first_party = "dash_mdc_neptune"
+sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+
+[tool.black]
+line-length = 99
+target_version = ['py38']

@@ -1,0 +1,42 @@
+# Node build
+.cache
+.build_cache
+node_modules
+dist
+
+# Dash build
+build/*/*.py
+!build/*/__init__.py
+!build/*/_imports_.py
+build/*/*.min.js*
+build/*/*.json
+
+# Python
+__pycache__
+
+# Pypi
+dist
+*.egg-info
+pip-wheel-metadata
+
+# PyTest
+.pytest_cache
+pytest.xml
+
+# MyPy
+.mypy_cache
+
+# Poetry
+.venv
+
+# Shell
+.env
+
+# IDE
+.vscode
+.idea
+
+# MacOS
+.DS_Store
+.localized
+*~

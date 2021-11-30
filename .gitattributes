@@ -1,0 +1,3 @@
+# Automatically collapse generated files
+poetry.lock linguist-generated=true
+yarn.lock linguist-generated=true
