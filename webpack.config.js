@@ -48,7 +48,7 @@ module.exports = (env, argv) => {
     mode,
     entry,
     output: {
-      path: path.resolve(__dirname, "./build", dashLibraryName),
+      path: path.resolve(__dirname, dashLibraryName),
       chunkFilename: '[name].js',
       filename,
       library: dashLibraryName,

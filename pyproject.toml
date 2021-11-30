@@ -14,7 +14,7 @@ homepage = "https://github.com/noosenergy/dash-mdc-neptune"
 # Package data
 readme = "README.md"
 packages = [
-    { include = "dash_mdc_neptune", from = "build" },
+    { include = "dash_mdc_neptune"},
 ]
 include = [
     "dash_mdc_neptune/*.js",
