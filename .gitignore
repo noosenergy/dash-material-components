@@ -1,10 +1,8 @@
-# Node build
-.cache
+# Node
 .build_cache
 node_modules
-dist
 
-# Dash build
+# Dash
 build/*/*.py
 !build/*/__init__.py
 !build/*/_imports_.py
@@ -13,6 +11,9 @@ build/*/*.json
 
 # Python
 __pycache__
+
+# Jupyter
+.ipynb_checkpoints
 
 # Pypi
 dist
