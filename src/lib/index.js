@@ -2,5 +2,5 @@
 import DashMdcNeptune from './components/DashMdcNeptune.react';
 
 export {
-    DashMdcNeptune
+  DashMdcNeptune
 };
