@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { ThemeProvider } from '@mui/material/styles';
 import { Box as MuiBox } from '@mui/material';
-
-import theme from '../utils/theme';
 
 /**
  * Box component from Material UI
@@ -13,31 +10,23 @@ import theme from '../utils/theme';
 export default class Box extends Component {
 
     render() {
-      const {id, sx} = this.props;
+      const {sx} = this.props;
 
       return (
-        <div id={id}>
-          <ThemeProvider theme={theme}>
-            <MuiBox sx={sx}>
-              {this.props.children}
-            </MuiBox>
-          </ThemeProvider>
-        </div>
+        <MuiBox sx={sx}>
+          {this.props.children}
+        </MuiBox>
       )
     }
 
 }
 
 Box.defaultProps = {
-  id: null,
   children: null,
   sx: {},
 };
 
 Box.propTypes = {
-  /** The ID used to identify this component in Dash callbacks */
-  id: PropTypes.string,
-
   /** Can be used to render elements inside the component */
   children: PropTypes.node,
 

@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { ThemeProvider } from '@mui/material/styles';
 import { Container as MuiContainer } from '@mui/material';
-
-import theme from '../utils/theme';
 
 /**
  * Container component from Material UI
@@ -13,32 +10,24 @@ import theme from '../utils/theme';
 export default class Container extends Component {
 
   render() {
-    const {id, maxWidth, fixed} = this.props;
+    const {maxWidth, fixed} = this.props;
 
     return (
-      <div id={id}>
-        <ThemeProvider theme={theme}>
-          <MuiContainer maxWidth={maxWidth} fixed={fixed}>
-            {this.props.children}
-          </MuiContainer>
-        </ThemeProvider>
-      </div>
+      <MuiContainer maxWidth={maxWidth} fixed={fixed}>
+        {this.props.children}
+      </MuiContainer>
     )
   }
 
 }
 
 Container.defaultProps = {
-  id: null,
   children: null,
   maxWidth: 'sm',
   fixed: false,
 };
 
 Container.propTypes = {
-  /** The ID used to identify this component in Dash callbacks */
-  id: PropTypes.string,
-
   /** Can be used to render elements inside the component */
   children: PropTypes.node,
 
