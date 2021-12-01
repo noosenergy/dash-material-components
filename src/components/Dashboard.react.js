@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import CssBaseline from '@mui/material/CssBaseline';
-import { Box, ThemeProvider } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import theme from '../utils/theme';
+import Page from '../fragments/Page.react';
+
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});
 
 /**
  * Main dasboard component, initializing a Material UI theme
@@ -13,12 +21,19 @@ import theme from '../utils/theme';
 export default class Dashboard extends Component {
 
   render() {
+    const classes = useStyles();
+    const {orientation, verticalLayout} = this.props;
+
     return (
       // Enforce a theme on the entire page
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box sx={{display: 'flex', flexDirection: 'column'}}>
-          {this.props.children}
+        <Box className={`dashboard ${classes.root}`}>
+          <Page
+            orientation={orientation}
+            verticalLayout={verticalLayout}
+            children={this.props.children}
+          />
         </Box>
       </ThemeProvider>
     );
@@ -28,9 +43,17 @@ export default class Dashboard extends Component {
 
 Dashboard.defaultProps = {
   children: null,
+  orientation: 'columns',
+  verticalLayout: 'fill',
 };
 
 Dashboard.propTypes = {
   /** Can be used to render elements inside the component */
   children: PropTypes.node,
+
+  /** Dashboard general orientation (rows or columns) */
+  orientation: PropTypes.string,
+
+  /** Dashboard general layout (fill or scroll) */
+  verticalLayout: PropTypes.string,
 };

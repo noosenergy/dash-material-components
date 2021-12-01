@@ -22,7 +22,7 @@ import NoosIcon from '../fragments/NoosIcon.react';
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              sx={{ mx: 2 }}
             >
               <NoosIcon />
             </IconButton>
