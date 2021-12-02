@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {Box, AppBar, IconButton, Toolbar, Typography} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 
 import NoosIcon from '../fragments/NoosIcon.jsx';
 
@@ -9,7 +10,6 @@ const styles = (theme) => ({
   navTitle: {
     fontSize: '2rem',
     fontWeight: 700,
-    color: theme.palette.text.secondary,
   },
 });
 
