@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import '@fontsource/roboto';
 // Main component
 import Dashboard from './components/Dashboard.jsx';
 // Navigation components
