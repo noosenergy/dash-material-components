@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Box, AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import { Box, AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 
-import NoosIcon from '../fragments/NoosIcon.react';
+import NoosIcon from '../fragments/NoosIcon.jsx';
 
 /**
  * Dashboard navigation bar component

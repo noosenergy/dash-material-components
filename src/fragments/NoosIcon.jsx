@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { SvgIcon } from '@mui/material';
+
+import { SvgIcon } from '@material-ui/core';
 
 export default class NoosIcon extends Component {
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Paper as MuiPaper } from '@mui/material';
+import { Paper as MuiPaper } from '@material-ui/core';
 
 /**
  * Paper component from Material UI

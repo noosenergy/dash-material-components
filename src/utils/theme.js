@@ -1,23 +1,9 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 // A custom theme for this app
 // https://mui.com/customization/default-theme/
 // https://bareynol.github.io/mui-theme-creator/
-const theme = createTheme({
-  typography: {
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
+let theme = createTheme({
   palette: {
     type: 'light',
     primary: {
@@ -41,5 +27,6 @@ const theme = createTheme({
     },
   },
 });
+theme = responsiveFontSizes(theme);
 
 export default theme;

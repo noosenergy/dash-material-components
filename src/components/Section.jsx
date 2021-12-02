@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const styles = (theme) =>({
   section: {
     maxHeight: "100%",
     margin: 0,
@@ -21,19 +21,18 @@ const useStyles = makeStyles({
 
 /**
  * Section component
- * Dashboard > Section
+ * Dashboard > Page > Section
  * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
- export default class Section extends Component {
+class Section extends Component {
   render() {
-    const classes = useStyles();
-    const {size, orientation} = this.props;
+    const {classes, children, size, orientation} = this.props;
 
     // Variables
     const sectionSize = size == 0 ? true : size;
     const sectionDirection = orientation == "columns" ? "row" : "column";
     const sectionClasses =
-      pageOrientation == "columns"
+      orientation == "columns"
         ? classes.sectionInColumn
         : classes.sectionInRow;
 
@@ -45,9 +44,9 @@ const useStyles = makeStyles({
         spacing={2}
         alignItems="stretch"
         direction={sectionDirection}
-        className={`section ${classes.section} ${sectionClasses}`}
+        className={`${classes.section} ${sectionClasses}`}
       >
-        {this.props.children}
+        {children}
       </Grid>
     );
   }
@@ -70,3 +69,5 @@ Section.propTypes = {
   /** Section general orientation (rows or columns) */
   orientation: PropTypes.string,
 };
+
+export default withStyles(styles, { withTheme: true })(Section);

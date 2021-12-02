@@ -11,7 +11,7 @@ insert_final_newline = true
 max_line_length = 99
 trim_trailing_whitespace = true
 
-[*.{yml,yaml,tpl,json,js}]
+[*.{yml,yaml,tpl,json,js,jsx}]
 indent_size = 2
 
 [Makefile]

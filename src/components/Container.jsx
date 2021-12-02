@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Container as MuiContainer } from '@mui/material';
+import { Container as MuiContainer } from '@material-ui/core';
 
 /**
  * Container component from Material UI

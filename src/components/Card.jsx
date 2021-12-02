@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Card as MuiCard, CardContent, Grid, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Card as MuiCard, CardContent, Grid, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const styles = (theme) =>({
   cardHeader: {
       padding: "6px 8px",
   },
@@ -12,6 +12,7 @@ const useStyles = makeStyles({
       padding: "5px 0",
       fontSize: "1.05em",
       fontWeight: 600,
+      color: theme.palette.text.secondary,
   },
   cardContent: {
       maxWidth: "100%",
@@ -23,13 +24,12 @@ const useStyles = makeStyles({
 
 /**
  * Card component
- * Dashboard > Section > Card
+ * Dashboard > Page > Section > Card
  * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Card/index.js
  */
-export default class Card extends React.Component {
+class Card extends Component {
   render() {
-    const classes = useStyles();
-    const {title, size} = this.props;
+    const {classes, children, title, size} = this.props;
 
     // Card header
     let header;
@@ -76,7 +76,7 @@ export default class Card extends React.Component {
             className={classes.cardContent}
             xs
           >
-            {this.props.children}
+            {children}
           </Grid>
         </Grid>
       </Grid>
@@ -100,3 +100,5 @@ Card.propTypes = {
   /** Card container size (0 < grid size <= 12) */
   size: PropTypes.number,
 };
+
+export default withStyles(styles, { withTheme: true })(Card);

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Box as MuiBox } from '@mui/material';
+import { Box as MuiBox } from '@material-ui/core';
 
 /**
  * Box component from Material UI
