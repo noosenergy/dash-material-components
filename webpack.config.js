@@ -1,7 +1,8 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
+
 const packagejson = require('./package.json');
 
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
@@ -28,9 +29,8 @@ module.exports = (env, argv) => {
   }
 
   let filename = (overrides.output || {}).filename;
-  if(!filename) {
-    const modeSuffix = mode === 'development' ? 'dev' : 'min';
-    filename = `${dashLibraryName}.${modeSuffix}.js`;
+  if (!filename) {
+      filename = `${dashLibraryName}.js`;
   }
 
   const entry = overrides.entry || {main: './src/index.js'};
@@ -59,25 +59,9 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|jsx)?$/,
+          use: 'babel-loader',
           exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-          },
-        },
-        {
-          test: /\.css$/,
-          use: [
-            {
-              loader: 'style-loader',
-              options: {
-                insertAt: 'top'
-              }
-            },
-            {
-              loader: 'css-loader',
-            },
-          ],
         },
       ],
     },

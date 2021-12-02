@@ -1,2 +1,11 @@
-*.css
-registerServiceWorker.js
+.build_cache/
+node_modules/
+dash_mdc_neptune/
+notebooks/
+tests/
+dist/
+.mypy_cache/
+.venv/
+.vscode/
+.idea/
+.DS_Store
