@@ -88,28 +88,28 @@ module.exports = (env, argv) => {
           parallel: true,
           cache: './.build_cache/terser',
           terserOptions: {
-              warnings: false,
-              ie8: false
+            warnings: false,
+            ie8: false
           }
         })
       ],
       splitChunks: {
-          name: true,
-          cacheGroups: {
-              async: {
-                  chunks: 'async',
-                  minSize: 0,
-                  name(module, chunks, cacheGroupKey) {
-                      return `${cacheGroupKey}-${chunks[0].name}`;
-                  }
-              },
-              shared: {
-                  chunks: 'all',
-                  minSize: 0,
-                  minChunks: 2,
-                  name: 'dash_mdc_neptune-shared'
-              }
+        name: '[name].js',
+        cacheGroups: {
+          async: {
+            chunks: 'async',
+            minSize: 0,
+            name(module, chunks, cacheGroupKey) {
+                return `${cacheGroupKey}-${chunks[0].name}`;
+            }
+          },
+          shared: {
+            chunks: 'all',
+            minSize: 0,
+            minChunks: 2,
+            name: 'dash_mdc_neptune-shared'
           }
+        }
       }
     },
     plugins: [
