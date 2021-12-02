@@ -1,6 +1,9 @@
+"""Automatic upload of Dash Nepune Material components."""
+
 import json
 import pathlib as _path
 import sys as _sys
+
 import dash as _dash
 
 from ._imports_ import *  # noqa
@@ -30,9 +33,9 @@ __version__ = package["version"]
 _js_dist = []
 _js_dist.extend(
     [
-        {"relative_package_path": "dash_mdc_neptune.min.js", "namespace": package_name},
+        {"relative_package_path": "dash_mdc_neptune.js", "namespace": package_name},
         {
-            "relative_package_path": "dash_mdc_neptune.min.js.map",
+            "relative_package_path": "dash_mdc_neptune.js.map",
             "namespace": package_name,
             "dynamic": True,
         },

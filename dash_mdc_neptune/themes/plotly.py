@@ -3,14 +3,8 @@
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from ..static import NOOS_ENERGY_LOGO
-from .definitions import (
-    NOOS_PALETTE_BASE,
-    NOOS_PALETTE_DIVERGING,
-    NOOS_PALETTE_PASTELS,
-    NOOS_PALETTE_SEQUENTIAL,
-    _color_scale
-)
+from ..static import assets
+from . import settings
 
 
 # Template for adding a demo watermark
@@ -35,7 +29,7 @@ pio.templates["demo"] = go.layout.Template(
 pio.templates["noos_watermark"] = go.layout.Template(
     layout_images=[
         dict(
-            source=NOOS_ENERGY_LOGO,
+            source=assets.NOOS_ENERGY_LOGO,
             name="noos_watermark",
             xref="paper",
             yref="paper",
@@ -110,25 +104,25 @@ pio.templates["hoover_xunified"] = go.layout.Template(
 # Noos Colorscale Palette
 pio.templates["noos_colorscale"] = go.layout.Template(
     layout_colorscale=dict(
-        diverging=_color_scale(NOOS_PALETTE_DIVERGING),
-        sequential=_color_scale(NOOS_PALETTE_SEQUENTIAL),
-        sequentialminus=_color_scale(NOOS_PALETTE_SEQUENTIAL),
+        diverging=settings._color_scale(settings.NOOS_PALETTE_DIVERGING),
+        sequential=settings._color_scale(settings.NOOS_PALETTE_SEQUENTIAL),
+        sequentialminus=settings._color_scale(settings.NOOS_PALETTE_SEQUENTIAL),
     ),
 )
 
 # Noos Colorway Palettes
 pio.templates["noos_base"] = go.layout.Template(
-    layout_colorway=NOOS_PALETTE_BASE,
+    layout_colorway=settings.NOOS_PALETTE_BASE,
 )
 
 pio.templates["noos_pastel"] = go.layout.Template(
-    layout_colorway=NOOS_PALETTE_PASTELS,
+    layout_colorway=settings.NOOS_PALETTE_PASTELS,
 )
 
 pio.templates["noos_diverging"] = go.layout.Template(
-    layout_colorway=NOOS_PALETTE_DIVERGING,
+    layout_colorway=settings.NOOS_PALETTE_DIVERGING,
 )
 
 pio.templates["noos_sequential"] = go.layout.Template(
-    layout_colorway=NOOS_PALETTE_SEQUENTIAL,
+    layout_colorway=settings.NOOS_PALETTE_SEQUENTIAL,
 )

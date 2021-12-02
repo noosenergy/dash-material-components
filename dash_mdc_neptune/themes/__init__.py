@@ -1,4 +1,4 @@
-from . import matplotlib_templates  # noqa
-from . import plotly_templates  # noqa
-from .definitions import *  # noqa
-from .pandas_templates import *  # noqa
+# flake8: noqa
+from . import matplotlib, plotly
+from .pandas import *
+from .settings import *
