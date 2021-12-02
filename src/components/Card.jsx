@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Card as MuiCard, CardContent, Grid, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import {Card as MuiCard, CardContent, Grid, Typography} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 
-const styles = (theme) =>({
+const styles = (theme) => ({
   cardHeader: {
-      padding: "6px 8px",
+    padding: '6px 8px',
   },
   cardTitle: {
-      padding: "5px 0",
-      fontSize: "1.05em",
-      fontWeight: 600,
-      color: theme.palette.text.secondary,
+    padding: '5px 0',
+    fontSize: '1.05em',
+    fontWeight: 600,
+    color: theme.palette.text.secondary,
   },
   cardContent: {
-      maxWidth: "100%",
-      minHeight: "100%",
-      height: "100%",
-      overflow: "auto",
+    maxWidth: '100%',
+    minHeight: '100%',
+    height: '100%',
+    overflow: 'auto',
   },
 });
 
@@ -37,11 +37,7 @@ class Card extends Component {
       header = (
         <Grid container className={classes.cardHeader}>
           <Grid item>
-            <Typography
-              component="h2"
-              variant="h6"
-              className={classes.cardTitle}
-            >
+            <Typography component="h2" variant="h6" className={classes.cardTitle}>
               {title}
             </Typography>
           </Grid>
@@ -62,12 +58,7 @@ class Card extends Component {
         className={`card`}
       >
         {header ? <Grid item>{header}</Grid> : null}
-        <Grid
-          item
-          component={MuiCard}
-          variant="outlined"
-          xs
-        >
+        <Grid item component={MuiCard} variant="outlined" xs>
           <Grid
             item
             container
@@ -101,4 +92,4 @@ Card.propTypes = {
   size: PropTypes.number,
 };
 
-export default withStyles(styles, { withTheme: true })(Card);
+export default withStyles(styles, {withTheme: true})(Card);

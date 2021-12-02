@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Container as MuiContainer } from '@material-ui/core';
+import {Container as MuiContainer} from '@material-ui/core';
 
 /**
  * Container component from Material UI
  * https://mui.com/components/container/
  */
 export default class Container extends Component {
-
   render() {
     const {maxWidth, fixed} = this.props;
 
@@ -16,9 +15,8 @@ export default class Container extends Component {
       <MuiContainer maxWidth={maxWidth} fixed={fixed}>
         {this.props.children}
       </MuiContainer>
-    )
+    );
   }
-
 }
 
 Container.defaultProps = {
@@ -35,5 +33,5 @@ Container.propTypes = {
   maxWidth: PropTypes.string,
 
   /** If true, the container max-width will be fixed */
-  fixed: PropTypes.bool
+  fixed: PropTypes.bool,
 };

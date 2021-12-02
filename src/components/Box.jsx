@@ -1,24 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Box as MuiBox } from '@material-ui/core';
+import {Box as MuiBox} from '@material-ui/core';
 
 /**
  * Box component from Material UI
  * https://mui.com/components/box/
  */
 export default class Box extends Component {
+  render() {
+    const {sx} = this.props;
 
-    render() {
-      const {sx} = this.props;
-
-      return (
-        <MuiBox sx={sx}>
-          {this.props.children}
-        </MuiBox>
-      )
-    }
-
+    return <MuiBox sx={sx}>{this.props.children}</MuiBox>;
+  }
 }
 
 Box.defaultProps = {
@@ -32,6 +26,6 @@ Box.propTypes = {
 
   /** All Material system properties are available via the `sx prop`
    * Allow additional css styles to be applied to the component
-  */
-  sx: PropTypes.object
+   */
+  sx: PropTypes.object,
 };

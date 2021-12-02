@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import '@fontsource/roboto';
 // Main component
 import Dashboard from './components/Dashboard.jsx';
 // Navigation components
@@ -13,13 +12,4 @@ import Box from './components/Box.jsx';
 import Container from './components/Container.jsx';
 import Paper from './components/Paper.jsx';
 
-export {
-  Dashboard,
-  NavBar,
-  Page,
-  Section,
-  Card,
-  Box,
-  Container,
-  Paper
-};
+export {Dashboard, NavBar, Page, Section, Card, Box, Container, Paper};

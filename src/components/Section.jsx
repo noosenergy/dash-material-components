@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Grid } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import {Grid} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 
-const styles = (theme) =>({
+const styles = (theme) => ({
   section: {
-    maxHeight: "100%",
+    maxHeight: '100%',
     margin: 0,
   },
   sectionInColumn: {
-    paddingTop: "0px !important",
+    paddingTop: '0px !important',
   },
   sectionInRow: {
-    paddingTop: "0px !important",
-    width: "100%",
-    maxWidth: "100%",
+    paddingTop: '0px !important',
+    width: '100%',
+    maxWidth: '100%',
   },
 });
 
@@ -30,11 +30,9 @@ class Section extends Component {
 
     // Variables
     const sectionSize = size == 0 ? true : size;
-    const sectionDirection = orientation == "columns" ? "row" : "column";
+    const sectionDirection = orientation == 'columns' ? 'row' : 'column';
     const sectionClasses =
-      orientation == "columns"
-        ? classes.sectionInColumn
-        : classes.sectionInRow;
+      orientation == 'columns' ? classes.sectionInColumn : classes.sectionInRow;
 
     return (
       <Grid
@@ -50,7 +48,6 @@ class Section extends Component {
       </Grid>
     );
   }
-
 }
 
 Section.defaultProps = {
@@ -70,4 +67,4 @@ Section.propTypes = {
   orientation: PropTypes.string,
 };
 
-export default withStyles(styles, { withTheme: true })(Section);
+export default withStyles(styles, {withTheme: true})(Section);

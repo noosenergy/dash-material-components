@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Paper as MuiPaper } from '@material-ui/core';
+import {Paper as MuiPaper} from '@material-ui/core';
 
 /**
  * Paper component from Material UI
  * https://mui.com/components/paper/
  */
- export default class Paper extends Component {
-
+export default class Paper extends Component {
   render() {
     const {elevation, square} = this.props;
 
@@ -16,9 +15,8 @@ import { Paper as MuiPaper } from '@material-ui/core';
       <MuiPaper elevation={elevation} square={square}>
         {this.props.children}
       </MuiPaper>
-    )
+    );
   }
-
 }
 
 Paper.defaultProps = {
@@ -37,5 +35,5 @@ Paper.propTypes = {
   /** By default, the paper will have a border radius.
    * Set this to true to generate a paper with sharp corners.
    */
-  square: PropTypes.bool
+  square: PropTypes.bool,
 };
