@@ -2,6 +2,8 @@
 
 dash-mdc-neptune is a Dash component library.
 
+Boostrapped by https://github.com/plotly/dash-component-boilerplate
+
 Get started with:
 1. Install Dash and its dependencies: https://dash.plotly.com/installation
 2. Run `python usage.py`
