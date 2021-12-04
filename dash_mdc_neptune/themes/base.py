@@ -1,6 +1,4 @@
 """Defining palettes to be used across templates."""
-from typing import List
-
 
 __all__ = [
     "NOOS_HTML_COLORS",
@@ -13,11 +11,6 @@ __all__ = [
     "NOOS_PALETTE_YELLOWS",
     "NOOS_PALETTE_PASTELS",
 ]
-
-
-def _color_scale(color_sequence: List[str]):
-    length = len(color_sequence)
-    return [[i / (length - 1), color_sequence[i]] for i in range(length)]
 
 
 NOOS_HTML_COLORS = dict(

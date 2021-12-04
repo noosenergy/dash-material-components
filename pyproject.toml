@@ -21,6 +21,7 @@ include = [
     "dash_mdc_neptune/*.js.map",
     "dash_mdc_neptune/metadata.json",
     "dash_mdc_neptune/package-info.json",
+    "dash_mdc_neptune/themes/static/*.png",
     "README.md",
     "LICENSE",
     "package.json",
