@@ -20,10 +20,10 @@
     "lint:prettier": "prettier ./src --config .prettierrc --list-different",
     "lint": "yarn run lint:prettier && yarn run lint:eslint",
     "build:js": "webpack --mode production",
-    "watch:js": "webpack --watch --mode development",
     "build:py": "poetry run dash-generate-components ./src/components dash_mdc_neptune -p package-info.json",
     "build": "yarn run build:js && yarn run build:py",
-    "postbuild": "es-check es6 dash_mdc_neptune/*.js"
+    "postbuild": "es-check es6 dash_mdc_neptune/*.js",
+    "watch": "webpack --watch --mode development"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",

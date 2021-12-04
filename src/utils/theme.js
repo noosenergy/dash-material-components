@@ -4,9 +4,6 @@ import {createTheme, responsiveFontSizes} from '@material-ui/core/styles';
 // https://mui.com/customization/default-theme/
 // https://bareynol.github.io/mui-theme-creator/
 let theme = createTheme({
-  // typography: {
-  //   fontFamily: 'Roboto',
-  // },
   palette: {
     type: 'light',
     primary: {
@@ -27,6 +24,17 @@ let theme = createTheme({
     },
     error: {
       main: '#721C24',
+    },
+  },
+  shape: {
+    borderRadius: 10,
+  },
+  typography: {
+    fontFamily: '"Roboto", sans-serif',
+    h1: {
+      fontWeight: 700,
+      fontSize: '2rem',
+      letterSpacing: '-0.02em',
     },
   },
 });
