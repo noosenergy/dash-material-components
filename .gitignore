@@ -4,6 +4,9 @@ node_modules
 
 # Python
 __pycache__
+dash_mdc_neptune/
+!dash_mdc_neptune/__init__.py
+!dash_mdc_neptune/themes/
 
 # Jupyter
 .ipynb_checkpoints
