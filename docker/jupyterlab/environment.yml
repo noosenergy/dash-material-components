@@ -1,0 +1,12 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  # metapackages
+  - nomkl
+  # packages
+  - plotly
+  - ipywidgets
+  - matplotlib
+  - jupyter-dash
+  - jupyterlab-git

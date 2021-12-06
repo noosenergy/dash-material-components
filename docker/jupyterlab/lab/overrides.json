@@ -1,0 +1,17 @@
+{
+  "@jupyterlab/filebrowser-extension:browser": {
+    "navigateToCurrentDirectory": true
+  },
+  "@jupyterlab/docmanager-extension:plugin": {
+    "defaultViewers": {
+      "markdown": "Markdown Preview"
+    }
+  },
+  "@jupyterlab/apputils-extension:themes": {
+    "theme": "JupyterLab Light"
+  },
+  "@jupyterlab/git:plugin": {
+    "simpleStaging": false,
+    "cancelPullMergeConflict": true
+  }
+}

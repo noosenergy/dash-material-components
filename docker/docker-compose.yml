@@ -1,0 +1,62 @@
+version: '2.4'
+
+services:
+
+  exchange:
+    build:
+      context: ${CURVE_EXCHANGE__REPO_PATH}
+      dockerfile: ${CURVE_EXCHANGE__REPO_PATH}/docker/apiserver/Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    image: noos-prod/curve-exchange/apiserver
+    environment:
+      # Local secrets
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      # App configuration
+      - CURVE_EXCHANGE__ENV=prod
+      - CURVE_EXCHANGE__SETTINGS_CLASS=curve_exchange.settings.ApiSettings
+      - CURVE_EXCHANGE__DATABASE_URL=postgresql://postgres:@host.docker.internal/curvestore
+      - CURVE_EXCHANGE__DATALAKE_URL=/opt/curve_exchange
+      - CURVE_EXCHANGE__ALLOWED_HOSTS=exchange
+    volumes:
+      # Mount site-packages
+      - ${CURVE_EXCHANGE__REPO_PATH}/src/curve_exchange:/usr/local/lib/python3.8/site-packages/curve_exchange:cached
+      # Mount folders
+      - ~/Downloads:/opt/curve_exchange
+    ports:
+      # Expose service to localhost:8002
+      - 8002:8000
+    command: ["rest-api"]
+
+  singleuser:
+    build:
+      context: ./singleuser
+      dockerfile: Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    image: noos-prod/jupyter-hub/singleuser/dash
+    environment:
+      # Local secrets
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      # App configuration
+      - JUPYTER_ENABLE_LAB=yes
+      - ENERGY_CLIENT__EXCHANGE_BASE_URL=http://exchange:8000/
+      - ENERGY_CLIENT__EXCHANGE_WS_BASE_URL=ws://exchange:8000/
+    command: ["jupyter", "lab", "--port=8000"]
+    volumes:
+      # Mount site-packages
+      - ${NEPTUNE_ANALYTICS__REPO_PATH}/src/neptune_analytics:/opt/conda/lib/python3.8/site-packages/neptune_analytics:cached
+      - ${ENERGY_CLIENT__REPO_PATH}/src/neptune_energy_client:/opt/conda/lib/python3.8/site-packages/neptune_energy_client:cached
+      # Mount local folders
+      - ../dash_mdc_neptune:/opt/conda/lib/python3.8/site-packages/dash_mdc_neptune:cached
+      - ../notebooks:/home/jovyan/vcs:delegated
+    ports:
+      # Expose service to localhost:8000
+      - 8000:8000
+      - 8001:8001
+    depends_on:
+      - exchange
