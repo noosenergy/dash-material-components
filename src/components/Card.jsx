@@ -10,9 +10,6 @@ const styles = (theme) => ({
   },
   cardTitle: {
     padding: '5px 0',
-    fontSize: '1.05em',
-    fontWeight: 600,
-    color: theme.palette.text.secondary,
   },
   cardContent: {
     maxWidth: '100%',
@@ -37,7 +34,7 @@ class Card extends Component {
       header = (
         <Grid container className={classes.cardHeader}>
           <Grid item>
-            <Typography component="h2" variant="h6" className={classes.cardTitle}>
+            <Typography component="h2" variant="h2" className={classes.cardTitle}>
               {title}
             </Typography>
           </Grid>
@@ -49,14 +46,7 @@ class Card extends Component {
     const cardSize = size == 0 ? true : size;
 
     return (
-      <Grid
-        item
-        container
-        xs={cardSize}
-        alignItems="stretch"
-        direction="column"
-        className={`card`}
-      >
+      <Grid item container xs={cardSize} alignItems="stretch" direction="column">
         {header ? <Grid item>{header}</Grid> : null}
         <Grid item component={MuiCard} variant="outlined" xs>
           <Grid

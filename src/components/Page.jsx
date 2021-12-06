@@ -5,19 +5,17 @@ import {withStyles} from '@material-ui/core/styles';
 
 const styles = (theme) => ({
   page: {
+    // header + dashboard padding + extra room
+    height: 'calc(100vh - 64px - 16px - 5px)',
+    maxHeight: 'calc(100vh - 64px - 16px - 5px)',
+  },
+  pageLayout: {
     maxWidth: '100%',
     height: '100%',
     maxHeight: '100%',
     margin: 0,
     padding: 0,
   },
-  pageFill: {
-    height: 'calc(100vh - 64px - 16px - 5px)', // header + dashboard padding + extra room
-    maxHeight: 'calc(100vh - 64px - 16px - 5px)',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  pageScroll: {},
 });
 
 /**
@@ -27,15 +25,14 @@ const styles = (theme) => ({
  */
 class Page extends Component {
   render() {
-    const {classes, children, orientation, verticalLayout} = this.props;
+    const {classes, children, orientation} = this.props;
 
     // Variables
-    const pageClasses = verticalLayout == 'fill' ? classes.pageFill : classes.pageScroll;
     const pageDirection = orientation == 'columns' ? 'row' : 'column';
 
     return (
-      <Box className={`${pageClasses}`}>
-        <Grid container spacing={2} direction={pageDirection} className={classes.page}>
+      <Box sx={{display: 'flex', flexDirection: 'column'}} className={classes.page}>
+        <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
           {children}
         </Grid>
       </Box>
@@ -46,7 +43,6 @@ class Page extends Component {
 Page.defaultProps = {
   children: null,
   orientation: 'columns',
-  verticalLayout: 'fill',
 };
 
 Page.propTypes = {
@@ -55,9 +51,6 @@ Page.propTypes = {
 
   /** Dashboard general orientation (rows or columns) */
   orientation: PropTypes.string,
-
-  /** Dashboard general layout (fill or scroll) */
-  verticalLayout: PropTypes.string,
 };
 
 export default withStyles(styles, {withTheme: true})(Page);

@@ -17,6 +17,7 @@ packages = [
     { include = "dash_mdc_neptune"},
 ]
 include = [
+    "dash_mdc_neptune/*.py",
     "dash_mdc_neptune/*.js",
     "dash_mdc_neptune/*.js.map",
     "dash_mdc_neptune/metadata.json",

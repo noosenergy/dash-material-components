@@ -11,5 +11,6 @@ import Card from './components/Card.jsx';
 import Box from './components/Box.jsx';
 import Container from './components/Container.jsx';
 import Paper from './components/Paper.jsx';
+import Typography from './components/Typography.jsx';
 
-export {Dashboard, NavBar, Page, Section, Card, Box, Container, Paper};
+export {Dashboard, NavBar, Page, Section, Card, Box, Container, Paper, Typography};

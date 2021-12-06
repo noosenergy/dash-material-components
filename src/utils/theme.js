@@ -18,7 +18,7 @@ let theme = createTheme({
       default: '#E9E9E9',
     },
     text: {
-      primary: '#FFFFFF',
+      primary: '#151515',
       secondary: '#151515',
       disabled: '#C7C7C7',
     },
@@ -34,7 +34,10 @@ let theme = createTheme({
     h1: {
       fontWeight: 700,
       fontSize: '2rem',
-      letterSpacing: '-0.02em',
+    },
+    h2: {
+      fontWeight: 600,
+      fontSize: '1.4rem',
     },
   },
 });

@@ -4,9 +4,7 @@
 
 The library leverages [MUI React](https://mui.com/) components for use with [Plotly Dash](https://dash.plotly.com/).
 
-Such a Dash component project has been initially boostrapped by the [Dash plugin cookiecutter](https://github.com/plotly/dash-component-boilerplate).
-
-> :heavy_exclamation_mark: the Dash Neptune components are currently using MUI v.4 as React v.16 is a main dependency to [Dash core components](https://dash.plotly.com/dash-core-components), MUI v.5 requiring React v.17.
+This project has been initially boostrapped thanks to the [Dash plugin cookiecutter](https://github.com/plotly/dash-component-boilerplate).
 
 ## Quickstart
 
@@ -24,18 +22,22 @@ Once installed, start using the Python components exactly like you would use oth
 
 ```python
 import dash
-from dash import dcc
 
 import dash_mdc_neptune as mdc
 
 
 # Compose a dashboard layout
-text = dcc.Textarea(id="sample-text", value="Sample Value")
-card = mdc.Card(title="Sample Card", children=text)
-section = mdc.Section(children=card, size=12)
+text = mdc.Typography(text="Content...", component="p", variant="body2")
 
-page = mdc.Page(children=section)
-navbar = mdc.NavBar(title="Sample Dashboard")
+card_1a = mdc.Card(title="Card 1a", size=8, children=text)
+card_1b = mdc.Card(title="Card 1b", children=text)
+section_1 = mdc.Section(orientation="columns", children=[card_1a, card_1b])
+
+card_2 = mdc.Card(title="Card 2", children=text)
+section_2 = mdc.Section(size=4, children=card_2)
+
+page = mdc.Page(orientation="rows", children=[section_2, section_1])
+navbar = mdc.NavBar(title="Custom dash")
 
 layout = mdc.Dashboard(children=[navbar, page])
 
@@ -61,15 +63,15 @@ Then, copy the Dash snippet above into a Jupyter notebook cell and replace the `
 
 ### Structure for a Dash component project
 
-```md
+```markdown
 * project/
   * python-package/             # The python package, output folder for the bundles.
     * src/                      # The javascript source directory for the components.
       * components/             # Where to put the react component classes.
       * index.js                # The index for the components exported by the bundle.
-    * package.json              # JS package info and build commands.
+    * package.json              # JS package build commands.
     * webpack.config.js         # The webpack configs used to generate the bundles.
-    * pyproject.toml            # Python package and wheel info.
+    * pyproject.toml            # Python package build commands.
 ```
 
 ### Install dependencies
@@ -80,13 +82,13 @@ The project is shipped with off-the-shelf scripts to manage node packages as wel
 ~$ yarn install
 ```
 
+> :warning: the Dash Neptune components has only been tested against Node.js v16.
+
 And thanks to `poetry` python package manager, create a virtual environnement,
 
 ```shell
 ~$ poetry install
 ```
-
-> :heavy_exclamation_mark: the Dash Neptune components has only been tested against Node.js v16.
 
 ### Write a new React component
 
@@ -97,6 +99,8 @@ import NeptuneComponent from './components/NeptuneComponent.jsx';
 
 export {NeptuneComponent};
 ```
+
+> :warning: the Dash Neptune components are currently using MUI v.4 as React v.16 is a main dependency to [Dash core components](https://dash.plotly.com/dash-core-components), MUI v.5 requiring React v.17.
 
 The corresponding Python component API is auto-discovered from the React component declared `Props`, while the component Python docstring are automatically generated from the `Props` React docstrings.
 
@@ -122,13 +126,7 @@ Box.propTypes = {
 };
 ```
 
-> :warning: Be careful to use the correct formatting for your docstrings for them to be properly recognized.
-
-Included below, few resources on how to extend the Dash component library:
-
-* [basics on React](https://dash.plotly.com/react-for-python-developers)
-* [background on Dash components](https://dash.plotly.com/plugins)
-* [community-maintained component libraries](https://plotly.com/dash-community-components)
+> :heavy_exclamation_mark: Be careful to use the correct formatting for your docstrings for them to be properly recognized.
 
 ### Create a production build
 
@@ -152,4 +150,10 @@ The project has an already-made Docker stack for the Neptune platform, with a pr
 ~$ cd ./docker && docker-compose up
 ```
 
-Happy compose!! :sunglasses:
+### Further reading
+
+Included below, few resources on how to extend the Dash component library:
+
+* [basics on React](https://dash.plotly.com/react-for-python-developers)
+* [background on Dash components](https://dash.plotly.com/plugins)
+* [community-maintained component libraries](https://plotly.com/dash-community-components)

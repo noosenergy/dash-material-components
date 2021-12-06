@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Box, AppBar, IconButton, Toolbar, Typography} from '@material-ui/core';
 
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import NoosIcon from '../fragments/NoosIcon.jsx';
 
 /**
  * Dashboard navigation bar component
@@ -17,8 +17,8 @@ export default class NavBar extends Component {
       <Box sx={{flexGrow: 1}}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{mx: 2}}>
-              <DashboardIcon />
+            <IconButton edge="start" color="inherit" aria-label="menu">
+              <NoosIcon viewBox="0 0 50 20" />
             </IconButton>
             <Typography variant="h1" component="h1">
               {title}
