@@ -1,147 +1,155 @@
-# dash-mdc-neptune
+# Dash Material Design Components
 
-dash-mdc-neptune is a Dash component library.
+`dash-mdc-neptune` allows to build consistently styled dashboards with complex and reactive layouts, following Google's [Material Design](https://material.io/) principles.
 
-Boostrapped by https://github.com/plotly/dash-component-boilerplate
+The library leverages [MUI React](https://mui.com/) components for use with [Plotly Dash](https://dash.plotly.com/).
 
-Get started with:
-1. Install Dash and its dependencies: https://dash.plotly.com/installation
-2. Run `python usage.py`
-3. Visit http://localhost:8050 in your web browser
+Such a Dash component project has been initially boostrapped by the [Dash plugin cookiecutter](https://github.com/plotly/dash-component-boilerplate).
 
-## Contributing
+> :heavy_exclamation_mark: the Dash Neptune components are currently using MUI v.4 as React v.16 is a main dependency to [Dash core components](https://dash.plotly.com/dash-core-components), MUI v.5 requiring React v.17.
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md)
+## Quickstart
+
+### Installation
+
+The python package is available from the [PyPi repository](https://pypi.org/project/dash-mdc-neptune),
+
+```sh
+pip install dash-mdc-neptune
+```
+
+### Usage as a library
+
+Once installed, start using the Python components exactly like you would use other [Dash component libraries](https://dash.plotly.com/layout),
+
+```python
+import dash
+from dash import dcc
+
+import dash_mdc_neptune as mdc
+
+
+# Compose a dashboard layout
+text = dcc.Textarea(id="sample-text", value="Sample Value")
+card = mdc.Card(title="Sample Card", children=text)
+section = mdc.Section(children=card, size=12)
+
+page = mdc.Page(children=section)
+navbar = mdc.NavBar(title="Sample Dashboard")
+
+layout = mdc.Dashboard(children=[navbar, page])
+
+# Instantiate a Dash app
+app = dash.Dash(__name__)
+app.layout = layout
+
+if __name__ == "__main__":
+    app.run_server()
+```
+
+### Usage in notebooks
+
+As pre-requisite, install the Jupyter Lab extension [JupyterDash](https://medium.com/plotly/introducing-jupyterdash-811f1f57c02e),
+
+```shell
+~$ pip install jupyter-dash
+```
+
+Then, copy the Dash snippet above into a Jupyter notebook cell and replace the `dash.Dash` class with the `jupyter_dash.JupyterDash` class.
+
+## Local development
+
+### Structure for a Dash component project
+
+```md
+* project/
+  * python-package/             # The python package, output folder for the bundles.
+    * src/                      # The javascript source directory for the components.
+      * components/             # Where to put the react component classes.
+      * index.js                # The index for the components exported by the bundle.
+    * package.json              # JS package info and build commands.
+    * webpack.config.js         # The webpack configs used to generate the bundles.
+    * pyproject.toml            # Python package and wheel info.
+```
 
 ### Install dependencies
 
-If you have selected install_dependencies during the prompt, you can skip this part.
+The project is shipped with off-the-shelf scripts to manage node packages as well as a set of utilities for local development. If the `yarn` node package manager is installed globally, install all javascript dependencies,
 
-1. Install npm packages
-    ```
-    $ npm install
-    ```
-2. Create a virtual env and activate.
-    ```
-    $ virtualenv venv
-    $ . venv/bin/activate
-    ```
-    _Note: venv\Scripts\activate for windows_
+```shell
+~$ yarn install
+```
 
-3. Install python packages required to build components.
-    ```
-    $ pip install -r requirements.txt
-    ```
-4. Install the python packages for testing (optional)
-    ```
-    $ pip install -r tests/requirements.txt
-    ```
+And thanks to `poetry` python package manager, create a virtual environnement,
 
-### Write your component code in `src/lib/components/DashMdcNeptune.react.js`.
+```shell
+~$ poetry install
+```
 
-- The demo app is in `src/demo` and you will import your example component code into your demo app.
-- Test your code in a Python environment:
-    1. Build your code
-        ```
-        $ npm run build
-        ```
-    2. Run and modify the `usage.py` sample dash app:
-        ```
-        $ python usage.py
-        ```
-- Write tests for your component.
-    - A sample test is available in `tests/test_usage.py`, it will load `usage.py` and you can then automate interactions with selenium.
-    - Run the tests with `$ pytest tests`.
-    - The Dash team uses these types of integration tests extensively. Browse the Dash component code on GitHub for more examples of testing (e.g. https://github.com/plotly/dash-core-components)
-- Add custom styles to your component by putting your custom CSS files into your distribution folder (`dash_mdc_neptune`).
-    - Make sure that they are referenced in `MANIFEST.in` so that they get properly included when you're ready to publish your component.
-    - Make sure the stylesheets are added to the `_css_dist` dict in `dash_mdc_neptune/__init__.py` so dash will serve them automatically when the component suite is requested.
-- [Review your code](./review_checklist.md)
+> :heavy_exclamation_mark: the Dash Neptune components has only been tested against Node.js v16.
 
-### Create a production build and publish:
+### Write a new React component
 
-1. Build your code:
-    ```
-    $ npm run build
-    ```
-2. Create a Python distribution
-    ```
-    $ python setup.py sdist bdist_wheel
-    ```
-    This will create source and wheel distribution in the generated the `dist/` folder.
-    See [PyPA](https://packaging.python.org/guides/distributing-packages-using-setuptools/#packaging-your-project)
-    for more information.
+Compose your new Dash components in `src/components/NeptuneComponent.jsx` and make sure the React components are exported in your package entrypoint `src/index.js`.
 
-3. Test your tarball by copying it into a new environment and installing it locally:
-    ```
-    $ pip install dash_mdc_neptune-0.0.1.tar.gz
-    ```
+```javascript
+import NeptuneComponent from './components/NeptuneComponent.jsx';
 
-4. If it works, then you can publish the component to NPM and PyPI:
-    1. Publish on PyPI
-        ```
-        $ twine upload dist/*
-        ```
-    2. Cleanup the dist folder (optional)
-        ```
-        $ rm -rf dist
-        ```
-    3. Publish on NPM (Optional if chosen False in `publish_on_npm`)
-        ```
-        $ npm publish
-        ```
-        _Publishing your component to NPM will make the JavaScript bundles available on the unpkg CDN. By default, Dash serves the component library's CSS and JS locally, but if you choose to publish the package to NPM you can set `serve_locally` to `False` and you may see faster load times._
+export {NeptuneComponent};
+```
 
-5. Share your component with the community! https://community.plotly.com/c/dash
-    1. Publish this repository to GitHub
-    2. Tag your GitHub repository with the plotly-dash tag so that it appears here: https://github.com/topics/plotly-dash
-    3. Create a post in the Dash community forum: https://community.plotly.com/c/dash
+The corresponding Python component API is auto-discovered from the React component declared `Props`, while the component Python docstring are automatically generated from the `Props` React docstrings.
 
-#
-# Code Review Checklist
+```javascript
+/** Used to auto-generate the Python component and docstrings */
+export default class NeptuneComponent extends Component {
+  render() {
+    const {text} = this.props;
 
-## Code quality & design
+    return <div>
+             <p>{text}</p>
+           </div>;
+  }
+}
 
--   Is your code clear? If you had to go back to it in a month, would you be happy to? If someone else had to contribute to it, would they be able to?
+Box.defaultProps = {
+  text: 'Sample value',
+};
 
-    A few suggestions:
+Box.propTypes = {
+  /** Used to auto-generate the Python component and docstrings */
+  text: PropTypes.string,
+};
+```
 
-    -   Make your variable names descriptive and use the same naming conventions throughout the code.
+> :warning: Be careful to use the correct formatting for your docstrings for them to be properly recognized.
 
-    -   For more complex pieces of logic, consider putting a comment, and maybe an example.
+Included below, few resources on how to extend the Dash component library:
 
-    -   In the comments, focus on describing _why_ the code does what it does, rather than describing _what_ it does. The reader can most likely read the code, but not necessarily understand why it was necessary.
+* [basics on React](https://dash.plotly.com/react-for-python-developers)
+* [background on Dash components](https://dash.plotly.com/plugins)
+* [community-maintained component libraries](https://plotly.com/dash-community-components)
 
-    -   Don't overdo it in the comments. The code should be clear enough to speak for itself. Stale comments that no longer reflect the intent of the code can hurt code comprehension.
+### Create a production build
 
-*   Don't repeat yourself. Any time you see that the same piece of logic can be applied in multiple places, factor it out into a function, or variable, and reuse that code.
-*   Scan your code for expensive operations (large computations, DOM queries, React re-renders). Have you done your possible to limit their impact? If not, it is going to slow your app down.
-*   Can you think of cases where your current code will break? How are you handling errors? Should the user see them as notifications? Should your app try to auto-correct them for them?
+Once your components have been included into your package entrypoint, run:
 
-## Component API
+* `yarn build:js`, to generate the JavaScript bundle `dash_mdc_neptune.js`
+* `yarn build:py`, to generate the Python class files for the components.
+* `yarn build`, to generate everything: the JavaScript bundles and the Python class files.
 
--   Have you tested your component on the Python side by creating an app in `usage.py` ?
+In addition to buikld scripts, the project `package.json` offers linter, formatter and hot-reloader:
 
-    Do all of your component's props work when set from the back-end?
+* `yarn format`, to auto-format the React component code.
+* `yarn lint`, to check bundle compliance with ECMA standards.
+* `yarn watch`, to watch the library source directory and rebuild the JavaScript bundle.
 
-    Should all of them be settable from the back-end or are some only relevant to user interactions in the front-end?
+### Ready to launch?
 
--   Have you provided some basic documentation about your component? The Dash community uses [react docstrings](https://github.com/plotly/dash-docs/blob/master/tutorial/plugins.py#L45) to provide basic information about dash components. Take a look at this [Checklist component example](https://github.com/plotly/dash-core-components/blob/master/src/components/Checklist.react.js) and others from the dash-core-components repository.
+The project has an already-made Docker stack for the Neptune platform, with a pre-build Jupyter Lab base image [noosenergy/jupyterlab:dash](https://hub.docker.com/r/noosenergy/jupyterlab/tags?page=1&name=dash):
 
-    At a minimum, you should describe what your component does, and describe its props and the features they enable.
+```shell
+~$ cd ./docker && docker-compose up
+```
 
-    Be careful to use the correct formatting for your docstrings for them to be properly recognized.
-
-## Tests
-
--   The Dash team uses integration tests extensively, and we highly encourage you to write tests for the main functionality of your component. In the `tests` folder of the boilerplate, you can see a sample integration test. By launching it, you will run a sample Dash app in a browser. You can run the test with:
-    ```
-    python -m tests.test_render
-    ```
-    [Browse the Dash component code on GitHub for more examples of testing.](https://github.com/plotly/dash-core-components)
-
-## Ready to publish? Final scan
-
--   Take a last look at the external resources that your component is using. Are all the external resources used [referenced in `MANIFEST.in`](https://github.com/plotly/dash-docs/blob/0b2fd8f892db720a7f3dc1c404b4cff464b5f8d4/tutorial/plugins.py#L55)?
-
--   [You're ready to publish!](https://github.com/plotly/dash-component-boilerplate/blob/master/%7B%7Bcookiecutter.project_shortname%7D%7D/README.md#create-a-production-build-and-publish)
+Happy compose!! :sunglasses:
