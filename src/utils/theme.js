@@ -27,7 +27,7 @@ let theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 10,
+    borderRadius: 8,
   },
   typography: {
     fontFamily: '"Roboto", sans-serif',

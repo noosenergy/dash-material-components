@@ -9,7 +9,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
  * Dashboard navigation bar component
  * https://mui.com/components/app-bar/
  */
- export default class NavBar extends Component {
+export default class NavBar extends Component {
   render() {
     const {title} = this.props;
 
@@ -20,10 +20,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
             <IconButton edge="start" color="inherit" aria-label="menu" sx={{mx: 2}}>
               <DashboardIcon />
             </IconButton>
-            <Typography
-              variant="h1"
-              component="h1"
-            >
+            <Typography variant="h1" component="h1">
               {title}
             </Typography>
           </Toolbar>
