@@ -16,7 +16,6 @@ export default class Box extends Component {
 }
 
 Box.defaultProps = {
-  children: null,
   sx: {},
 };
 

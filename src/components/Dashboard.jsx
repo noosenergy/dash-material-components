@@ -28,7 +28,6 @@ export default class Dashboard extends Component {
 
 Dashboard.defaultProps = {
   id: 'dashboard',
-  children: null,
 };
 
 Dashboard.propTypes = {

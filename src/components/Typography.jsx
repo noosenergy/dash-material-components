@@ -22,7 +22,6 @@ export default class Typography extends Component {
 Typography.defaultProps = {
   component: 'h6',
   variant: 'h6',
-  text: 'Neptune text',
 };
 
 Typography.propTypes = {

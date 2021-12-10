@@ -32,7 +32,6 @@ export default class NavBar extends Component {
 
 NavBar.defaultProps = {
   id: 'navbar',
-  title: 'Neptune dashboard',
 };
 
 NavBar.propTypes = {

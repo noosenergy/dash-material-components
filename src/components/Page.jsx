@@ -41,7 +41,6 @@ class Page extends Component {
 
 Page.defaultProps = {
   id: 'page',
-  children: null,
   orientation: 'columns',
 };
 
