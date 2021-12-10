@@ -19,19 +19,18 @@ const styles = (theme) => ({
 });
 
 /**
- * Page component
+ * Page component, used to wrap section and card components
  * Dashboard > Page
- * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
 class Page extends Component {
   render() {
-    const {classes, children, orientation} = this.props;
+    const {classes, id, children, orientation} = this.props;
 
     // Variables
     const pageDirection = orientation == 'columns' ? 'row' : 'column';
 
     return (
-      <Box sx={{display: 'flex', flexDirection: 'column'}} className={classes.page}>
+      <Box id={id} sx={{display: 'flex', flexDirection: 'column'}} className={classes.page}>
         <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
           {children}
         </Grid>
@@ -41,16 +40,20 @@ class Page extends Component {
 }
 
 Page.defaultProps = {
+  id: 'page',
   children: null,
   orientation: 'columns',
 };
 
 Page.propTypes = {
-  /** Can be used to render elements inside the component */
+  /** Used to identify dash components in callbacks */
+  id: PropTypes.string,
+
+  /** Used to render elements inside the component */
   children: PropTypes.node,
 
   /** Dashboard general orientation (rows or columns) */
-  orientation: PropTypes.string,
+  orientation: PropTypes.oneOf(['columns', 'rows']),
 };
 
 export default withStyles(styles, {withTheme: true})(Page);

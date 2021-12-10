@@ -12,21 +12,29 @@ import theme from '../utils/theme';
  */
 export default class Dashboard extends Component {
   render() {
+    const {id, children} = this.props;
+
     return (
       // Enforce a theme on the entire page
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box sx={{display: 'flex', flexDirection: 'column'}}>{this.props.children}</Box>
+        <Box id={id} sx={{display: 'flex', flexDirection: 'column'}}>
+          {children}
+        </Box>
       </ThemeProvider>
     );
   }
 }
 
 Dashboard.defaultProps = {
+  id: 'dashboard',
   children: null,
 };
 
 Dashboard.propTypes = {
-  /** Can be used to render elements inside the component */
+  /** Used to identify dash components in callbacks */
+  id: PropTypes.string,
+
+  /** Used to render elements inside the component */
   children: PropTypes.node,
 };

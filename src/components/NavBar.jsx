@@ -11,10 +11,10 @@ import NoosIcon from '../fragments/NoosIcon.jsx';
  */
 export default class NavBar extends Component {
   render() {
-    const {title} = this.props;
+    const {id, title} = this.props;
 
     return (
-      <Box sx={{flexGrow: 1}}>
+      <Box id={id} sx={{flexGrow: 1}}>
         <AppBar position="static">
           <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu">
@@ -31,10 +31,14 @@ export default class NavBar extends Component {
 }
 
 NavBar.defaultProps = {
+  id: 'navbar',
   title: 'Neptune dashboard',
 };
 
 NavBar.propTypes = {
+  /** Used to identify dash components in callbacks */
+  id: PropTypes.string,
+
   /** Dashboard navigation bar title */
   title: PropTypes.string,
 };
