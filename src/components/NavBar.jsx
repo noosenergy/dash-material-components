@@ -14,8 +14,8 @@ export default class NavBar extends Component {
     const {id, title} = this.props;
 
     return (
-      <Box id={id} sx={{flexGrow: 1}}>
-        <AppBar position="static">
+      <Box id={id}>
+        <AppBar position="static" elevation={4}>
           <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu">
               <NoosIcon viewBox="0 0 50 20" />

@@ -4,17 +4,12 @@ import {Box, Grid} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = (theme) => ({
-  page: {
-    // header + dashboard padding + extra room
-    height: 'calc(100vh - 64px - 16px - 5px)',
-    maxHeight: 'calc(100vh - 64px - 16px - 5px)',
-  },
   pageLayout: {
-    maxWidth: '100%',
+    // Contain the entire page
+    width: '100%',
     height: '100%',
-    maxHeight: '100%',
+    // Reset page element negative margins
     margin: 0,
-    padding: 0,
   },
 });
 
@@ -29,8 +24,9 @@ class Page extends Component {
     // Variables
     const pageDirection = orientation == 'columns' ? 'row' : 'column';
 
+    // Configure flex versus parent container
     return (
-      <Box id={id} sx={{display: 'flex', flexDirection: 'column'}} className={classes.page}>
+      <Box id={id} sx={{flexGrow: 1}}>
         <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
           {children}
         </Grid>

@@ -14,11 +14,12 @@ export default class Dashboard extends Component {
   render() {
     const {id, children} = this.props;
 
+    // Enforce and reset a MUI-theme on the entire page
+    // And display a dashboard on a full screen width
     return (
-      // Enforce a theme on the entire page
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box id={id} sx={{display: 'flex', flexDirection: 'column'}}>
+        <Box id={id} sx={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
           {children}
         </Box>
       </ThemeProvider>
