@@ -30,6 +30,29 @@ services:
       - 8002:8000
     command: ["rest-api"]
 
+  vault:
+    build:
+      context: ${TRADE_VAULT__REPO_PATH}
+      dockerfile: ${TRADE_VAULT__REPO_PATH}/docker/webserver/Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    image: noos-prod/trade-vault/webserver
+    environment:
+      # App configuration
+      - TRADE_VAULT__ENV=prod
+      - DJANGO_SETTINGS_MODULE=trade_vault.settings.website
+      - TRADE_VAULT__DATABASE_USER=postgres
+      - TRADE_VAULT__DATABASE_HOST=host.docker.internal
+      - TRADE_VAULT__DNS_WEB_SITE=vault
+      - TRADE_VAULT__SECRET_KEY=x
+    volumes:
+      # Mount site-packages
+      - ${TRADE_VAULT__REPO_PATH}/src/trade_vault:/usr/local/lib/python3.8/site-packages/trade_vault:cached
+    ports:
+      # Expose service to localhost:8003
+      - 8003:8000
+    command: ["website"]
+
   singleuser:
     build:
       context: ./singleuser
@@ -44,6 +67,7 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       # App configuration
       - JUPYTER_ENABLE_LAB=yes
+      - ENERGY_CLIENT__VAULT_BASE_URL=http://vault:8000/api/
       - ENERGY_CLIENT__EXCHANGE_BASE_URL=http://exchange:8000/
       - ENERGY_CLIENT__EXCHANGE_WS_BASE_URL=ws://exchange:8000/
     command: ["jupyter", "lab", "--port=8000"]
@@ -60,3 +84,4 @@ services:
       - 8001:8001
     depends_on:
       - exchange
+      - vault
