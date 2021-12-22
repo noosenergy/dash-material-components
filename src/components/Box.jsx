@@ -20,6 +20,9 @@ Box.defaultProps = {
 };
 
 Box.propTypes = {
+  /** Used to enable Dash-assigned component callback */
+  setProps: PropTypes.func,
+
   /** Can be used to render elements inside the component */
   children: PropTypes.node,
 

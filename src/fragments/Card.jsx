@@ -38,14 +38,7 @@ class Card extends Component {
       <Grid id={id} item xs={cardSize} container direction="column" className={`${cardLayout}`}>
         <Grid item xs container direction="column" component={MuiCard} elevation={4}>
           {header ? <Grid item>{header}</Grid> : null}
-          <Grid
-            item
-            xs
-            container
-            direction="column"
-            component={CardContent}
-            className={classes.cardContentLayout}
-          >
+          <Grid item xs component={CardContent} className={classes.cardContentLayout}>
             {children}
           </Grid>
         </Grid>

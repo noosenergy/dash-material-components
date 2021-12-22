@@ -8,6 +8,8 @@ import Section from './components/Section.jsx';
 // Content components
 import Box from './components/Box.jsx';
 import Tab from './components/Tab.jsx';
+import Table from './components/Table.jsx';
+import Toggle from './components/Toggle.jsx';
 import Typography from './components/Typography.jsx';
 
-export {Dashboard, NavBar, Page, Section, Box, Tab, Typography};
+export {Dashboard, NavBar, Page, Section, Box, Tab, Table, Toggle, Typography};
