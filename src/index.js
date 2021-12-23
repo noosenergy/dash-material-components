@@ -1,10 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 // Main component
 import Dashboard from './components/Dashboard.jsx';
+
 // Layout components
 import NavBar from './components/layout/NavBar.jsx';
 import Page from './components/layout/Page.jsx';
 import Section from './components/layout/Section.jsx';
+
 // Display components
 import Box from './components/display/Box.jsx';
 import Tab from './components/display/Tab.jsx';

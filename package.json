@@ -30,7 +30,6 @@
     "@material-ui/icons": "^4.0",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^4.0",
-    "@mui/x-data-grid": "^4.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.27.1"
   },

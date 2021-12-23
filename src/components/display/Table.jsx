@@ -1,25 +1,78 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {Box} from '@material-ui/core';
-import {DataGrid, GridToolbar} from '@mui/x-data-grid';
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from '@material-ui/core';
 
-function getIndexedRows(rows) {
-  rows.forEach((row, i) => {
-    row['id'] = i;
-    row['editable'] = false;
+function TableHeader(columns) {
+  // locals
+  let headerElements = [];
+
+  // Fetch table header
+  columns.forEach((column, i) => {
+    headerElements.push(
+      <TableCell key={i} style={{width: column.width}}>
+        {column.field}
+      </TableCell>
+    );
   });
-  return rows;
+
+  return (
+    <TableHead>
+      <TableRow>{headerElements}</TableRow>
+    </TableHead>
+  );
+}
+
+function TableContent(rows, page, rowsPerPage) {
+  // locals
+  let bodyElements = [];
+  const startRow = rowsPerPage * page;
+  const endRow = startRow + rowsPerPage;
+
+  // Fetch table body
+  rows.slice(startRow, endRow).forEach((row, i) => {
+    bodyElements.push(
+      <TableRow hover key={i}>
+        {Object.keys(row).map((key, j) => (
+          <TableCell key={j}>{row[key]}</TableCell>
+        ))}
+      </TableRow>
+    );
+  });
+
+  return <TableBody>{bodyElements}</TableBody>;
 }
 
 /**
  * Table component
  */
-export default class Table extends Component {
+export default class NewTable extends Component {
   constructor(props) {
     super(props);
-    this.state = {rows: this.props.rows};
+    this.state = {
+      page: 0,
+      rows: this.props.rows,
+      rowsPerPage: this.props.rowsPerPageOptions[0],
+    };
   }
+
+  handlePageChange = (event, value) => {
+    this.setState({page: value});
+  };
+
+  handleRowsPerPageChange = (event) => {
+    this.setState({rowsPerPage: parseInt(event.target.value, 10)});
+    this.setState({page: 0});
+  };
 
   UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
     if (nextProps.rows !== this.state.rows) this.setState({rows: nextProps.rows});
@@ -27,31 +80,37 @@ export default class Table extends Component {
 
   render() {
     // props & state
-    const {id, columns, rowsPerPage} = this.props;
-    let {rows} = this.state;
+    const {id, columns, rowsPerPageOptions} = this.props;
+    let {page, rows, rowsPerPage} = this.state;
 
     return (
       <Box id={id}>
-        <DataGrid
-          components={{Toolbar: GridToolbar}}
-          rows={getIndexedRows(rows)}
-          columns={columns}
-          pageSize={rowsPerPage}
-          rowsPerPageOptions={[rowsPerPage]}
-          density="compact"
-          autoHeight
+        <TableContainer sx={{height: '100%'}}>
+          <Table stickyHeader size="small" aria-label="data table">
+            {TableHeader(columns)}
+            {TableContent(rows, page, rowsPerPage)}
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={rowsPerPageOptions}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={this.handlePageChange}
+          onRowsPerPageChange={this.handleRowsPerPageChange}
         />
       </Box>
     );
   }
 }
 
-Table.defaultProps = {
+NewTable.defaultProps = {
   id: 'table',
-  rowsPerPage: 10,
+  rowsPerPageOptions: [10, 25, 50],
 };
 
-Table.propTypes = {
+NewTable.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,
 
@@ -64,9 +123,6 @@ Table.propTypes = {
       /** Column field */
       field: PropTypes.string,
 
-      /** Column name */
-      headerName: PropTypes.string,
-
       /** Column width */
       width: PropTypes.number,
     })
@@ -76,5 +132,5 @@ Table.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object),
 
   /** Table pagination setting */
-  rowsPerPage: PropTypes.number,
+  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
 };
