@@ -53,8 +53,6 @@ mypy = "*"
 # Debugging
 ipdb = "*"
 ipython = "*"
-jupyterlab = "*"
-jupyter-dash = "*"
 
 [tool.isort]
 line_length = 99

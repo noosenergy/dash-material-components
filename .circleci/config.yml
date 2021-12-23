@@ -1,0 +1,62 @@
+---
+version: 2.1
+
+# ----------------
+# Orbs declaration
+# ----------------
+
+orbs:
+
+  noos-ci: noosenergy/noos-ci@0.1.14
+
+
+# --------------
+# Pipeline tasks
+# --------------
+
+jobs:
+
+  lint-package:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - noos-ci/python-lint-package:
+          pkg-manager: poetry
+          install-args: ''
+          src-directory: './dash_mdc_neptune'
+
+  lint-library:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - run:
+          name: Lint JavaScript library
+          command: yarn install && yarn lint
+
+  build-library:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - noos-ci/python-configure-venv:
+          pkg-manager: poetry
+          install-args: ''
+      - run:
+          name: Build JavaScript library
+          command: yarn install && yarn build
+
+
+# -----------------
+# Pipeline workflow
+# -----------------
+
+workflows:
+
+  version: 2
+
+  lint-build:
+    jobs:
+      - lint-package
+      - lint-library
+      - build-library:
+          requires:
+            - lint-library
