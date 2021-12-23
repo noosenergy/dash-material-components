@@ -47,7 +47,7 @@ Page.propTypes = {
   /** Used to render elements inside the component */
   children: PropTypes.node,
 
-  /** Dashboard general orientation (rows or columns) */
+  /** Page general orientation (rows or columns) */
   orientation: PropTypes.oneOf(['columns', 'rows']),
 };
 

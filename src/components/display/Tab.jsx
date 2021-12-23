@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Grid, Tab as MuiTab, Tabs} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
-import TabPanel from '../fragments/TabPanel.jsx';
+import TabPanel from '../../fragments/TabPanel.jsx';
 
 const styles = (theme) => ({
   tabLayout: {
@@ -30,7 +30,7 @@ class Tab extends Component {
 
   render() {
     // props & state
-    const {classes, id, children, options} = this.props;
+    const {classes, id, children, tabs} = this.props;
     let {selectedTab} = this.state;
 
     // locals
@@ -45,12 +45,12 @@ class Tab extends Component {
             {child}
           </TabPanel>
         );
-        tabElements.push(<MuiTab key={i} label={options[i].label} />);
+        tabElements.push(<MuiTab key={i} label={tabs[i].label} />);
       });
     }
 
     return (
-      <Grid id={id} item xs container direction="column" className={classes.tabLayout} spacing={2}>
+      <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
         <Grid
           item
           component={Tabs}
@@ -81,8 +81,8 @@ Tab.propTypes = {
   /** Used to render elements inside the component */
   children: PropTypes.node,
 
-  /** Array of options to render commponent children */
-  options: PropTypes.arrayOf(
+  /** Array of tabs to render as component children */
+  tabs: PropTypes.arrayOf(
     PropTypes.exact({
       /** Element label */
       label: PropTypes.string,

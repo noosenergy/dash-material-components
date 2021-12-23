@@ -3,14 +3,6 @@ import PropTypes from 'prop-types';
 
 import {Box} from '@material-ui/core';
 import {DataGrid, GridToolbar} from '@mui/x-data-grid';
-import {withStyles} from '@material-ui/core/styles';
-
-const styles = (theme) => ({
-  tableLayout: {
-    height: '100%',
-    // flewGrow: 1,
-  },
-});
 
 function getIndexedRows(rows) {
   rows.forEach((row, i) => {
@@ -23,18 +15,30 @@ function getIndexedRows(rows) {
 /**
  * Table component
  */
-class Table extends Component {
+export default class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {rows: this.props.rows};
+  }
+
+  UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
+    if (nextProps.rows !== this.state.rows) this.setState({rows: nextProps.rows});
+  };
+
   render() {
     // props & state
-    const {classes, id, columns, rows, pageSize} = this.props;
+    const {id, columns, rowsPerPage} = this.props;
+    let {rows} = this.state;
 
     return (
-      <Box id={id} className={classes.tableLayout}>
+      <Box id={id}>
         <DataGrid
           components={{Toolbar: GridToolbar}}
           rows={getIndexedRows(rows)}
           columns={columns}
-          pageSize={pageSize}
+          pageSize={rowsPerPage}
+          rowsPerPageOptions={[rowsPerPage]}
+          density="compact"
           autoHeight
         />
       </Box>
@@ -44,7 +48,7 @@ class Table extends Component {
 
 Table.defaultProps = {
   id: 'table',
-  pageSize: 10,
+  rowsPerPage: 10,
 };
 
 Table.propTypes = {
@@ -71,8 +75,6 @@ Table.propTypes = {
   /** Array of table rows to render */
   rows: PropTypes.arrayOf(PropTypes.object),
 
-  /** Table page size */
-  pageSize: PropTypes.number,
+  /** Table pagination setting */
+  rowsPerPage: PropTypes.number,
 };
-
-export default withStyles(styles, {withTheme: true})(Table);

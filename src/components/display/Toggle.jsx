@@ -70,7 +70,7 @@ Toggle.propTypes = {
   /** Used to enable Dash-assigned component callback */
   setProps: PropTypes.func,
 
-  /** Array of toggle labels to render */
+  /** Array of toggle options to render */
   options: PropTypes.arrayOf(
     PropTypes.exact({
       /** Toggle label */
