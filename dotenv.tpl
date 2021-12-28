@@ -1,4 +1,3 @@
-SYSTEM_VERSION_COMPAT=1
 NOOSINV_PYTHON_INSTALL=poetry
 NOOSINV_DOCKER_CONTEXT=./docker/singleuser
 NOOSINV_DOCKER_NAME=noos-prod/jupyter-hub/singleuser/dash
