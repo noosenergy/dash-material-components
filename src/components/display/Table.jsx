@@ -1,61 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-} from '@material-ui/core';
+import {Box, Table as MuiTable, TableContainer, TablePagination} from '@material-ui/core';
 
-function TableHeader(columns) {
-  // locals
-  let headerElements = [];
-
-  // Fetch table header
-  columns.forEach((column, i) => {
-    headerElements.push(
-      <TableCell key={i} style={{width: column.width}}>
-        {column.field}
-      </TableCell>
-    );
-  });
-
-  return (
-    <TableHead>
-      <TableRow>{headerElements}</TableRow>
-    </TableHead>
-  );
-}
-
-function TableContent(rows, page, rowsPerPage) {
-  // locals
-  let bodyElements = [];
-  const startRow = rowsPerPage * page;
-  const endRow = startRow + rowsPerPage;
-
-  // Fetch table body
-  rows.slice(startRow, endRow).forEach((row, i) => {
-    bodyElements.push(
-      <TableRow hover key={i}>
-        {Object.keys(row).map((key, j) => (
-          <TableCell key={j}>{row[key]}</TableCell>
-        ))}
-      </TableRow>
-    );
-  });
-
-  return <TableBody>{bodyElements}</TableBody>;
-}
+import {TableBody, TableHead} from '../../fragments/TableContent.jsx';
 
 /**
  * Table component
  */
-export default class NewTable extends Component {
+export default class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,10 +39,10 @@ export default class NewTable extends Component {
     return (
       <Box id={id}>
         <TableContainer sx={{height: '100%'}}>
-          <Table stickyHeader size="small" aria-label="data table">
-            {TableHeader(columns)}
-            {TableContent(rows, page, rowsPerPage)}
-          </Table>
+          <MuiTable stickyHeader size="small" aria-label="data table">
+            <TableHead columns={columns} />
+            <TableBody rows={rows} page={page} rowsPerPage={rowsPerPage} />
+          </MuiTable>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={rowsPerPageOptions}
@@ -105,12 +58,12 @@ export default class NewTable extends Component {
   }
 }
 
-NewTable.defaultProps = {
+Table.defaultProps = {
   id: 'table',
   rowsPerPageOptions: [10, 25, 50],
 };
 
-NewTable.propTypes = {
+Table.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,
 
