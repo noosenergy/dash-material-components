@@ -23,7 +23,7 @@ jobs:
       - noos-ci/python-lint-package:
           pkg-manager: poetry
           install-args: ''
-          src-directory: './dash_mdc_neptune'
+          src-directory: ./dash_mdc_neptune
 
   lint-library:
     executor: noos-ci/default
@@ -43,6 +43,33 @@ jobs:
       - run:
           name: Build JavaScript library
           command: yarn install && yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dash_mdc_neptune
+
+  build-wheel:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - noos-ci/python-build-wheel:
+          pkg-manager: poetry
+          install-args: ''
+      - store_artifacts:
+          path: dist
+          destination: wheel
+
+  publish-wheel:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - noos-ci/python-publish-wheel:
+          pkg-manager: poetry
+          install-args: ''
 
 
 # -----------------
@@ -60,3 +87,35 @@ workflows:
       - build-library:
           requires:
             - lint-library
+      - build-wheel:
+          requires:
+            - lint-package
+            - build-library
+
+  publish:
+    jobs:
+      - approve-for-publishing:
+          type: approval
+          filters:
+            tags:
+              # ONLY git tag compliant format: e.g. `0.0.1-alpha.01`
+              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
+            branches:
+              ignore: /.*/
+      - build-library:
+          requires:
+            - approve-for-publishing
+          filters:
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
+            branches:
+              ignore: /.*/
+      - publish-wheel:
+          context: CIRCLECI_PYPI_SHARED
+          requires:
+            - build-library
+          filters:
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
+            branches:
+              ignore: /.*/
