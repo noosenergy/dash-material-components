@@ -31,14 +31,22 @@ import dash_mdc_neptune as mdc
 # Compose a dashboard layout
 text = mdc.Typography(text="Content...", component="p", variant="body2")
 
-card_1a = mdc.Card(title="Card 1a", size=8, children=text)
-card_1b = mdc.Card(title="Card 1b", children=text)
-section_1 = mdc.Section(orientation="columns", children=[card_1a, card_1b])
+section_1 = mdc.Section(
+    id="section-1",
+    orientation="columns",
+    children=[text, text_2],
+    cards=[{"title": "Card 1a", "size": 3}, {"title": "Card 1b"}]
+)
 
-card_2 = mdc.Card(title="Card 2", children=text)
-section_2 = mdc.Section(size=4, children=card_2)
+section_2 = mdc.Section(
+    id="section-2",
+    size=3,
+    children=[text, text_2],
+    orientation="rows",
+    cards=[{"title": "Card 2a", "size": 4}, {"title": "Card 2b"}]
+)
 
-page = mdc.Page(orientation="rows", children=[section_2, section_1])
+page = mdc.Page(orientation="columns", children=[section_1, section_2])
 navbar = mdc.NavBar(title="Custom dash")
 
 layout = mdc.Dashboard(children=[navbar, page])
@@ -59,7 +67,17 @@ As pre-requisite, install the Jupyter Lab extension [JupyterDash](https://medium
 ~$ pip install jupyter-dash
 ```
 
-Then, copy the Dash snippet above into a Jupyter notebook cell and replace the `dash.Dash` class with the `jupyter_dash.JupyterDash` class.
+Then, copy the Dash snippet above into a Jupyter notebook cell and replace the `Dash` class with the `JupyterDash` class:
+
+```python
+import jupyter_dash
+
+# Instantiate a Dash app
+app = jupyter_dash.JupyterDash(__name__)
+app.layout = layout
+
+app.run_server(mode='jupyterlab', host="0.0.0.0", port=8001)
+```
 
 ## Local development
 
@@ -94,7 +112,7 @@ And thanks to `poetry` python package manager, create a virtual environnement,
 
 ### Write a new React component
 
-Compose your new Dash components in `src/components/NeptuneComponent.jsx` and make sure the React components are exported in your package entrypoint `src/index.js`.
+Compose your new Dash components in `src/components` and make sure the React components are exported in your package entrypoint `src/index.js`.
 
 ```javascript
 import NeptuneComponent from './components/NeptuneComponent.jsx';
@@ -102,7 +120,7 @@ import NeptuneComponent from './components/NeptuneComponent.jsx';
 export {NeptuneComponent};
 ```
 
-> :warning: the Dash Neptune components are currently using MUI v.4 as React v.16 is a main dependency to [Dash core components](https://dash.plotly.com/dash-core-components), MUI v.5 requiring React v.17.
+> :warning: the Dash Neptune components are currently using MUI v.4, with the aim to transitionning to MUI v.5 shortly.
 
 The corresponding Python component API is auto-discovered from the React component declared `Props`, while the component Python docstring are automatically generated from the `Props` React docstrings.
 
