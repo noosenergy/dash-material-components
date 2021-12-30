@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/noosenergy/dash-mdc-neptune.svg?style=svg&circle-token=0134ed9704956581fc9555a112f6ee9276a1c80a)](https://circleci.com/gh/noosenergy/dash-mdc-neptune)
+
 # Dash Material Design Components
 
 `dash-mdc-neptune` allows to build consistently styled dashboards with complex and reactive layouts, following Google's [Material Design](https://material.io/) principles.
@@ -141,14 +143,6 @@ In addition to buikld scripts, the project `package.json` offers linter, formatt
 * `yarn format`, to auto-format the React component code.
 * `yarn lint`, to check bundle compliance with ECMA standards.
 * `yarn watch`, to watch the library source directory and rebuild the JavaScript bundle.
-
-### Ready to launch?
-
-The project has an already-made Docker stack for the Neptune platform, with a pre-build Jupyter Lab base image [noosenergy/jupyterlab:dash](https://hub.docker.com/r/noosenergy/jupyterlab/tags?page=1&name=dash):
-
-```shell
-~$ cd ./docker && docker-compose up
-```
 
 ### Further reading
 

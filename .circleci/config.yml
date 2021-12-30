@@ -111,7 +111,7 @@ workflows:
             branches:
               ignore: /.*/
       - publish-wheel:
-          context: CIRCLECI_PYPI_SHARED
+          context: PYPI_SHARED
           requires:
             - build-library
           filters:
