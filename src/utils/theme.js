@@ -12,6 +12,7 @@ let theme = createTheme({
     },
     secondary: {
       main: '#E9E9E9',
+      contrastText: '#FAC505',
     },
     background: {
       paper: '#FFFFFF',
