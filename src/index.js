@@ -11,8 +11,23 @@ import Tab from './components/layout/Tab.jsx';
 
 // Display components: state component managed by Dash renderer
 import Box from './components/display/Box.jsx';
+import Divider from './components/display/Divider.jsx';
+import Dropdown from './components/display/Dropdown.jsx';
 import Table from './components/display/Table.jsx';
 import Toggle from './components/display/Toggle.jsx';
 import Typography from './components/display/Typography.jsx';
 
-export {Dashboard, NavBar, Page, Section, SideBar, Tab, Box, Table, Toggle, Typography};
+export {
+  Dashboard,
+  NavBar,
+  Page,
+  Section,
+  SideBar,
+  Tab,
+  Box,
+  Divider,
+  Dropdown,
+  Table,
+  Toggle,
+  Typography,
+};

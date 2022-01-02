@@ -25,7 +25,7 @@ export default class Typography extends Component {
     // Render text
     return (
       <Box id={id}>
-        <MuiTypography component={component} variant={variant}>
+        <MuiTypography component={component} variant={variant} gutterBottom>
           {text}
         </MuiTypography>
       </Box>

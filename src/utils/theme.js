@@ -40,6 +40,10 @@ let theme = createTheme({
       fontWeight: 600,
       fontSize: '1.4rem',
     },
+    h3: {
+      fontWeight: 600,
+      fontSize: '1rem',
+    },
   },
 });
 theme = responsiveFontSizes(theme);

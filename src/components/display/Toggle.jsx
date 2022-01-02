@@ -27,7 +27,7 @@ export default class Toggle extends Component {
 
   render() {
     // props & state
-    const {id, options} = this.props;
+    const {id, options, orientation} = this.props;
     let {selected} = this.state;
 
     // locals
@@ -48,6 +48,7 @@ export default class Toggle extends Component {
       <Box id={id} m={2}>
         <ToggleButtonGroup
           size="small"
+          orientation={orientation}
           value={selected}
           onChange={this.handleToggleChange}
           exclusive
@@ -61,6 +62,7 @@ export default class Toggle extends Component {
 
 Toggle.defaultProps = {
   id: 'table',
+  orientation: 'horizontal',
 };
 
 Toggle.propTypes = {
@@ -80,4 +82,7 @@ Toggle.propTypes = {
 
   /** Selected toggle label */
   selected: PropTypes.string,
+
+  /** Toggle orientation (horizontal or vertical) */
+  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 };
