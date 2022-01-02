@@ -22,7 +22,7 @@ class TabPanel extends Component {
         role="tabpanel"
         hidden={value !== index}
         id={`tabpanel-${index}`}
-        aria-labelledby={`basic-tabpanel-${index}`}
+        aria-labelledby={`card-tabpanel-${index}`}
         className={classes.tabpanelLayout}
       >
         {value === index && <div className={classes.tabpanelContentLayout}>{children}</div>}

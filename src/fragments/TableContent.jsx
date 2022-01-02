@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import {
   TableBody as MuiTableBody,
@@ -31,6 +32,15 @@ const TableHead = class extends Component {
   }
 };
 
+TableHead.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.exact({
+      field: PropTypes.string,
+      width: PropTypes.number,
+    })
+  ),
+};
+
 const TableBody = class extends Component {
   render() {
     const {rows, page, rowsPerPage} = this.props;
@@ -53,6 +63,12 @@ const TableBody = class extends Component {
 
     return <MuiTableBody>{bodyElements}</MuiTableBody>;
   }
+};
+
+TableBody.propTypes = {
+  rows: PropTypes.arrayOf(PropTypes.object),
+  page: PropTypes.number,
+  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
 };
 
 export {TableHead, TableBody};

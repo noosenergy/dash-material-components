@@ -9,6 +9,8 @@ const drawerWidth = 240;
 
 const styles = (theme) => ({
   fabLayout: {
+    // Position above all other components
+    zIndex: 1001,
     position: 'absolute',
     bottom: theme.spacing(5),
     right: theme.spacing(5),
@@ -32,11 +34,13 @@ const styles = (theme) => ({
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.state = {opened: this.props.opened};
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.state = {toggledDrawer: false};
   }
 
   handleDrawerOpen = () => {
-    this.setState({opened: true});
+    this.setState({toggledDrawer: true});
   };
 
   handleDrawerClose = (event) => {
@@ -45,16 +49,12 @@ class Sidebar extends Component {
       return;
     }
 
-    this.setState({opened: false});
-  };
-
-  UNSAFE_componentWillReceiveProps = (nextProps, nextContext) => {
-    if (nextProps.opened !== this.state.opened) this.setState({opened: nextProps.opened});
+    this.setState({toggledDrawer: false});
   };
 
   render() {
     const {classes, id, children} = this.props;
-    const {opened} = this.state;
+    const {toggledDrawer} = this.state;
 
     return (
       <Box id={id}>
@@ -69,7 +69,7 @@ class Sidebar extends Component {
         </Fab>
         <Drawer
           anchor="left"
-          open={opened}
+          open={toggledDrawer}
           onClose={this.handleDrawerClose}
           classes={{paper: classes.drawerLayout}}
         >
@@ -83,21 +83,14 @@ class Sidebar extends Component {
 
 Sidebar.defaultProps = {
   id: 'sidebar',
-  opened: false,
 };
 
 Sidebar.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,
 
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
   /** Used to render elements inside the component */
   children: PropTypes.node,
-
-  /** Wether the sidebar is opened or not */
-  opened: PropTypes.bool,
 };
 
 export default withStyles(styles, {withTheme: true})(Sidebar);

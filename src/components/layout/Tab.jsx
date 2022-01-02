@@ -21,6 +21,7 @@ const styles = (theme) => ({
 class Tab extends Component {
   constructor(props) {
     super(props);
+    this.handleTabChange = this.handleTabChange.bind(this);
     this.state = {selectedTab: 0};
   }
 
@@ -57,7 +58,7 @@ class Tab extends Component {
           value={selectedTab}
           onChange={this.handleTabChange}
           indicatorColor="primary"
-          aria-label="basic-tabs"
+          aria-label="card-tabs"
           selectionFollowsFocus
         >
           {tabElements}
