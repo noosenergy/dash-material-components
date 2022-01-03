@@ -11,10 +11,12 @@ import {TableBody, TableHead} from '../../fragments/TableContent.jsx';
 export default class Table extends Component {
   constructor(props) {
     super(props);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleRowsPerPageChange = this.handleRowsPerPageChange.bind(this);
     this.state = {
       page: 0,
-      rows: this.props.rows,
-      rowsPerPage: this.props.rowsPerPageOptions[0],
+      rows: props.rows,
+      rowsPerPage: props.rowsPerPageOptions[0],
     };
   }
 
@@ -28,6 +30,7 @@ export default class Table extends Component {
   };
 
   UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
+    // Make sure state remain in sync with received props
     if (nextProps.rows !== this.state.rows) this.setState({rows: nextProps.rows});
   };
 
@@ -75,11 +78,10 @@ Table.propTypes = {
     PropTypes.exact({
       /** Column field */
       field: PropTypes.string,
-
       /** Column width */
       width: PropTypes.number,
     })
-  ),
+  ).isRequired,
 
   /** Array of table rows to render */
   rows: PropTypes.arrayOf(PropTypes.object),

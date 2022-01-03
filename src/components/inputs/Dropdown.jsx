@@ -21,27 +21,18 @@ export default class Dropdown extends Component {
     super(props);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.buildDropdownSelect = this.buildDropdownSelect.bind(this);
-    this.state = {selected: props.selected};
   }
 
   handleDropdownChange = (event) => {
-    this.setState({selected: event.target.value});
-
-    if (typeof this.props.setProps === 'function') {
-      this.props.setProps({selected: event.target.value});
-    }
-  };
-
-  UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
-    if (nextProps.selected !== this.state.selected) this.setState({selected: nextProps.selected});
+    // Fire Dash-assigned callback
+    this.props.setProps({selected: event.target.value});
   };
 
   buildDropdownSelect = (selected) => {
-    const {options} = this.props;
     return (
       <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
         {selected.map((i) => (
-          <Chip key={i} label={options[i].label} />
+          <Chip key={i} label={this.props.options[i]} />
         ))}
       </Box>
     );
@@ -49,8 +40,7 @@ export default class Dropdown extends Component {
 
   render() {
     // props & state
-    const {id, labelText, helperText, options} = this.props;
-    let {selected} = this.state;
+    const {id, labelText, helperText, options, selected} = this.props;
 
     // locals
     let menuLabel;
@@ -71,7 +61,7 @@ export default class Dropdown extends Component {
     options.forEach((option, i) => {
       menuElements.push(
         <MenuItem key={i} value={i}>
-          {option.label}
+          {option}
         </MenuItem>
       );
     });
@@ -101,6 +91,7 @@ export default class Dropdown extends Component {
 
 Dropdown.defaultProps = {
   id: 'select',
+  // No option selected by default
   selected: [],
 };
 
@@ -118,13 +109,8 @@ Dropdown.propTypes = {
   helperText: PropTypes.string,
 
   /** Array of options to select in the dropdown form */
-  options: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Option label */
-      label: PropTypes.string,
-    })
-  ),
+  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 
-  /** Active selections in the dropdown form */
+  /** Active selection indices */
   selected: PropTypes.arrayOf(PropTypes.number),
 };

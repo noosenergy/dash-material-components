@@ -10,35 +10,26 @@ import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
 export default class Toggle extends Component {
   constructor(props) {
     super(props);
-    this.state = {selected: this.props.selected};
+    this.handleToggleChange = this.handleToggleChange.bind(this);
   }
 
   handleToggleChange = (event, value) => {
-    this.setState({selected: value});
-
-    if (typeof this.props.setProps === 'function') {
-      this.props.setProps({selected: value});
-    }
-  };
-
-  UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
-    if (nextProps.selected !== this.state.selected) this.setState({selected: nextProps.selected});
+    // Fire Dash-assigned callback
+    this.props.setProps({selected: value});
   };
 
   render() {
     // props & state
-    const {id, options, orientation} = this.props;
-    let {selected} = this.state;
+    const {id, options, orientation, selected} = this.props;
 
     // locals
     let toggleElements = [];
 
     // Fetch toggle buttons
     options.forEach((option, i) => {
-      const label = option.label;
       toggleElements.push(
-        <ToggleButton key={i} value={label.toLowerCase()}>
-          {label}
+        <ToggleButton key={i} value={i}>
+          {option}
         </ToggleButton>
       );
     });
@@ -61,8 +52,10 @@ export default class Toggle extends Component {
 }
 
 Toggle.defaultProps = {
-  id: 'table',
+  id: 'toggle',
   orientation: 'horizontal',
+  // First option selected by default
+  selected: 0,
 };
 
 Toggle.propTypes = {
@@ -72,17 +65,12 @@ Toggle.propTypes = {
   /** Used to enable Dash-assigned component callback */
   setProps: PropTypes.func,
 
-  /** Array of toggle options to render */
-  options: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Toggle label */
-      label: PropTypes.string,
-    })
-  ),
-
-  /** Selected toggle label */
-  selected: PropTypes.string,
+  /** Array of options to select through the toggle */
+  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 
   /** Toggle orientation (horizontal or vertical) */
   orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+  /** Selected toggle index */
+  selected: PropTypes.number,
 };

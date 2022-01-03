@@ -10,10 +10,11 @@ import {Box, Typography as MuiTypography} from '@material-ui/core';
 export default class Typography extends Component {
   constructor(props) {
     super(props);
-    this.state = {text: this.props.text};
+    this.state = {text: props.text};
   }
 
   UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
+    // Make sure state remain in sync with received props
     if (nextProps.text !== this.state.text) this.setState({text: nextProps.text});
   };
 
