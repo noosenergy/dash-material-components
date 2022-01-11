@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 
 import {
   Box,
+  Chip,
   FormControl,
   FormHelperText,
-  Chip,
   InputLabel,
   MenuItem,
   Select,
 } from '@material-ui/core';
 
-import Input from '../../fragments/Input.jsx';
-
 /**
- * DropDown component
+ * Dropdown component
  */
 export default class Dropdown extends Component {
   constructor(props) {
@@ -40,7 +38,7 @@ export default class Dropdown extends Component {
 
   render() {
     // props & state
-    const {id, labelText, helperText, options, selected} = this.props;
+    const {id, labelText, helperText, width, options, selected} = this.props;
 
     // locals
     let menuLabel;
@@ -68,7 +66,7 @@ export default class Dropdown extends Component {
 
     // Render form control
     return (
-      <Box id={id} m={2} maxWidth={200}>
+      <Box id={id} m={2} width={width}>
         <FormControl variant="outlined" fullWidth>
           {menuLabel ? menuLabel : null}
           <Select
@@ -77,7 +75,6 @@ export default class Dropdown extends Component {
             multiple
             value={selected}
             onChange={this.handleDropdownChange}
-            // input={<Input />}
             renderValue={this.buildDropdownSelect}
           >
             {menuElements}
@@ -91,6 +88,7 @@ export default class Dropdown extends Component {
 
 Dropdown.defaultProps = {
   id: 'select',
+  width: '100%',
   // No option selected by default
   selected: [],
 };
@@ -107,6 +105,9 @@ Dropdown.propTypes = {
 
   /** Text to display under the dropdown form */
   helperText: PropTypes.string,
+
+  /** Width of dropdown form */
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** Array of options to select in the dropdown form */
   options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,

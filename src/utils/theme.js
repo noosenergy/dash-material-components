@@ -12,7 +12,6 @@ let theme = createTheme({
     },
     secondary: {
       main: '#E9E9E9',
-      contrastText: '#FAC505',
     },
     background: {
       paper: '#FFFFFF',
@@ -20,7 +19,6 @@ let theme = createTheme({
     },
     text: {
       primary: '#151515',
-      secondary: '#151515',
       disabled: '#C7C7C7',
     },
     error: {
@@ -44,8 +42,55 @@ let theme = createTheme({
       fontWeight: 600,
       fontSize: '1rem',
     },
+    body1: {
+      fontWeight: 400,
+      fontSize: '0.9rem',
+    },
+    button: {
+      textTransform: 'none',
+    },
   },
 });
+
+theme.overrides = {
+  MuiChip: {
+    root: {
+      color: 'rgba(0, 0, 0, 0.54)',
+      backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    },
+  },
+  MuiInputLabel: {
+    root: {
+      color: 'rgba(0, 0, 0, 0.38)',
+      '&$focused': {
+        color: 'rgba(0, 0, 0, 0.54)',
+      },
+    },
+  },
+  MuiListItem: {
+    root: {
+      color: 'rgba(0, 0, 0, 0.38)',
+      '&$selected': {
+        color: 'rgba(0, 0, 0, 0.54)',
+      },
+    },
+  },
+  MuiOutlinedInput: {
+    root: {
+      '& $notchedOutline': {
+        borderColor: 'rgba(0, 0, 0, 0.15)',
+      },
+      '&:hover $notchedOutline': {
+        borderColor: 'rgba(0, 0, 0, 0.54)',
+      },
+      '&$focused $notchedOutline': {
+        borderColor: 'rgba(0, 0, 0, 0.54)',
+        borderWidth: 1,
+      },
+    },
+  },
+};
+
 theme = responsiveFontSizes(theme);
 
 export default theme;
