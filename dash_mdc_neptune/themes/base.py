@@ -20,6 +20,7 @@ NOOS_HTML_COLORS = dict(
     gray="#C7C7C7",
     dark="#151515",
     accent="#FAC505",
+    error="#721C24",
 )
 
 NOOS_PALETTE_BASE = [
