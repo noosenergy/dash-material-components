@@ -10,10 +10,10 @@ import {
   List,
   ListItem,
   ListItemText,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {ChevronLeft, Settings} from '@material-ui/icons';
 import {withStyles} from '@material-ui/core/styles';
 
 const drawerWidth = 360;
@@ -81,6 +81,21 @@ class Sidebar extends Component {
     let drawerHeader;
     let drawerElements = [];
 
+    // Fetch drawer button
+    const drawerButton = (
+      <Tooltip title="Open sidebar">
+        <Fab
+          onClick={this.handleDrawerOpen}
+          aria-label="open-sidebar"
+          size="medium"
+          color="primary"
+          className={classes.fabLayout}
+        >
+          <Settings />
+        </Fab>
+      </Tooltip>
+    );
+
     // Fetch drawer header
     if (title) {
       drawerHeader = (
@@ -88,9 +103,11 @@ class Sidebar extends Component {
           <Typography component="p" variant="h3" color="inherit">
             {title}
           </Typography>
-          <IconButton color="inherit" onClick={this.handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
+          <Tooltip title="Close sidebar">
+            <IconButton color="inherit" onClick={this.handleDrawerClose}>
+              <ChevronLeft />
+            </IconButton>
+          </Tooltip>
         </Box>
       );
     }
@@ -111,15 +128,7 @@ class Sidebar extends Component {
 
     return (
       <Box id={id}>
-        <Fab
-          onClick={this.handleDrawerOpen}
-          aria-label="open-sidebar"
-          size="medium"
-          color="primary"
-          className={classes.fabLayout}
-        >
-          <MoreVertIcon />
-        </Fab>
+        {drawerButton}
         <Drawer
           anchor="left"
           open={toggledDrawer}

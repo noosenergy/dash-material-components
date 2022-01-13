@@ -15,7 +15,6 @@ import Toggle from './components/inputs/Toggle.jsx';
 
 // Display components: component state managed by Dash renderer
 import Box from './components/display/Box.jsx';
-import Divider from './components/display/Divider.jsx';
 import Table from './components/display/Table.jsx';
 import Typography from './components/display/Typography.jsx';
 
@@ -32,7 +31,6 @@ export {
   Toggle,
   // Display
   Box,
-  Divider,
   Table,
   Typography,
 };

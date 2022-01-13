@@ -9,9 +9,8 @@ import {Box as MuiBox} from '@material-ui/core';
  */
 export default class Box extends Component {
   render() {
-    const {sx} = this.props;
-
-    return <MuiBox sx={sx}>{this.props.children}</MuiBox>;
+    const {sx, children} = this.props;
+    return <MuiBox sx={sx}>{children}</MuiBox>;
   }
 }
 
@@ -20,9 +19,6 @@ Box.defaultProps = {
 };
 
 Box.propTypes = {
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
   /** Can be used to render elements inside the component */
   children: PropTypes.node,
 
