@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# Stop script execution at error
-set -e
-
-# File mode executable: `chmod +x nbstrip`
-exec jq --indent 1 \
-    '(.cells[] | select(has("outputs")) | .outputs) = [] | (.cells[] | select(has("execution_count")) | .execution_count) = null' \
-    "$@"

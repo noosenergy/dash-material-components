@@ -1,6 +1,0 @@
-[filter "nbstrip"]
-    clean = /home/jovyan/.config/neptune/nbstrip
-    smudge = cat
-    required = true
-[credential]
-    helper = store --file /home/jovyan/.vcs/credentials

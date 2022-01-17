@@ -1,5 +1,1 @@
 NOOSINV_PYTHON_INSTALL=poetry
-NOOSINV_DOCKER_CONTEXT=./docker/singleuser
-NOOSINV_DOCKER_NAME=noos-prod/jupyter-hub/singleuser/dash
-NOOSINV_DOCKER_ARG=GITHUB_TOKEN
-GITHUB_TOKEN=
