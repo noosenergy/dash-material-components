@@ -19,6 +19,7 @@ pip-wheel-metadata
 # PyTest
 .pytest_cache
 pytest.xml
+geckodriver.log
 
 # MyPy
 .mypy_cache
