@@ -72,6 +72,7 @@ export default class Dropdown extends Component {
           <Select
             labelId={`${id}-label`}
             label={labelText}
+            id={`${id}-select`}
             multiple
             value={selected}
             onChange={this.handleDropdownChange}
