@@ -48,6 +48,17 @@ jobs:
           paths:
             - dash_mdc_neptune
 
+  test-package:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - noos-ci/python-test-package:
+          pkg-manager: poetry
+          install-args: ''
+          tests-directory: ./tests
+
   build-wheel:
     executor: noos-ci/default
     steps:
@@ -80,17 +91,20 @@ workflows:
 
   version: 2
 
-  lint-build:
+  lint-test-build:
     jobs:
-      - lint-package
       - lint-library
       - build-library:
           requires:
             - lint-library
+      - lint-package
+      - test-package:
+          requires:
+            - build-library
       - build-wheel:
           requires:
             - lint-package
-            - build-library
+            - test-package
 
   publish:
     jobs:
