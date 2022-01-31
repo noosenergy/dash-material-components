@@ -6,8 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.4] - 2022-01-17
 ### Added
- - Initial release.
+ - Initial release
  - Backbone Material components for a dashboard
-  - layout components: page, navbar, sidebar, section, tab
-  - data display components: table, typography
-  - data inputs components: dropdown, toggle
+ - layout components: page, navbar, sidebar, section, tab
+ - data display components: table, typography
+ - data inputs components: dropdown, toggle
+
+## [0.1.5] - 2022-01-31
+### Changed
+ - Lock React.js to v16.* to match Dash renderer version
+### Added
+ - Python functional test suite for MDC components (layout and input)
+ - Add matplotlib as a package dependency
