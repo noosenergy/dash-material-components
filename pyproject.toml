@@ -39,11 +39,14 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-dash = ">=1.15.0"
+# Current incompatibility with jupyter-dash & django-plotly-dash
+# https://github.com/plotly/jupyter-dash/issues/75
+# https://github.com/GibbsConsulting/django-plotly-dash/issues/354
+dash = ">=1.15.0,<2.0.0"
 matplotlib = "*"
 
 [tool.poetry.dev-dependencies]
-dash = { version = ">=1.15.0", extras = ["dev", "testing"] }
+dash = { version = ">=1.15.0,<2.0.0", extras = ["dev", "testing"] }
 # Format
 isort = "*"
 black = {version = "*", allow-prereleases = true}
