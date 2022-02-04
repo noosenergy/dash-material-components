@@ -18,3 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
  - Python functional test suite for MDC components (layout and input)
  - Add matplotlib as a package dependency
+
+## [0.1.6] - 2022-02-04
+### Changed
+ - Pin Dash version under release 2.0.0
