@@ -10,12 +10,17 @@ import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
 export default class Toggle extends Component {
   constructor(props) {
     super(props);
-    this.handleToggleChange = this.handleToggleChange.bind(this);
+    // First option selected by default if no default provided
+    const {options, selected} = this.props;
+    this.props.selected = selected === undefined ? options[0] : selected;
   }
 
   handleToggleChange = (event, value) => {
-    // Fire Dash-assigned callback
-    this.props.setProps({selected: value});
+    // Enforce at least one active selection
+    if (value !== null) {
+      // Fire Dash-assigned callback
+      this.props.setProps({selected: value});
+    }
   };
 
   render() {
@@ -24,11 +29,16 @@ export default class Toggle extends Component {
 
     // locals
     let toggleElements = [];
+    const toggleControls = {
+      value: selected,
+      exclusive: true,
+      onChange: this.handleToggleChange
+    };
 
     // Fetch toggle buttons
     options.forEach((option, i) => {
       toggleElements.push(
-        <ToggleButton key={i} value={i}>
+        <ToggleButton key={i} value={option}>
           {option}
         </ToggleButton>
       );
@@ -37,13 +47,7 @@ export default class Toggle extends Component {
     // Render toggle group
     return (
       <Box id={id} m={2}>
-        <ToggleButtonGroup
-          size="small"
-          orientation={orientation}
-          value={selected}
-          onChange={this.handleToggleChange}
-          exclusive
-        >
+        <ToggleButtonGroup size="small" orientation={orientation} {...toggleControls}>
           {toggleElements}
         </ToggleButtonGroup>
       </Box>
@@ -53,9 +57,7 @@ export default class Toggle extends Component {
 
 Toggle.defaultProps = {
   id: 'toggle',
-  orientation: 'horizontal',
-  // First option selected by default
-  selected: 0,
+  orientation: 'horizontal'
 };
 
 Toggle.propTypes = {
@@ -65,12 +67,12 @@ Toggle.propTypes = {
   /** Used to enable Dash-assigned component callback */
   setProps: PropTypes.func,
 
-  /** Array of options to select through the toggle */
-  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
-
   /** Toggle orientation (horizontal or vertical) */
   orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
+  /** Array of options to select through the toggle */
+  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+
   /** Selected toggle index */
-  selected: PropTypes.number,
+  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
