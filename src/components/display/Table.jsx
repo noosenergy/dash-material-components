@@ -11,8 +11,6 @@ import {TableBody, TableHead} from '../../fragments/TableContent';
 export default class Table extends Component {
   constructor(props) {
     super(props);
-    this.handlePageChange = this.handlePageChange.bind(this);
-    this.handleRowsPerPageChange = this.handleRowsPerPageChange.bind(this);
     this.state = {
       page: 0,
       rows: props.rows,

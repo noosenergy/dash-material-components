@@ -56,8 +56,6 @@ const styles = (theme) => ({
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
-    this.handleDrawerClose = this.handleDrawerClose.bind(this);
     this.state = {toggledDrawer: false};
   }
 

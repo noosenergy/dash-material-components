@@ -21,7 +21,6 @@ const styles = (theme) => ({
 class Tab extends Component {
   constructor(props) {
     super(props);
-    this.handleTabChange = this.handleTabChange.bind(this);
     this.state = {selectedTab: 0};
   }
 
