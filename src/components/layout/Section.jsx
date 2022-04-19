@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Grid} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
-import Card from '../../fragments/Card.jsx';
+import Card from '../../fragments/Card';
 
 const styles = (theme) => ({
   sectionInColumn: {

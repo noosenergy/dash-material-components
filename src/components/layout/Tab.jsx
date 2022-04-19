@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Grid, Tab as MuiTab, Tabs} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
-import TabPanel from '../../fragments/TabPanel.jsx';
+import TabPanel from '../../fragments/TabPanel';
 
 const styles = (theme) => ({
   tabLayout: {

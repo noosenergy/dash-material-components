@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Box, AppBar, IconButton, Toolbar, Typography} from '@material-ui/core';
 
-import NoosIcon from '../../fragments/NoosIcon.jsx';
+import NoosIcon from '../../fragments/NoosIcon';
 
 /**
  * Dashboard navigation bar component

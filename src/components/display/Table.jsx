@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Box, Table as MuiTable, TableContainer, TablePagination} from '@material-ui/core';
 
-import {TableBody, TableHead} from '../../fragments/TableContent.jsx';
+import {TableBody, TableHead} from '../../fragments/TableContent';
 
 /**
  * Table component
