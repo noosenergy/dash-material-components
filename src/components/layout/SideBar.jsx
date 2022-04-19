@@ -13,7 +13,7 @@ import {
   Tooltip,
   Typography
 } from '@material-ui/core';
-import {ChevronLeft, Settings} from '@material-ui/icons';
+import {ChevronRight, Settings} from '@material-ui/icons';
 import {withStyles} from '@material-ui/core/styles';
 
 const drawerWidth = 360;
@@ -103,7 +103,7 @@ class Sidebar extends Component {
           </Typography>
           <Tooltip title="Close sidebar">
             <IconButton color="inherit" onClick={this.handleDrawerClose}>
-              <ChevronLeft />
+              <ChevronRight />
             </IconButton>
           </Tooltip>
         </Box>
@@ -128,7 +128,7 @@ class Sidebar extends Component {
       <Box id={id}>
         {drawerButton}
         <Drawer
-          anchor="left"
+          anchor="right"
           open={toggledDrawer}
           onClose={this.handleDrawerClose}
           className={classes.drawerLayout}
