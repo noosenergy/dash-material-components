@@ -56,6 +56,10 @@ module.exports = (env, argv) => {
     },
     devtool,
     externals,
+    // resolve relative file import for extensions
+    resolve: {
+      extensions: ['.js', '.jsx'],
+    },
     module: {
       rules: [
         {
