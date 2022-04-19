@@ -11,12 +11,12 @@ import ThemeProvider from '../utils/ThemeProvider';
  */
 export default class Dashboard extends Component {
   render() {
-    const {id, children, height, cssPrefix} = this.props;
+    const {id, children, height} = this.props;
 
     // Enforce and reset a MUI-theme on the entire page
     // And display a dashboard on a full screen width
     return (
-      <ThemeProvider cssPrefix={cssPrefix}>
+      <ThemeProvider>
         <Box id={id} sx={{display: 'flex', flexDirection: 'column', height: height}}>
           {children}
         </Box>
@@ -27,8 +27,7 @@ export default class Dashboard extends Component {
 
 Dashboard.defaultProps = {
   id: 'dashboard',
-  height: '100vh',
-  cssPrefix: 'neptune'
+  height: '100vh'
 };
 
 Dashboard.propTypes = {
@@ -39,8 +38,5 @@ Dashboard.propTypes = {
   children: PropTypes.node,
 
   /** Dashboard window height */
-  height: PropTypes.string,
-
-  /** CSS class name prefix */
-  cssPrefix: PropTypes.string
+  height: PropTypes.string
 };
