@@ -16,7 +16,7 @@ export default class Table extends Component {
     this.state = {
       page: 0,
       rows: props.rows,
-      rowsPerPage: props.rowsPerPageOptions[0],
+      rowsPerPage: props.rowsPerPageOptions[0]
     };
   }
 
@@ -63,7 +63,7 @@ export default class Table extends Component {
 
 Table.defaultProps = {
   id: 'table',
-  rowsPerPageOptions: [10, 25, 50],
+  rowsPerPageOptions: [10, 25, 50]
 };
 
 Table.propTypes = {
@@ -79,7 +79,7 @@ Table.propTypes = {
       /** Column field */
       field: PropTypes.string,
       /** Column width */
-      width: PropTypes.number,
+      width: PropTypes.number
     })
   ).isRequired,
 
@@ -87,5 +87,5 @@ Table.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object),
 
   /** Table pagination setting */
-  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
+  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
 };

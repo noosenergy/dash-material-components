@@ -11,7 +11,7 @@ import {
   ListItem,
   ListItemText,
   Tooltip,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import {ChevronLeft, Settings} from '@material-ui/icons';
 import {withStyles} from '@material-ui/core/styles';
@@ -24,15 +24,15 @@ const styles = (theme) => ({
     bottom: theme.spacing(5),
     right: theme.spacing(5),
     // Position just below the drawer
-    zIndex: theme.zIndex.drawer - 50,
+    zIndex: theme.zIndex.drawer - 50
   },
   drawerLayout: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaperLayout: {
     width: drawerWidth,
-    background: theme.palette.secondary.main,
+    background: theme.palette.secondary.main
   },
   drawerHeaderLayout: {
     display: 'flex',
@@ -40,13 +40,13 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     padding: theme.spacing(0, 2),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
+    ...theme.mixins.toolbar
   },
   drawerContentLayout: {
     width: '100%',
     height: '100%',
-    overflow: 'auto',
-  },
+    overflow: 'auto'
+  }
 });
 
 /**
@@ -147,7 +147,7 @@ class Sidebar extends Component {
 
 Sidebar.defaultProps = {
   id: 'sidebar',
-  title: 'Dashboard Settings',
+  title: 'Dashboard Settings'
 };
 
 Sidebar.propTypes = {
@@ -161,7 +161,7 @@ Sidebar.propTypes = {
   settings: PropTypes.arrayOf(PropTypes.string),
 
   /** Dashboard sidebar title */
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 
 export default withStyles(styles, {withTheme: true})(Sidebar);

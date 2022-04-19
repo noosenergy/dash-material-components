@@ -11,14 +11,14 @@ const styles = (theme) => ({
     // Contain at max entire page length
     maxHeight: '100%',
     // Reset section element negative margins
-    margin: 0,
+    margin: 0
   },
   sectionInRow: {
     // Contain at max entire page width
     maxWidth: '100%',
     // Reset section element negative margins
-    margin: 0,
-  },
+    margin: 0
+  }
 });
 
 /**
@@ -77,7 +77,7 @@ class Section extends Component {
 
 Section.defaultProps = {
   id: 'section',
-  orientation: 'rows',
+  orientation: 'rows'
 };
 
 Section.propTypes = {
@@ -94,7 +94,7 @@ Section.propTypes = {
       title: PropTypes.string,
 
       /** Card size (0 < size <= 12) */
-      size: PropTypes.number,
+      size: PropTypes.number
     })
   ),
 
@@ -102,7 +102,7 @@ Section.propTypes = {
   orientation: PropTypes.oneOf(['columns', 'rows']),
 
   /** Section container size (0 < size <= 12) */
-  size: PropTypes.number,
+  size: PropTypes.number
 };
 
 export default withStyles(styles, {withTheme: true})(Section);

@@ -31,5 +31,5 @@ export {
   // Display
   Box,
   Table,
-  Typography,
+  Typography
 };

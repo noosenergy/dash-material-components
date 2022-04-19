@@ -28,7 +28,7 @@ export default class Dashboard extends Component {
 Dashboard.defaultProps = {
   id: 'dashboard',
   height: '100vh',
-  cssPrefix: 'neptune',
+  cssPrefix: 'neptune'
 };
 
 Dashboard.propTypes = {
@@ -42,5 +42,5 @@ Dashboard.propTypes = {
   height: PropTypes.string,
 
   /** CSS class name prefix */
-  cssPrefix: PropTypes.string,
+  cssPrefix: PropTypes.string
 };

@@ -9,8 +9,8 @@ import TabPanel from '../../fragments/TabPanel';
 const styles = (theme) => ({
   tabLayout: {
     height: '100%',
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 /**
@@ -72,7 +72,7 @@ class Tab extends Component {
 }
 
 Tab.defaultProps = {
-  id: 'tab',
+  id: 'tab'
 };
 
 Tab.propTypes = {
@@ -86,9 +86,9 @@ Tab.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.exact({
       /** Element label */
-      label: PropTypes.string,
+      label: PropTypes.string
     })
-  ),
+  )
 };
 
 export default withStyles(styles, {withTheme: true})(Tab);

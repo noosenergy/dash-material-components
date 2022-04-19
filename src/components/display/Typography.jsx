@@ -37,7 +37,7 @@ export default class Typography extends Component {
 Typography.defaultProps = {
   id: 'text',
   component: 'h6',
-  variant: 'h6',
+  variant: 'h6'
 };
 
 Typography.propTypes = {
@@ -54,5 +54,5 @@ Typography.propTypes = {
   variant: PropTypes.string,
 
   /** Typography text content */
-  text: PropTypes.string,
+  text: PropTypes.string
 };
