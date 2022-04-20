@@ -9,6 +9,7 @@ import SideBar from './components/layout/SideBar';
 import Tab from './components/layout/Tab';
 
 // Inputs components: component props managed by Dash renderer
+import Calendar from './components/inputs/Calendar';
 import Dropdown from './components/inputs/Dropdown';
 import Toggle from './components/inputs/Toggle';
 
@@ -26,6 +27,7 @@ export {
   SideBar,
   Tab,
   // Inputs
+  Calendar,
   Dropdown,
   Toggle,
   // Display
