@@ -15,7 +15,7 @@ export default class Box extends Component {
 }
 
 Box.defaultProps = {
-  sx: {},
+  sx: {}
 };
 
 Box.propTypes = {
@@ -25,5 +25,5 @@ Box.propTypes = {
   /** All Material system properties are available via the `sx prop`
    * Allow additional css styles to be applied to the component
    */
-  sx: PropTypes.object,
+  sx: PropTypes.object
 };

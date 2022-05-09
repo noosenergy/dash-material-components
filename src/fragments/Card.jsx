@@ -7,17 +7,17 @@ import {withStyles} from '@material-ui/core/styles';
 const styles = (theme) => ({
   cardInColumn: {
     // Contain at max entire section length
-    maxHeight: '100%',
+    maxHeight: '100%'
   },
   cardInRow: {
     // Contain at max entire section width
-    maxWidth: '100%',
+    maxWidth: '100%'
   },
   cardContentLayout: {
     height: '100%',
     // If inner container overflows
-    overflow: 'auto',
-  },
+    overflow: 'auto'
+  }
 });
 
 class Card extends Component {
@@ -49,7 +49,7 @@ class Card extends Component {
 
 Card.defaultProps = {
   id: 'card',
-  sectionOrientation: 'columns',
+  sectionOrientation: 'columns'
 };
 
 Card.propTypes = {
@@ -57,7 +57,7 @@ Card.propTypes = {
   children: PropTypes.node,
   title: PropTypes.string,
   size: PropTypes.number,
-  orientation: PropTypes.oneOf(['columns', 'rows']),
+  orientation: PropTypes.oneOf(['columns', 'rows'])
 };
 
 export default withStyles(styles, {withTheme: true})(Card);

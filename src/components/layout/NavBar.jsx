@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Box, AppBar, IconButton, Toolbar, Typography} from '@material-ui/core';
 
-import NoosIcon from '../../fragments/NoosIcon.jsx';
+import NoosIcon from '../../fragments/NoosIcon';
 
 /**
  * Dashboard navigation bar component
@@ -31,7 +31,7 @@ export default class NavBar extends Component {
 }
 
 NavBar.defaultProps = {
-  id: 'navbar',
+  id: 'navbar'
 };
 
 NavBar.propTypes = {
@@ -39,5 +39,5 @@ NavBar.propTypes = {
   id: PropTypes.string,
 
   /** Dashboard navigation bar title */
-  title: PropTypes.string,
+  title: PropTypes.string
 };

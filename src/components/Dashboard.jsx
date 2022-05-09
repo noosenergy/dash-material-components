@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {Box, CssBaseline} from '@material-ui/core';
-import {ThemeProvider} from '@material-ui/core/styles';
+import {Box} from '@material-ui/core';
 
-import theme from '../utils/theme';
+import ThemeProvider from '../utils/ThemeProvider';
 
 /**
  * Main dasboard component, initializing a Material UI theme
@@ -17,8 +16,7 @@ export default class Dashboard extends Component {
     // Enforce and reset a MUI-theme on the entire page
     // And display a dashboard on a full screen width
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <ThemeProvider>
         <Box id={id} sx={{display: 'flex', flexDirection: 'column', height: height}}>
           {children}
         </Box>
@@ -29,7 +27,7 @@ export default class Dashboard extends Component {
 
 Dashboard.defaultProps = {
   id: 'dashboard',
-  height: '100vh',
+  height: '100vh'
 };
 
 Dashboard.propTypes = {
@@ -40,5 +38,5 @@ Dashboard.propTypes = {
   children: PropTypes.node,
 
   /** Dashboard window height */
-  height: PropTypes.string,
+  height: PropTypes.string
 };

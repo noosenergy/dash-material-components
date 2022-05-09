@@ -9,8 +9,8 @@ const styles = (theme) => ({
     width: '100%',
     height: '100%',
     // Reset page element negative margins
-    margin: 0,
-  },
+    margin: 0
+  }
 });
 
 /**
@@ -37,7 +37,7 @@ class Page extends Component {
 
 Page.defaultProps = {
   id: 'page',
-  orientation: 'columns',
+  orientation: 'columns'
 };
 
 Page.propTypes = {
@@ -48,7 +48,7 @@ Page.propTypes = {
   children: PropTypes.node,
 
   /** Page general orientation (rows or columns) */
-  orientation: PropTypes.oneOf(['columns', 'rows']),
+  orientation: PropTypes.oneOf(['columns', 'rows'])
 };
 
 export default withStyles(styles, {withTheme: true})(Page);

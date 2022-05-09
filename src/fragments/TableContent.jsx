@@ -5,7 +5,7 @@ import {
   TableBody as MuiTableBody,
   TableCell,
   TableHead as MuiTableHead,
-  TableRow,
+  TableRow
 } from '@material-ui/core';
 
 const TableHead = class extends Component {
@@ -36,9 +36,9 @@ TableHead.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.exact({
       field: PropTypes.string,
-      width: PropTypes.number,
+      width: PropTypes.number
     })
-  ),
+  )
 };
 
 const TableBody = class extends Component {
@@ -68,7 +68,7 @@ const TableBody = class extends Component {
 TableBody.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object),
   page: PropTypes.number,
-  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
+  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
 };
 
 export {TableHead, TableBody};

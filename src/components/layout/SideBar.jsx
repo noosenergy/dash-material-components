@@ -11,9 +11,9 @@ import {
   ListItem,
   ListItemText,
   Tooltip,
-  Typography,
+  Typography
 } from '@material-ui/core';
-import {ChevronLeft, Settings} from '@material-ui/icons';
+import {ChevronRight, Settings} from '@material-ui/icons';
 import {withStyles} from '@material-ui/core/styles';
 
 const drawerWidth = 360;
@@ -24,15 +24,15 @@ const styles = (theme) => ({
     bottom: theme.spacing(5),
     right: theme.spacing(5),
     // Position just below the drawer
-    zIndex: theme.zIndex.drawer - 50,
+    zIndex: theme.zIndex.drawer - 50
   },
   drawerLayout: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaperLayout: {
     width: drawerWidth,
-    background: theme.palette.secondary.main,
+    background: theme.palette.secondary.main
   },
   drawerHeaderLayout: {
     display: 'flex',
@@ -40,13 +40,13 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     padding: theme.spacing(0, 2),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
+    ...theme.mixins.toolbar
   },
   drawerContentLayout: {
     width: '100%',
     height: '100%',
-    overflow: 'auto',
-  },
+    overflow: 'auto'
+  }
 });
 
 /**
@@ -56,8 +56,6 @@ const styles = (theme) => ({
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
-    this.handleDrawerClose = this.handleDrawerClose.bind(this);
     this.state = {toggledDrawer: false};
   }
 
@@ -105,7 +103,7 @@ class Sidebar extends Component {
           </Typography>
           <Tooltip title="Close sidebar">
             <IconButton color="inherit" onClick={this.handleDrawerClose}>
-              <ChevronLeft />
+              <ChevronRight />
             </IconButton>
           </Tooltip>
         </Box>
@@ -130,7 +128,7 @@ class Sidebar extends Component {
       <Box id={id}>
         {drawerButton}
         <Drawer
-          anchor="left"
+          anchor="right"
           open={toggledDrawer}
           onClose={this.handleDrawerClose}
           className={classes.drawerLayout}
@@ -147,7 +145,7 @@ class Sidebar extends Component {
 
 Sidebar.defaultProps = {
   id: 'sidebar',
-  title: 'Dashboard Settings',
+  title: 'Dashboard Settings'
 };
 
 Sidebar.propTypes = {
@@ -161,7 +159,7 @@ Sidebar.propTypes = {
   settings: PropTypes.arrayOf(PropTypes.string),
 
   /** Dashboard sidebar title */
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 
 export default withStyles(styles, {withTheme: true})(Sidebar);

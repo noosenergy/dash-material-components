@@ -1,3 +1,4 @@
+import datetime as dt
 from typing import Any, Callable, Dict, Optional
 
 import pytest
@@ -7,13 +8,10 @@ from dash.dependencies import Input, Output
 import dash_mdc_neptune as mdc
 
 
-TOGGLE_OPTIONS = ["Content...", "Other content..."]
-
-
 @pytest.fixture
 def dash_app() -> Callable[[Optional[str]], Dash]:
     def app_factory(selected: Optional[str] = None) -> Dash:
-        kwargs: Dict[str, Any] = {"options": TOGGLE_OPTIONS}
+        kwargs: Dict[str, Any] = {"id": "calendar"}
         if selected is not None:
             kwargs["selected"] = selected
 
@@ -23,7 +21,7 @@ def dash_app() -> Callable[[Optional[str]], Dash]:
                 children=mdc.Section(
                     children=mdc.Box(
                         children=[
-                            mdc.Toggle(id="toggle", **kwargs),
+                            mdc.Calendar(**kwargs),
                             mdc.Typography(id="text"),
                         ],
                     ),
@@ -34,36 +32,28 @@ def dash_app() -> Callable[[Optional[str]], Dash]:
 
         @app.callback(
             Output(component_id="text", component_property="text"),
-            Input(component_id="toggle", component_property="selected"),
+            Input(component_id="calendar", component_property="selected"),
         )
         def on_change(value: str) -> str:
-            return value
+            if value:
+                return value
+            return "No content..."
 
         return app
 
     return app_factory
 
 
-@pytest.mark.parametrize(
-    "selected,text",
-    [
-        (TOGGLE_OPTIONS[0], TOGGLE_OPTIONS[0]),
-        (TOGGLE_OPTIONS[1], TOGGLE_OPTIONS[1]),
-    ],
-)
-def test_default_selection(dash_duo, dash_app, selected, text):
-    dash_duo.start_server(dash_app(selected))
-    dash_duo.wait_for_text_to_equal("#text", text)
+def test_no_selection(dash_duo, dash_app):
+    dash_duo.start_server(dash_app())
+    dash_duo.wait_for_text_to_equal("#text", "No content...")
 
     assert dash_duo.get_logs() is None
 
 
-def test_unique_selection(dash_duo, dash_app):
-    dash_duo.start_server(dash_app())
-    elements = dash_duo.find_element("#toggle").find_elements_by_tag_name("button")
-
-    for i, option in reversed(list(enumerate(TOGGLE_OPTIONS))):
-        elements[i].click()
-        dash_duo.wait_for_text_to_equal("#text", option)
+def test_default_selection(dash_duo, dash_app):
+    selected = dt.date.today().isoformat()
+    dash_duo.start_server(dash_app(selected))
+    dash_duo.wait_for_text_to_equal("#text", selected)
 
     assert dash_duo.get_logs() is None

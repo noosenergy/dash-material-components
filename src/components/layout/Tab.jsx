@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import {Grid, Tab as MuiTab, Tabs} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
-import TabPanel from '../../fragments/TabPanel.jsx';
+import TabPanel from '../../fragments/TabPanel';
 
 const styles = (theme) => ({
   tabLayout: {
     height: '100%',
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 /**
@@ -21,7 +21,6 @@ const styles = (theme) => ({
 class Tab extends Component {
   constructor(props) {
     super(props);
-    this.handleTabChange = this.handleTabChange.bind(this);
     this.state = {selectedTab: 0};
   }
 
@@ -72,7 +71,7 @@ class Tab extends Component {
 }
 
 Tab.defaultProps = {
-  id: 'tab',
+  id: 'tab'
 };
 
 Tab.propTypes = {
@@ -86,9 +85,9 @@ Tab.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.exact({
       /** Element label */
-      label: PropTypes.string,
+      label: PropTypes.string
     })
-  ),
+  )
 };
 
 export default withStyles(styles, {withTheme: true})(Tab);

@@ -1,11 +1,12 @@
 .build_cache/
+.mypy_cache/
+.pytest_cache/
+.venv/
+dist/
 node_modules/
 dash_mdc_neptune/
 notebooks/
 tests/
-dist/
-.mypy_cache/
-.venv/
 .vscode/
 .idea/
 .DS_Store

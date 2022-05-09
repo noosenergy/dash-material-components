@@ -5,11 +5,11 @@ import {withStyles} from '@material-ui/core/styles';
 
 const styles = (theme) => ({
   tabpanelLayout: {
-    height: '100%',
+    height: '100%'
   },
   tabpanelContentLayout: {
-    height: '100%',
-  },
+    height: '100%'
+  }
 });
 
 // directly from https://mui.com/components/tabs/
@@ -34,7 +34,7 @@ class TabPanel extends Component {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };
 
 export default withStyles(styles, {withTheme: true})(TabPanel);
