@@ -22,3 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.6] - 2022-02-04
 ### Changed
  - Pin Dash version under release 2.0.0
+
+## [0.1.7] - 2022-05-09
+### Changed
+ - Webpack package export
+### Added
+ - data inputs components: calendar
