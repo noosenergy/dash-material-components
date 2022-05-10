@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {Card as MuiCard, CardContent, CardHeader, Grid} from '@material-ui/core';
+import {
+  Card as MuiCard,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  Tooltip
+} from '@material-ui/core';
+import {GetApp} from '@material-ui/icons';
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -22,12 +30,20 @@ const styles = (theme) => ({
 
 class Card extends Component {
   render() {
-    const {classes, id, children, title, size, orientation} = this.props;
+    const {classes, id, children, title, size, orientation, downloadable, handleDownload} =
+      this.props;
 
     // Card header
     let header;
     if (title) {
-      header = <CardHeader title={title} titleTypographyProps={{variant: 'h2'}} />;
+      const action = downloadable ? (
+        <Tooltip title="Download card">
+          <IconButton aria-label="download-card" onClick={handleDownload}>
+            <GetApp />
+          </IconButton>
+        </Tooltip>
+      ) : null;
+      header = <CardHeader action={action} title={title} titleTypographyProps={{variant: 'h2'}} />;
     }
 
     // Fetch card content
@@ -49,7 +65,8 @@ class Card extends Component {
 
 Card.defaultProps = {
   id: 'card',
-  sectionOrientation: 'columns'
+  orientation: 'columns',
+  downloadable: false
 };
 
 Card.propTypes = {
@@ -57,7 +74,9 @@ Card.propTypes = {
   children: PropTypes.node,
   title: PropTypes.string,
   size: PropTypes.number,
-  orientation: PropTypes.oneOf(['columns', 'rows'])
+  orientation: PropTypes.oneOf(['columns', 'rows']),
+  downloadable: PropTypes.bool,
+  handleDownload: PropTypes.func
 };
 
 export default withStyles(styles, {withTheme: true})(Card);
