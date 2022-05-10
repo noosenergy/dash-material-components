@@ -16,8 +16,10 @@ import {
  */
 export default class Dropdown extends Component {
   handleDropdownChange = (event) => {
+    // Enforce selection to be an array in all cases
+    const selected = event.target.value;
     // Fire Dash-assigned callback
-    this.props.setProps({selected: event.target.value});
+    this.props.setProps({selected: this.props.multiple ? selected : [selected]});
   };
 
   buildDropdownSelect = (selected) => {
@@ -32,7 +34,7 @@ export default class Dropdown extends Component {
 
   render() {
     // props & state
-    const {id, labelText, helperText, width, options, selected} = this.props;
+    const {id, labelText, helperText, width, options, multiple, selected} = this.props;
 
     // locals
     let menuLabel;
@@ -40,7 +42,7 @@ export default class Dropdown extends Component {
     let menuElements = [];
     const menuControls = {
       value: selected,
-      multiple: true,
+      multiple: multiple,
       onChange: this.handleDropdownChange,
       renderValue: this.buildDropdownSelect
     };
@@ -82,6 +84,7 @@ export default class Dropdown extends Component {
 Dropdown.defaultProps = {
   id: 'select',
   width: '100%',
+  multiple: true,
   // No option selected by default
   selected: []
 };
@@ -104,6 +107,9 @@ Dropdown.propTypes = {
 
   /** Array of options to select in the dropdown form */
   options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+
+  /** Allow multiple selections */
+  multiple: PropTypes.bool,
 
   /** Active option selection */
   selected: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
