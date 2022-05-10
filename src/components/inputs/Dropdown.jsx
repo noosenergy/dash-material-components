@@ -22,8 +22,8 @@ export default class Dropdown extends Component {
 
   buildDropdownSelect = (selected) => {
     return (
-      <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
-        {selected.forEach((option, i) => (
+      <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 1}}>
+        {selected.map((option, i) => (
           <Chip key={i} label={option} />
         ))}
       </Box>
