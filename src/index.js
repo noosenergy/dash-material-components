@@ -11,6 +11,7 @@ import Tab from './components/layout/Tab';
 // Inputs components: component props managed by Dash renderer
 import Calendar from './components/inputs/Calendar';
 import Dropdown from './components/inputs/Dropdown';
+import Slider from './components/inputs/Slider';
 import Toggle from './components/inputs/Toggle';
 
 // Display components: component state managed by Dash renderer
@@ -29,6 +30,7 @@ export {
   // Inputs
   Calendar,
   Dropdown,
+  Slider,
   Toggle,
   // Display
   Box,
