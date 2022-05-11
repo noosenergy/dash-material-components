@@ -28,3 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Webpack package export
 ### Added
  - data inputs components: calendar
+
+## [0.1.8] - 2022-05-11
+### Added
+ - layout components: card download
+ - data inputs components: slider

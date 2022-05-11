@@ -1,34 +1,22 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {Grid} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
-
 import Card from '../../fragments/Card';
-
-const styles = (theme) => ({
-  sectionInColumn: {
-    // Contain at max entire page length
-    maxHeight: '100%',
-    // Reset section element negative margins
-    margin: 0
-  },
-  sectionInRow: {
-    // Contain at max entire page width
-    maxWidth: '100%',
-    // Reset section element negative margins
-    margin: 0
-  }
-});
+import SectionGrid from '../../fragments/SectionGrid';
 
 /**
  * Section component
  * Dashboard > Page > Section
  */
-class Section extends Component {
+export default class Section extends Component {
+  handleSectionDownload = (event) => {
+    // Fire Dash-assigned callback
+    this.props.setProps({downloaded: this.props.downloaded + 1});
+  };
+
   render() {
     // props & state
-    const {classes, id, children, cards, size, orientation} = this.props;
+    const {id, children, cards, size, orientation} = this.props;
 
     // locals
     let cardElement;
@@ -44,6 +32,8 @@ class Section extends Component {
             title={cards[i].title}
             size={cards[i].size}
             orientation={orientation}
+            downloadable={cards[i].downloadable}
+            handleDownload={this.handleSectionDownload}
           >
             {child}
           </Card>
@@ -53,36 +43,27 @@ class Section extends Component {
       });
     }
 
-    // Fetch section content
-    const sectionSize = size == undefined ? true : size;
-    const sectionDirection = orientation == 'columns' ? 'row' : 'column';
-    const sectionLayout =
-      orientation == 'columns' ? classes.sectionInColumn : classes.sectionInRow;
-
+    // Pass-on props given incompatibility with MUI styles and Dash callbacks
     return (
-      <Grid
-        id={id}
-        item
-        xs={sectionSize}
-        container
-        spacing={2}
-        direction={sectionDirection}
-        className={`${sectionLayout}`}
-      >
+      <SectionGrid id={id} size={size} orientation={orientation}>
         {sectionElements}
-      </Grid>
+      </SectionGrid>
     );
   }
 }
 
 Section.defaultProps = {
   id: 'section',
-  orientation: 'rows'
+  orientation: 'rows',
+  downloaded: 0
 };
 
 Section.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,
+
+  /** Used to enable Dash-assigned component callback */
+  setProps: PropTypes.func,
 
   /** Used to render elements inside the component */
   children: PropTypes.node,
@@ -94,15 +75,19 @@ Section.propTypes = {
       title: PropTypes.string,
 
       /** Card size (0 < size <= 12) */
-      size: PropTypes.number
+      size: PropTypes.number,
+
+      /** Card dowloadable */
+      downloadable: PropTypes.bool
     })
   ),
+
+  /** Section container size (0 < size <= 12) */
+  size: PropTypes.number,
 
   /** Section general orientation (rows or columns) */
   orientation: PropTypes.oneOf(['columns', 'rows']),
 
-  /** Section container size (0 < size <= 12) */
-  size: PropTypes.number
+  /** Section download counter */
+  downloaded: PropTypes.number
 };
-
-export default withStyles(styles, {withTheme: true})(Section);
