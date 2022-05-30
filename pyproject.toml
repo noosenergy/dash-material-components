@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 # Description
 name = "dash-mdc-neptune"
-version = "0.1.8"
+version = "0.1.9"
 description = "Dash Material Design components for the Neptune platform."
 # Credentials
 license = "MIT"
@@ -39,17 +39,21 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
+matplotlib = "*"
 # Current incompatibility with jupyter-dash & django-plotly-dash
 # https://github.com/plotly/jupyter-dash/issues/75
 # https://github.com/GibbsConsulting/django-plotly-dash/issues/354
 dash = ">=1.15.0,<2.0.0"
-matplotlib = "*"
+# https://github.com/plotly/dash/issues/1992
+werkzeug = ">=2.0,<2.1"
 
 [tool.poetry.dev-dependencies]
 dash = { version = ">=1.15.0,<2.0.0", extras = ["dev", "testing"] }
 # Format
 isort = "*"
 black = {version = "*", allow-prereleases = true}
+# https://github.com/psf/black/issues/2976
+click = "<8.1.0"
 # Linter
 pydocstyle = "*"
 flake8 = "*"
@@ -71,3 +75,21 @@ sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 [tool.black]
 line-length = 99
 target_version = ['py38']
+
+[tool.mypy]
+install_types = true
+non_interactive = true
+incremental = true
+warn_unused_configs = true
+warn_unused_ignores = true
+check_untyped_defs = true
+warn_redundant_casts = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+python_files = "test_*.py"
+python_classes = "Test"
+python_functions = "test_*"
+junit_family = "xunit2"
+filterwarnings = "error::RuntimeWarning"
+addopts = "--headless --webdriver=Firefox --junitxml=pytest.xml"
