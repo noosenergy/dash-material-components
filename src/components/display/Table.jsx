@@ -14,7 +14,8 @@ export default class Table extends Component {
     this.state = {
       page: 0,
       rows: props.rows,
-      rowsPerPage: props.rowsPerPageOptions[0]
+//       rowsPerPage: props.rowsPerPageOptions[0]
+      rowsPerPage: props.rows.count
     };
   }
 
@@ -61,7 +62,7 @@ export default class Table extends Component {
 
 Table.defaultProps = {
   id: 'table',
-  rowsPerPageOptions: [10, 25, 50]
+  rowsPerPageOptions: 0
 };
 
 Table.propTypes = {
