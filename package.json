@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git://github.com/noosenergy/dash-mdc-neptune.git"
   },
-  "version": "0.1.9",
+  "version": "0.1.10",
   "engines": {
     "node": ">=16"
   },

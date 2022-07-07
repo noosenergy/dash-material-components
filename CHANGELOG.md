@@ -37,3 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.9] - 2022-05-30
 ### Changed
  - Pin Werkzeug version under release 2.1.0
+
+## [0.1.10] - 2022-07-07
+### Changed
+ - Tables can now use pagination but do not by default
