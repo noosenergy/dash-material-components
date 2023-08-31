@@ -91,5 +91,9 @@ python_files = "test_*.py"
 python_classes = "Test"
 python_functions = "test_*"
 junit_family = "xunit2"
-filterwarnings = "error::RuntimeWarning"
+filterwarnings = [
+    "error::RuntimeWarning",
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning"
+]
 addopts = "--headless --webdriver=Firefox --junitxml=pytest.xml"
