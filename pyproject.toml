@@ -45,10 +45,11 @@ matplotlib = "*"
 # https://github.com/GibbsConsulting/django-plotly-dash/issues/354
 dash = ">=1.15.0,<2.0.0"
 # https://github.com/plotly/dash/issues/1992
-werkzeug = ">=2.0,<2.1"
+werkzeug = "2.0.1"
 
 [tool.poetry.dev-dependencies]
 dash = { version = ">=1.15.0,<2.0.0", extras = ["dev", "testing"] }
+selenium = "<=4.2.0" # Upper versions require Dash v2.**
 # Format
 isort = "*"
 black = {version = "*", allow-prereleases = true}
