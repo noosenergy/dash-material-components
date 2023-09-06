@@ -64,17 +64,18 @@ ipython = "*"
 jupyterlab = "*"
 jupyter-dash = "*"
 
-[tool.isort]
-line_length = 99
-multi_line_output = 3
-lines_after_imports = 2
-default_section = "THIRDPARTY"
-known_first_party = "dash_mdc_neptune"
-sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
-
 [tool.black]
 line-length = 99
 target_version = ['py38']
+
+[tool.isort]
+line_length = 99
+profile = "black"
+multi_line_output = 3
+lines_after_imports = 2
+default_section = "THIRDPARTY"
+known_first_party = "dash_mdc_neptune,tests"
+sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 
 [tool.mypy]
 install_types = true
@@ -96,4 +97,4 @@ filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::UserWarning"
 ]
-addopts = "--headless --webdriver=Firefox --junitxml=pytest.xml"
+addopts = "--headless --webdriver=Firefox --junitxml=.pytest_results/junit.xml"
