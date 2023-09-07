@@ -39,7 +39,6 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-matplotlib = "*"
 # Current incompatibility with jupyter-dash & django-plotly-dash
 # https://github.com/plotly/jupyter-dash/issues/75
 # https://github.com/GibbsConsulting/django-plotly-dash/issues/354

@@ -1,3 +1,3 @@
 # flake8: noqa
-from . import matplotlib, plotly
+from . import plotly
 from .base import *

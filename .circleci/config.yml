@@ -1,21 +1,25 @@
 ---
 version: 2.1
 
+filters: &release-filters
+  filters:
+    tags:
+      only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
+    branches:
+      ignore: /.*/
+
 # ----------------
 # Orbs declaration
 # ----------------
 
 orbs:
-
   noos-ci: noosenergy/noos-ci@0.1.17
-
 
 # --------------
 # Pipeline tasks
 # --------------
 
 jobs:
-
   lint_package:
     executor:
       name: noos-ci/default
@@ -62,6 +66,8 @@ jobs:
           pkg_manager: poetry
           install_args: --no-ansi --with dev
           tests_directory: ./tests
+      - store_test_results:
+          path: '.pytest_results'
 
   build_wheel:
     executor:
@@ -88,13 +94,11 @@ jobs:
           pkg_manager: poetry
           install_args: --no-ansi --with dev
 
-
 # -----------------
 # Pipeline workflow
 # -----------------
 
 workflows:
-
   version: 2
 
   lint_test_build:
@@ -116,26 +120,13 @@ workflows:
     jobs:
       - approve_for_publishing:
           type: approval
-          filters:
-            tags:
-              # ONLY git tag compliant format: e.g. `0.0.1-alpha.01`
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
+          <<: *release-filters
       - build_library:
           requires:
             - approve_for_publishing
-          filters:
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
+          <<: *release-filters
       - publish_wheel:
           context: PYPI_SHARED
           requires:
             - build_library
-          filters:
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
+          <<: *release-filters
