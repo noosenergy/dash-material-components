@@ -31,10 +31,12 @@ geckodriver.log
 .env
 
 # IDE
-.vscode
 .idea
 
 # MacOS
 .DS_Store
 .localized
 *~
+
+# Pyenv
+.python-version

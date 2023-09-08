@@ -51,7 +51,7 @@ dash = { version = ">=1.15.0,<2.0.0", extras = ["dev", "testing"] }
 selenium = "<=4.2.0" # Upper versions require Dash v2.**
 # Format
 isort = "*"
-black = {version = "*", allow-prereleases = true}
+black = "*"
 # https://github.com/psf/black/issues/2976
 click = "<8.1.0"
 # Linter
