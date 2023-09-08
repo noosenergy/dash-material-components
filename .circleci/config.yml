@@ -1,45 +1,52 @@
 ---
 version: 2.1
 
+filters: &release-filters
+  filters:
+    tags:
+      only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
+    branches:
+      ignore: /.*/
+
 # ----------------
 # Orbs declaration
 # ----------------
 
 orbs:
-
-  noos-ci: noosenergy/noos-ci@0.1.14
-
+  noos-ci: noosenergy/noos-ci@0.1.17
 
 # --------------
 # Pipeline tasks
 # --------------
 
 jobs:
-
-  lint-package:
-    executor: noos-ci/default
+  lint_package:
+    executor:
+      name: noos-ci/default
     steps:
       - checkout
-      - noos-ci/python-lint-package:
-          pkg-manager: poetry
-          install-args: ''
-          src-directory: ./dash_mdc_neptune
+      - noos-ci/python_lint_package:
+          pkg_manager: poetry
+          install_args: --no-ansi --with dev
+          src_directory: ./dash_mdc_neptune
 
-  lint-library:
-    executor: noos-ci/default
+  lint_library:
+    executor:
+      name: noos-ci/default
     steps:
       - checkout
       - run:
           name: Lint JavaScript library
           command: yarn install && yarn lint
 
-  build-library:
-    executor: noos-ci/default
+  build_library:
+    executor:
+      name: noos-ci/default
     steps:
       - checkout
-      - noos-ci/python-configure-venv:
-          pkg-manager: poetry
-          install-args: ''
+      - noos-ci/python_configure_venv:
+          pkg_manager: poetry
+          install_args: --no-ansi --with dev
       - run:
           name: Build JavaScript library
           command: yarn install && yarn build
@@ -48,88 +55,78 @@ jobs:
           paths:
             - dash_mdc_neptune
 
-  test-package:
-    executor: noos-ci/default
+  test_package:
+    executor:
+      name: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
           at: .
-      - noos-ci/python-test-package:
-          pkg-manager: poetry
-          install-args: ''
-          tests-directory: ./tests
+      - noos-ci/python_test_package:
+          pkg_manager: poetry
+          install_args: --no-ansi --with dev
+          tests_directory: ./tests
+      - store_test_results:
+          path: '.pytest_results'
 
-  build-wheel:
-    executor: noos-ci/default
+  build_wheel:
+    executor:
+      name: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
           at: .
-      - noos-ci/python-build-wheel:
-          pkg-manager: poetry
-          install-args: ''
+      - noos-ci/python_build_wheel:
+          pkg_manager: poetry
+          install_args: --no-ansi --with dev
       - store_artifacts:
           path: dist
           destination: wheel
 
-  publish-wheel:
-    executor: noos-ci/default
+  publish_wheel:
+    executor:
+      name: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
           at: .
-      - noos-ci/python-publish-wheel:
-          pkg-manager: poetry
-          install-args: ''
-
+      - noos-ci/python_publish_wheel:
+          pkg_manager: poetry
+          install_args: --no-ansi --with dev
 
 # -----------------
 # Pipeline workflow
 # -----------------
 
 workflows:
-
   version: 2
 
-  lint-test-build:
+  lint_test_build:
     jobs:
-      - lint-library
-      - build-library:
+      - lint_library
+      - build_library:
           requires:
-            - lint-library
-      - lint-package
-      - test-package:
+            - lint_library
+      - lint_package
+      - test_package:
           requires:
-            - build-library
-      - build-wheel:
+            - build_library
+      - build_wheel:
           requires:
-            - lint-package
-            - test-package
+            - lint_package
+            - test_package
 
   publish:
     jobs:
-      - approve-for-publishing:
+      - approve_for_publishing:
           type: approval
-          filters:
-            tags:
-              # ONLY git tag compliant format: e.g. `0.0.1-alpha.01`
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
-      - build-library:
+          <<: *release-filters
+      - build_library:
           requires:
-            - approve-for-publishing
-          filters:
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
-      - publish-wheel:
+            - approve_for_publishing
+          <<: *release-filters
+      - publish_wheel:
           context: PYPI_SHARED
           requires:
-            - build-library
-          filters:
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
+            - build_library
+          <<: *release-filters

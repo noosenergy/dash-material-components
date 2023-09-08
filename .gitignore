@@ -18,7 +18,7 @@ pip-wheel-metadata
 
 # PyTest
 .pytest_cache
-pytest.xml
+.pytest_results
 geckodriver.log
 
 # MyPy
@@ -31,10 +31,12 @@ geckodriver.log
 .env
 
 # IDE
-.vscode
 .idea
 
 # MacOS
 .DS_Store
 .localized
 *~
+
+# Pyenv
+.python-version

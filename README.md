@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/noosenergy/dash-mdc-neptune.svg?style=svg&circle-token=0134ed9704956581fc9555a112f6ee9276a1c80a)](https://circleci.com/gh/noosenergy/dash-mdc-neptune)
+[![CircleCI](https://circleci.com/gh/noosenergy/dash-mdc-neptune.svg?style=svg&circle-token=6388fe0ebfc51208a8aec58b00e40edbb6a60724)](https://circleci.com/gh/noosenergy/dash-mdc-neptune)
 
 # Dash Material Design Components
 
