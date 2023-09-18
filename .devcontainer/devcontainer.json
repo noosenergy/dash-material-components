@@ -8,7 +8,7 @@
 	],
 
 	// Docker image setup
-	"image": "noosenergy/circleci",
+	"image": "noosenergy/circleci:3.11.4",
 	"workspaceMount": "source=${localWorkspaceFolder},target=/home/circleci/project,type=bind,consistency=cached",
 	"workspaceFolder": "/home/circleci/project",
 	// Text editor setup

@@ -23,6 +23,7 @@ jobs:
   lint_package:
     executor:
       name: noos-ci/default
+      tag: 3.11.4
     steps:
       - checkout
       - noos-ci/python_lint_package:
@@ -33,6 +34,7 @@ jobs:
   lint_library:
     executor:
       name: noos-ci/default
+      tag: 3.11.4
     steps:
       - checkout
       - run:
@@ -42,6 +44,7 @@ jobs:
   build_library:
     executor:
       name: noos-ci/default
+      tag: 3.11.4
     steps:
       - checkout
       - noos-ci/python_configure_venv:
@@ -58,6 +61,7 @@ jobs:
   test_package:
     executor:
       name: noos-ci/default
+      tag: 3.11.4
     steps:
       - checkout
       - attach_workspace:
@@ -72,6 +76,7 @@ jobs:
   build_wheel:
     executor:
       name: noos-ci/default
+      tag: 3.11.4
     steps:
       - checkout
       - attach_workspace:
@@ -86,6 +91,7 @@ jobs:
   publish_wheel:
     executor:
       name: noos-ci/default
+      tag: 3.11.4
     steps:
       - checkout
       - attach_workspace:
