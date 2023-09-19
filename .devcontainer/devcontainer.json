@@ -1,35 +1,33 @@
 // Config documentation:
 // https://containers.dev/implementors/json_reference/
 {
-	"name": "dash-mdc-neptune",
-	"runArgs": [
-	  "--name",
-	  "dash-mdc-neptune_devcontainer"
-	],
-
-	// Docker image setup
-	"image": "noosenergy/circleci:3.11.4",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/home/circleci/project,type=bind,consistency=cached",
-	"workspaceFolder": "/home/circleci/project",
-	// Text editor setup
-	"customizations": {
-		"vscode": {
-			"extensions": [
-			"EditorConfig.EditorConfig",
-			"redhat.vscode-yaml",
-			"redhat.vscode-commons",
-			"DavidAnson.vscode-markdownlint",
-			"ms-python.python",
-			"ms-python.isort",
-			"ms-toolsai.jupyter",
-			"ms-toolsai.jupyter-keymap",
-			"ms-toolsai.jupyter-renderers"
-			],
-			"settings": {
-			"python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
-			}
-		}
-	},
-
-	"onCreateCommand": "poetry install --with dev"
-  }
+  "name": "dash-mdc-neptune",
+  "runArgs": [
+    "--name",
+    "dash-mdc-neptune_devcontainer"
+  ],
+  // Docker image setup
+  "image": "noosenergy/circleci",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/circleci/project,type=bind,consistency=cached",
+  "workspaceFolder": "/home/circleci/project",
+  // Text editor setup
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "redhat.vscode-yaml",
+        "redhat.vscode-commons",
+        "DavidAnson.vscode-markdownlint",
+        "ms-python.python",
+        "ms-python.isort",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
+      }
+    }
+  },
+  "onCreateCommand": "poetry install --with dev"
+}
