@@ -1,12 +1,16 @@
 ---
 version: 2.1
 
-filters: &release-filters
-  filters:
-    tags:
-      only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-    branches:
-      ignore: /.*/
+default:
+  install: &poetry_install
+    pkg_manager: poetry
+    install_args: --no-ansi --with dev
+  filter: &release_filters
+    filters:
+      tags:
+        only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
+      branches:
+        ignore: /.*/
 
 # ----------------
 # Orbs declaration
@@ -27,9 +31,8 @@ jobs:
     steps:
       - checkout
       - noos-ci/python_lint_package:
-          pkg_manager: poetry
-          install_args: --no-ansi --with dev
           src_directory: ./dash_mdc_neptune
+          <<: *poetry_install
 
   lint_library:
     executor:
@@ -48,8 +51,7 @@ jobs:
     steps:
       - checkout
       - noos-ci/python_configure_venv:
-          pkg_manager: poetry
-          install_args: --no-ansi --with dev
+          <<: *poetry_install
       - run:
           name: Build JavaScript library
           command: yarn install && yarn build
@@ -67,11 +69,10 @@ jobs:
       - attach_workspace:
           at: .
       - noos-ci/python_test_package:
-          pkg_manager: poetry
-          install_args: --no-ansi --with dev
           tests_directory: ./tests
+          <<: *poetry_install
       - store_test_results:
-          path: '.pytest_results'
+          path: ".pytest_results"
 
   build_wheel:
     executor:
@@ -82,8 +83,7 @@ jobs:
       - attach_workspace:
           at: .
       - noos-ci/python_build_wheel:
-          pkg_manager: poetry
-          install_args: --no-ansi --with dev
+          <<: *poetry_install
       - store_artifacts:
           path: dist
           destination: wheel
@@ -97,8 +97,7 @@ jobs:
       - attach_workspace:
           at: .
       - noos-ci/python_publish_wheel:
-          pkg_manager: poetry
-          install_args: --no-ansi --with dev
+          <<: *poetry_install
 
 # -----------------
 # Pipeline workflow
@@ -126,13 +125,13 @@ workflows:
     jobs:
       - approve_for_publishing:
           type: approval
-          <<: *release-filters
+          <<: *release_filters
       - build_library:
           requires:
             - approve_for_publishing
-          <<: *release-filters
+          <<: *release_filters
       - publish_wheel:
           context: PYPI_SHARED
           requires:
             - build_library
-          <<: *release-filters
+          <<: *release_filters
