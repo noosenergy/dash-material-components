@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 # Description
 name = "dash-mdc-neptune"
-version = "0.2.0"
+version = "0.3.0"
 description = "Dash Material Design components for the Neptune platform."
 # Credentials
 license = "MIT"
@@ -33,27 +33,24 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.11",
     "Typing :: Typed",
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.11"
 # Current incompatibility with jupyter-dash & django-plotly-dash
-# https://github.com/plotly/jupyter-dash/issues/75
 # https://github.com/GibbsConsulting/django-plotly-dash/issues/354
-dash = ">=1.15.0,<2.0.0"
-# https://github.com/plotly/dash/issues/1992
-werkzeug = "2.0.1"
+# https://github.com/GibbsConsulting/django-plotly-dash/blob/master/requirements.txt
+dash = ">=2.0,<2.10"
 
 [tool.poetry.dev-dependencies]
-dash = { version = ">=1.15.0,<2.0.0", extras = ["dev", "testing"] }
-selenium = "<=4.2.0" # Upper versions require Dash v2.**
+dash = { version = "*", extras = ["dev", "testing"] }
+selenium = "*"
 # Format
 isort = "*"
 black = "*"
-# https://github.com/psf/black/issues/2976
-click = "<8.1.0"
+click = "*"
 # Linter
 pydocstyle = "*"
 flake8 = "*"
@@ -66,7 +63,7 @@ jupyter-dash = "*"
 
 [tool.black]
 line-length = 99
-target_version = ['py38']
+target_version = ['py311']
 
 [tool.isort]
 line_length = 99
