@@ -39,8 +39,6 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
-# Current incompatibility with jupyter-dash & django-plotly-dash
-# https://github.com/GibbsConsulting/django-plotly-dash/issues/354
 # https://github.com/GibbsConsulting/django-plotly-dash/blob/master/requirements.txt
 dash = ">=2.0,<2.10"
 
@@ -50,7 +48,6 @@ selenium = "*"
 # Format
 isort = "*"
 black = "*"
-click = "*"
 # Linter
 pydocstyle = "*"
 flake8 = "*"
