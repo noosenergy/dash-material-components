@@ -15,6 +15,7 @@ import Slider from './components/inputs/Slider';
 import Toggle from './components/inputs/Toggle';
 
 // Display components: component state managed by Dash renderer
+import Alert from './components/display/Alert';
 import Box from './components/display/Box';
 import Table from './components/display/Table';
 import Typography from './components/display/Typography';
@@ -33,6 +34,7 @@ export {
   Slider,
   Toggle,
   // Display
+  Alert,
   Box,
   Table,
   Typography
