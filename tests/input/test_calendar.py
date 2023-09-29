@@ -2,8 +2,7 @@ import datetime as dt
 from typing import Any, Callable, Dict, Optional
 
 import pytest
-from dash import Dash
-from dash.dependencies import Input, Output
+from dash import Dash, Input, Output
 
 import dash_mdc_neptune as mdc
 
