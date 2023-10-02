@@ -81,6 +81,7 @@ const Sidebar = (props) => {
         size="medium"
         color="primary"
         className={classes.fabLayout}
+        id="sidebar-toggle"
       >
         <Settings />
       </Fab>
@@ -95,7 +96,7 @@ const Sidebar = (props) => {
           {title}
         </Typography>
         <Tooltip title="Close sidebar">
-          <IconButton color="inherit" onClick={handleDrawerClose}>
+          <IconButton id="close-sidebar-chevron" color="inherit" onClick={handleDrawerClose}>
             <ChevronLeft />
           </IconButton>
         </Tooltip>

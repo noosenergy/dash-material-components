@@ -25,13 +25,20 @@ const Tab = (props) => {
     setSelectedTab(value);
   };
 
-  const tabElements = children.map((child, i) => <MuiTab key={i} label={tabs[i].label} />);
+  let tabElements = [];
+  let tabpanelElements = [];
 
-  const tabpanelElements = children.map((child, i) => (
-    <TabPanel key={i} value={selectedTab} index={i}>
-      {child}
-    </TabPanel>
-  ));
+  // Fetch cards or tabs
+  if (children) {
+    React.Children.forEach(children, (child, i) => {
+      tabpanelElements.push(
+        <TabPanel key={i} value={selectedTab} index={i}>
+          {child}
+        </TabPanel>
+      );
+      tabElements.push(<MuiTab key={i} label={tabs[i].label} />);
+    });
+  }
 
   return (
     <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
