@@ -1,59 +1,48 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-
 import {Box} from '@material-ui/core';
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
 
 /**
  * Toggle component
  */
-export default class Toggle extends Component {
-  constructor(props) {
-    super(props);
-    // First option selected by default if no default provided
-    const {options, selected} = this.props;
-    this.props.selected = selected === undefined ? options[0] : selected;
+const Toggle = (props) => {
+  // First option selected by default if no default provided
+  const {options, selected} = props;
+  if (selected === undefined) {
+    props.setProps({selected: options[0]});
   }
 
-  handleToggleChange = (event, value) => {
+  const handleToggleChange = (event, value) => {
     // Enforce at least one active selection
     if (value !== null) {
       // Fire Dash-assigned callback
-      this.props.setProps({selected: value});
+      props.setProps({selected: value});
     }
   };
 
-  render() {
-    // props & state
-    const {id, options, orientation, selected} = this.props;
+  // Fetch toggle buttons
+  const toggleElements = options.map((option, i) => (
+    <ToggleButton key={i} value={option}>
+      {option}
+    </ToggleButton>
+  ));
 
-    // locals
-    let toggleElements = [];
-    const toggleControls = {
-      value: selected,
-      exclusive: true,
-      onChange: this.handleToggleChange
-    };
-
-    // Fetch toggle buttons
-    options.forEach((option, i) => {
-      toggleElements.push(
-        <ToggleButton key={i} value={option}>
-          {option}
-        </ToggleButton>
-      );
-    });
-
-    // Render toggle group
-    return (
-      <Box id={id} m={2}>
-        <ToggleButtonGroup size="small" orientation={orientation} {...toggleControls}>
-          {toggleElements}
-        </ToggleButtonGroup>
-      </Box>
-    );
-  }
-}
+  // Render toggle group
+  return (
+    <Box id={props.id} m={2}>
+      <ToggleButtonGroup
+        size="small"
+        orientation={props.orientation}
+        value={selected}
+        exclusive
+        onChange={handleToggleChange}
+      >
+        {toggleElements}
+      </ToggleButtonGroup>
+    </Box>
+  );
+};
 
 Toggle.defaultProps = {
   id: 'toggle',
@@ -76,3 +65,5 @@ Toggle.propTypes = {
   /** Selected toggle index */
   selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
+
+export default Toggle;

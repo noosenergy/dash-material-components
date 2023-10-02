@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import {Box, Grid} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
@@ -17,23 +17,21 @@ const styles = (theme) => ({
  * Page component, used to wrap section and card components
  * Dashboard > Page
  */
-class Page extends Component {
-  render() {
-    const {classes, id, children, orientation} = this.props;
+const Page = (props) => {
+  const {classes, id, children, orientation} = props;
 
-    // Variables
-    const pageDirection = orientation == 'columns' ? 'row' : 'column';
+  // Variables
+  const pageDirection = orientation == 'columns' ? 'row' : 'column';
 
-    // Configure flex versus parent container
-    return (
-      <Box id={id} sx={{flexGrow: 1}}>
-        <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
-          {children}
-        </Grid>
-      </Box>
-    );
-  }
-}
+  // Configure flex versus parent container
+  return (
+    <Box id={id} sx={{flexGrow: 1}}>
+      <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
+        {children}
+      </Grid>
+    </Box>
+  );
+};
 
 Page.defaultProps = {
   id: 'page',

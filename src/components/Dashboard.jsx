@@ -9,21 +9,19 @@ import ThemeProvider from '../utils/ThemeProvider';
  * Main dasboard component, initializing a Material UI theme
  * https://mui.com/customization/theming/
  */
-export default class Dashboard extends Component {
-  render() {
-    const {id, children, height} = this.props;
+const Dashboard = (props) => {
+  const {id, children, height} = props;
 
-    // Enforce and reset a MUI-theme on the entire page
-    // And display a dashboard on a full screen width
-    return (
-      <ThemeProvider>
-        <Box id={id} sx={{display: 'flex', flexDirection: 'column', height: height}}>
-          {children}
-        </Box>
-      </ThemeProvider>
-    );
-  }
-}
+  // Enforce and reset a MUI-theme on the entire page
+  // And display a dashboard on a full screen width
+  return (
+    <ThemeProvider>
+      <Box id={id} sx={{display: 'flex', flexDirection: 'column', height: height}}>
+        {children}
+      </Box>
+    </ThemeProvider>
+  );
+};
 
 Dashboard.defaultProps = {
   id: 'dashboard',
@@ -40,3 +38,5 @@ Dashboard.propTypes = {
   /** Dashboard window height */
   height: PropTypes.string
 };
+
+export default Dashboard;

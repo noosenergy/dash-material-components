@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Box,
   Chip,
@@ -14,15 +13,17 @@ import {
 /**
  * Dropdown component
  */
-export default class Dropdown extends Component {
-  handleDropdownChange = (event) => {
+const Dropdown = (props) => {
+  const {id, labelText, helperText, width, options, multiple, selected} = props;
+
+  const handleDropdownChange = (event) => {
     // Enforce selection to be an array in all cases
     const selected = event.target.value;
     // Fire Dash-assigned callback
-    this.props.setProps({selected: this.props.multiple ? selected : [selected]});
+    props.setProps({selected: multiple ? selected : [selected]});
   };
 
-  buildDropdownSelect = (selected) => {
+  const buildDropdownSelect = (selected) => {
     return (
       <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 1}}>
         {selected.map((option, i) => (
@@ -32,54 +33,51 @@ export default class Dropdown extends Component {
     );
   };
 
-  render() {
-    // props & state
-    const {id, labelText, helperText, width, options, multiple, selected} = this.props;
+  // locals
+  let menuLabel;
+  let menuHelper;
+  let menuElements = [];
 
-    // locals
-    let menuLabel;
-    let menuHelper;
-    let menuElements = [];
-    const menuControls = {
-      value: selected,
-      multiple: multiple,
-      onChange: this.handleDropdownChange,
-      renderValue: this.buildDropdownSelect
-    };
-
-    // Fetch menu header
-    if (labelText) {
-      menuLabel = <InputLabel id={`${id}-label`}>{labelText}</InputLabel>;
-    }
-
-    // Fetch menu footer
-    if (helperText) {
-      menuHelper = <FormHelperText>{helperText}</FormHelperText>;
-    }
-
-    // Fetch menu items
-    options.forEach((option, i) => {
-      menuElements.push(
-        <MenuItem key={i} value={option}>
-          {option}
-        </MenuItem>
-      );
-    });
-
-    // Render form control
-    return (
-      <Box id={id} m={2} width={width}>
-        <FormControl variant="outlined" fullWidth>
-          {menuLabel ? menuLabel : null}
-          <Select labelId={`${id}-label`} label={labelText} id={`${id}-select`} {...menuControls}>
-            {menuElements}
-          </Select>
-          {menuHelper ? menuHelper : null}
-        </FormControl>
-      </Box>
-    );
+  // Fetch menu header
+  if (labelText) {
+    menuLabel = <InputLabel id={`${id}-label`}>{labelText}</InputLabel>;
   }
-}
+
+  // Fetch menu footer
+  if (helperText) {
+    menuHelper = <FormHelperText>{helperText}</FormHelperText>;
+  }
+
+  // Fetch menu items
+  options.forEach((option, i) => {
+    menuElements.push(
+      <MenuItem key={i} value={option}>
+        {option}
+      </MenuItem>
+    );
+  });
+
+  // Configure menu controls
+  const menuControls = {
+    value: selected,
+    multiple: multiple,
+    onChange: handleDropdownChange,
+    renderValue: buildDropdownSelect
+  };
+
+  // Render form control
+  return (
+    <Box id={id} m={2} width={width}>
+      <FormControl variant="outlined" fullWidth>
+        {menuLabel ? menuLabel : null}
+        <Select labelId={`${id}-label`} label={labelText} id={`${id}-select`} {...menuControls}>
+          {menuElements}
+        </Select>
+        {menuHelper ? menuHelper : null}
+      </FormControl>
+    </Box>
+  );
+};
 
 Dropdown.defaultProps = {
   id: 'select',
@@ -114,3 +112,5 @@ Dropdown.propTypes = {
   /** Active option selection */
   selected: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
 };
+
+export default Dropdown;

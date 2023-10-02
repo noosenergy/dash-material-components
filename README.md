@@ -126,14 +126,14 @@ The corresponding Python component API is auto-discovered from the React compone
 
 ```javascript
 /** Used to auto-generate the Python component and docstrings */
-export default class NeptuneComponent extends Component {
-  render() {
-    const {text} = this.props;
+function NeptuneComponent(props) {
+    const {text} = props;
 
-    return <div>
-             <p>{text}</p>
-           </div>;
-  }
+    return (
+        <div>
+            <p>{text}</p>
+        </div>
+    );
 }
 
 Box.defaultProps = {
@@ -144,6 +144,8 @@ Box.propTypes = {
   /** Used to auto-generate the Python component and docstrings */
   text: PropTypes.string,
 };
+
+export default NeptuneComponent;
 ```
 
 > :heavy_exclamation_mark: Be careful to use the correct formatting for your docstrings for them to be properly recognized.

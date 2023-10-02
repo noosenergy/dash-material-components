@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -12,24 +11,21 @@ const styles = (theme) => ({
   }
 });
 
-// directly from https://mui.com/components/tabs/
-class TabPanel extends Component {
-  render() {
-    const {classes, children, value, index} = this.props;
+const TabPanel = (props) => {
+  const {classes, children, value, index} = props;
 
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`tabpanel-${index}`}
-        aria-labelledby={`card-tabpanel-${index}`}
-        className={classes.tabpanelLayout}
-      >
-        {value === index && <div className={classes.tabpanelContentLayout}>{children}</div>}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`card-tabpanel-${index}`}
+      className={classes.tabpanelLayout}
+    >
+      {value === index && <div className={classes.tabpanelContentLayout}>{children}</div>}
+    </div>
+  );
+};
 
 TabPanel.propTypes = {
   children: PropTypes.node,

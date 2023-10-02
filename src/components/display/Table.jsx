@@ -1,63 +1,50 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-
 import {Box, Table as MuiTable, TableContainer, TablePagination} from '@material-ui/core';
-
 import {TableBody, TableHead} from '../../fragments/TableContent';
 
 /**
  * Table component
  */
-export default class Table extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 0,
-      rows: props.rows,
-      rowsPerPage: props.rowsPerPageOptions[0]
-    };
-  }
+const Table = (props) => {
+  const {id, columns, rowsPerPageOptions, rows} = props;
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
-  handlePageChange = (event, value) => {
-    this.setState({page: value});
+  // Make sure state remain in sync with received props
+  useEffect(() => {
+    props.setProps({rows: rows});
+  }, [rows]);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
   };
 
-  handleRowsPerPageChange = (event) => {
-    this.setState({rowsPerPage: parseInt(event.target.value, 10)});
-    this.setState({page: 0});
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
-  UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
-    // Make sure state remain in sync with received props
-    if (nextProps.rows !== this.state.rows) this.setState({rows: nextProps.rows});
-  };
-
-  render() {
-    // props & state
-    const {id, columns, rowsPerPageOptions} = this.props;
-    let {page, rows, rowsPerPage} = this.state;
-
-    return (
-      <Box id={id}>
-        <TableContainer sx={{height: '100%'}}>
-          <MuiTable stickyHeader size="small" aria-label="data table">
-            <TableHead columns={columns} />
-            <TableBody rows={rows} page={page} rowsPerPage={rowsPerPage} />
-          </MuiTable>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={rowsPerPageOptions}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={this.handlePageChange}
-          onRowsPerPageChange={this.handleRowsPerPageChange}
-        />
-      </Box>
-    );
-  }
-}
+  return (
+    <Box id={id}>
+      <TableContainer sx={{height: '100%'}}>
+        <MuiTable stickyHeader size="small" aria-label="data table">
+          <TableHead columns={columns} />
+          <TableBody rows={rows} page={page} rowsPerPage={rowsPerPage} />
+        </MuiTable>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={rowsPerPageOptions}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
+    </Box>
+  );
+};
 
 Table.defaultProps = {
   id: 'table',
@@ -87,3 +74,5 @@ Table.propTypes = {
   /** Table pagination setting */
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
 };
+
+export default Table;

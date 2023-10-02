@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import {Grid} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import {Grid, withStyles} from '@material-ui/core';
 
 const styles = (theme) => ({
   sectionInColumn: {
@@ -19,32 +17,29 @@ const styles = (theme) => ({
   }
 });
 
-class SectionGrid extends Component {
-  render() {
-    // props & state
-    const {classes, id, children, size, orientation} = this.props;
+const SectionGrid = (props) => {
+  // props & state
+  const {classes, id, children, size, orientation} = props;
 
-    // Fetch section content
-    const sectionSize = size == undefined ? true : size;
-    const sectionDirection = orientation == 'columns' ? 'row' : 'column';
-    const sectionLayout =
-      orientation == 'columns' ? classes.sectionInColumn : classes.sectionInRow;
+  // Fetch section content
+  const sectionSize = size == undefined ? true : size;
+  const sectionDirection = orientation == 'columns' ? 'row' : 'column';
+  const sectionLayout = orientation == 'columns' ? classes.sectionInColumn : classes.sectionInRow;
 
-    return (
-      <Grid
-        id={id}
-        item
-        xs={sectionSize}
-        container
-        spacing={2}
-        direction={sectionDirection}
-        className={`${sectionLayout}`}
-      >
-        {children}
-      </Grid>
-    );
-  }
-}
+  return (
+    <Grid
+      id={id}
+      item
+      xs={sectionSize}
+      container
+      spacing={2}
+      direction={sectionDirection}
+      className={`${sectionLayout}`}
+    >
+      {children}
+    </Grid>
+  );
+};
 
 SectionGrid.defaultProps = {
   id: 'section',

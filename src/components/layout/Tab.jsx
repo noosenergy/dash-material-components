@@ -1,9 +1,7 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-
 import {Grid, Tab as MuiTab, Tabs} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
-
 import TabPanel from '../../fragments/TabPanel';
 
 const styles = (theme) => ({
@@ -18,57 +16,41 @@ const styles = (theme) => ({
  * Dashboard > Page > Section > Card > Tab
  * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
-class Tab extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {selectedTab: 0};
-  }
+const Tab = (props) => {
+  const {classes, id, children, tabs} = props;
+  const [selectedTab, setSelectedTab] = useState(0);
 
-  handleTabChange = (event, value) => {
-    this.setState({selectedTab: value});
+  const handleTabChange = (event, value) => {
+    setSelectedTab(value);
   };
 
-  render() {
-    // props & state
-    const {classes, id, children, tabs} = this.props;
-    let {selectedTab} = this.state;
+  const tabElements = children.map((child, i) => <MuiTab key={i} label={tabs[i].label} />);
 
-    // locals
-    let tabElements = [];
-    let tabpanelElements = [];
+  const tabpanelElements = children.map((child, i) => (
+    <TabPanel key={i} value={selectedTab} index={i}>
+      {child}
+    </TabPanel>
+  ));
 
-    // Fetch cards or tabs
-    if (children) {
-      React.Children.forEach(children, (child, i) => {
-        tabpanelElements.push(
-          <TabPanel key={i} value={selectedTab} index={i}>
-            {child}
-          </TabPanel>
-        );
-        tabElements.push(<MuiTab key={i} label={tabs[i].label} />);
-      });
-    }
-
-    return (
-      <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
-        <Grid
-          item
-          component={Tabs}
-          value={selectedTab}
-          onChange={this.handleTabChange}
-          indicatorColor="primary"
-          aria-label="card-tabs"
-          selectionFollowsFocus
-        >
-          {tabElements}
-        </Grid>
-        <Grid item xs>
-          {tabpanelElements}
-        </Grid>
+  return (
+    <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
+      <Grid
+        item
+        component={Tabs}
+        value={selectedTab}
+        onChange={handleTabChange}
+        indicatorColor="primary"
+        aria-label="card-tabs"
+        selectionFollowsFocus
+      >
+        {tabElements}
       </Grid>
-    );
-  }
-}
+      <Grid item xs>
+        {tabpanelElements}
+      </Grid>
+    </Grid>
+  );
+};
 
 Tab.defaultProps = {
   id: 'tab'

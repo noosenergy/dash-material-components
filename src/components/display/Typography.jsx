@@ -1,38 +1,32 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-
 import {Box, Typography as MuiTypography} from '@material-ui/core';
 
 /**
  * Typography component from Material UI
  * https://mui.com/components/typography/
  */
-export default class Typography extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {text: props.text};
-  }
+const Typography = (props) => {
+  const {id, component, variant, text: initialText} = props;
+  const [text, setText] = useState(initialText);
+  const prevPropsRef = useRef(props);
 
-  UNSAFE_componentWillReceiveProps = (nextProps, nextContent) => {
-    // Make sure state remain in sync with received props
-    if (nextProps.text !== this.state.text) this.setState({text: nextProps.text});
-  };
+  useEffect(() => {
+    if (prevPropsRef.current.text !== props.text) {
+      setText(props.text);
+    }
+    prevPropsRef.current = props;
+  });
 
-  render() {
-    // Props & state
-    const {id, component, variant} = this.props;
-    let {text} = this.state;
-
-    // Render text
-    return (
-      <Box id={id}>
-        <MuiTypography component={component} variant={variant} gutterBottom>
-          {text}
-        </MuiTypography>
-      </Box>
-    );
-  }
-}
+  // Render text
+  return (
+    <Box id={id}>
+      <MuiTypography component={component} variant={variant} gutterBottom>
+        {text}
+      </MuiTypography>
+    </Box>
+  );
+};
 
 Typography.defaultProps = {
   id: 'text',
@@ -50,9 +44,11 @@ Typography.propTypes = {
   /** Typography HTML node type */
   component: PropTypes.string,
 
-  /** Typography MUI style type */
+  /** Typography variant */
   variant: PropTypes.string,
 
-  /** Typography text content */
-  text: PropTypes.string
+  /** Text to display */
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
+
+export default Typography;

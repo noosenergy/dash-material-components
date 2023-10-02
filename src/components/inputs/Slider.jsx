@@ -1,52 +1,46 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
 import {Box, FormControl, FormLabel, Slider as MuiSlider} from '@material-ui/core';
 
 /**
  * Slider component
  */
-export default class Slider extends Component {
-  handleSliderChange = (event, value) => {
+const Slider = (props) => {
+  const {id, labelText, width, minValue, maxValue, stepValue, marks, selected} = props;
+
+  const handleSliderChange = (event, value) => {
     // Fire Dash-assigned callback
-    this.props.setProps({selected: value});
+    props.setProps({selected: value});
   };
 
-  render() {
-    // props & state
-    const {id, labelText, width, minValue, maxValue, stepValue, marks, selected} = this.props;
+  // Fetch slider header
+  const sliderLabel = labelText ? <FormLabel>{labelText}</FormLabel> : null;
 
-    // locals
-    let sliderLabel;
-    const sliderControls = {
-      value: selected,
-      onChange: this.handleSliderChange,
-      min: minValue,
-      max: maxValue,
-      step: stepValue,
-      marks: marks ? marks : true
-    };
+  // Configure slider controls
+  const sliderControls = {
+    value: selected,
+    onChange: handleSliderChange,
+    min: minValue,
+    max: maxValue,
+    step: stepValue,
+    marks: marks ? marks : true
+  };
 
-    // Fetch slider header
-    if (labelText) {
-      sliderLabel = <FormLabel>{labelText}</FormLabel>;
-    }
-
-    return (
-      <Box id={id} m={2} width={width}>
-        <FormControl variant="standard" fullWidth>
-          {sliderLabel ? sliderLabel : null}
-          <MuiSlider
-            size="small"
-            aria-labelledby="slider"
-            valueLabelDisplay="auto"
-            {...sliderControls}
-          />
-        </FormControl>
-      </Box>
-    );
-  }
-}
+  // Render slider form
+  return (
+    <Box id={id} m={2} width={width}>
+      <FormControl variant="standard" fullWidth>
+        {sliderLabel}
+        <MuiSlider
+          size="small"
+          aria-labelledby="slider"
+          valueLabelDisplay="auto"
+          {...sliderControls}
+        />
+      </FormControl>
+    </Box>
+  );
+};
 
 Slider.defaultProps = {
   id: 'slider',
@@ -92,3 +86,5 @@ Slider.propTypes = {
   /** Active slider selection */
   selected: PropTypes.number
 };
+
+export default Slider;
