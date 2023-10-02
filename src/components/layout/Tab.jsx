@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Tab as MuiTab, Tabs} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import TabPanel from '../../fragments/TabPanel';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tabLayout: {
     height: '100%',
     width: '100%'
   }
-});
+}));
 
 /**
  * Tab component
@@ -17,7 +17,8 @@ const styles = (theme) => ({
  * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
 const Tab = (props) => {
-  const {classes, id, children, tabs} = props;
+  const {id, children, tabs} = props;
+  const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleTabChange = (event, value) => {
@@ -72,4 +73,4 @@ Tab.propTypes = {
   )
 };
 
-export default withStyles(styles, {withTheme: true})(Tab);
+export default Tab;

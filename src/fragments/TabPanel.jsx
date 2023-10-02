@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tabpanelLayout: {
     height: '100%'
   },
   tabpanelContentLayout: {
     height: '100%'
   }
-});
+}));
 
 const TabPanel = (props) => {
-  const {classes, children, value, index} = props;
+  const {children, value, index} = props;
+  const classes = useStyles();
 
   return (
     <div
@@ -33,4 +34,4 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired
 };
 
-export default withStyles(styles, {withTheme: true})(TabPanel);
+export default TabPanel;

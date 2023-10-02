@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, withStyles} from '@material-ui/core';
+import {Grid, makeStyles} from '@material-ui/core';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   sectionInColumn: {
     // Contain at max entire page length
     maxHeight: '100%',
@@ -15,11 +15,12 @@ const styles = (theme) => ({
     // Reset section element negative margins
     margin: 0
   }
-});
+}));
 
 const SectionGrid = (props) => {
   // props & state
-  const {classes, id, children, size, orientation} = props;
+  const {id, children, size, orientation} = props;
+  const classes = useStyles();
 
   // Fetch section content
   const sectionSize = size == undefined ? true : size;
@@ -53,4 +54,4 @@ SectionGrid.propTypes = {
   orientation: PropTypes.oneOf(['columns', 'rows'])
 };
 
-export default withStyles(styles, {withTheme: true})(SectionGrid);
+export default SectionGrid;

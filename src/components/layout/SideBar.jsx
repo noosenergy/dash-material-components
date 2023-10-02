@@ -13,11 +13,11 @@ import {
   Typography
 } from '@material-ui/core';
 import {ChevronLeft, Settings} from '@material-ui/icons';
-import {withStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 const drawerWidth = 360;
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   fabLayout: {
     position: 'absolute',
     bottom: theme.spacing(5),
@@ -46,13 +46,14 @@ const styles = (theme) => ({
     height: '100%',
     overflow: 'auto'
   }
-});
+}));
 
 /**
  * Sidebar component
  */
 const Sidebar = (props) => {
-  const {classes, id, children, settings, title} = props;
+  const {id, children, settings, title} = props;
+  const classes = useStyles();
   const [toggledDrawer, setToggledDrawer] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -154,4 +155,4 @@ Sidebar.propTypes = {
   title: PropTypes.string
 };
 
-export default withStyles(styles, {withTheme: true})(Sidebar);
+export default Sidebar;

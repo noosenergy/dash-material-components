@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Box, Grid} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   pageLayout: {
     // Contain the entire page
     width: '100%',
@@ -11,14 +11,15 @@ const styles = (theme) => ({
     // Reset page element negative margins
     margin: 0
   }
-});
+}));
 
 /**
  * Page component, used to wrap section and card components
  * Dashboard > Page
  */
 const Page = (props) => {
-  const {classes, id, children, orientation} = props;
+  const {id, children, orientation} = props;
+  const classes = useStyles();
 
   // Variables
   const pageDirection = orientation == 'columns' ? 'row' : 'column';
@@ -49,4 +50,4 @@ Page.propTypes = {
   orientation: PropTypes.oneOf(['columns', 'rows'])
 };
 
-export default withStyles(styles, {withTheme: true})(Page);
+export default Page;

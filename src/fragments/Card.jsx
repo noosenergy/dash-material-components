@@ -7,11 +7,11 @@ import {
   Grid,
   IconButton,
   Tooltip,
-  withStyles
+  makeStyles
 } from '@material-ui/core';
 import {GetApp} from '@material-ui/icons';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   cardInColumn: {
     maxHeight: '100%'
   },
@@ -22,10 +22,11 @@ const styles = (theme) => ({
     height: '100%',
     overflow: 'auto'
   }
-});
+}));
 
 const Card = (props) => {
-  const {classes, id, children, title, size, orientation, downloadable, handleDownload} = props;
+  const {id, children, title, size, orientation, downloadable, handleDownload} = props;
+  const classes = useStyles();
 
   const header = title ? (
     <CardHeader
@@ -74,4 +75,4 @@ Card.propTypes = {
   handleDownload: PropTypes.func
 };
 
-export default withStyles(styles, {withTheme: true})(Card);
+export default Card;
