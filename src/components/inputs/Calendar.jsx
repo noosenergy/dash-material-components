@@ -20,6 +20,7 @@ const Calendar = (props) => {
     disableFuture,
     disablePast,
     selected,
+    disableToolbar,
     setProps
   } = props;
 
@@ -32,7 +33,7 @@ const Calendar = (props) => {
 
   const calendarControls = {
     autoOk: true,
-    disableToolbar: true,
+    disableToolbar: disableToolbar,
     value: selected,
     onChange: handleCalendarChange,
     format: dateFormat,
@@ -63,7 +64,8 @@ Calendar.defaultProps = {
   minDate: '1900-01-01',
   disableFuture: true,
   disablePast: false,
-  selected: null
+  selected: null,
+  disableToolbar: false
 };
 
 Calendar.propTypes = {
@@ -95,7 +97,10 @@ Calendar.propTypes = {
   disablePast: PropTypes.bool,
 
   /** Active date selection */
-  selected: PropTypes.string
+  selected: PropTypes.string,
+
+  /** Disable toolbar */
+  disableToolbar: PropTypes.bool
 };
 
 export default Calendar;
