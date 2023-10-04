@@ -7,14 +7,13 @@ import {TableBody, TableHead} from '../../fragments/TableContent';
  * Table component
  */
 const Table = (props) => {
-  const {id, columns, rowsPerPageOptions, rows} = props;
+  const {id, columns, rowsPerPageOptions, rows: initialRows} = props;
+  const [rows, setRows] = useState(initialRows);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   // Make sure state remain in sync with received props
-  useEffect(() => {
-    props.setProps({rows: rows});
-  }, [rows]);
+  useEffect(() => setRows(initialRows), [initialRows]);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -54,9 +53,6 @@ Table.defaultProps = {
 Table.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
 
   /** Array of table columns to render */
   columns: PropTypes.arrayOf(

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Box} from '@material-ui/core';
 import {DatePicker} from '@material-ui/pickers';
@@ -19,13 +19,14 @@ const Calendar = (props) => {
     minDate,
     disableFuture,
     disablePast,
-    selected
+    selected,
+    setProps
   } = props;
 
   const handleCalendarChange = (value) => {
     // Fire Dash-assigned callback
     if (value) {
-      props.setProps({selected: value.toISOString().split('T')[0]});
+      setProps({selected: value.toISOString().split('T')[0]});
     }
   };
 

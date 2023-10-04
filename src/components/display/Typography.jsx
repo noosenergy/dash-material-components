@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Box, Typography as MuiTypography} from '@material-ui/core';
 
@@ -9,14 +9,9 @@ import {Box, Typography as MuiTypography} from '@material-ui/core';
 const Typography = (props) => {
   const {id, component, variant, text: initialText} = props;
   const [text, setText] = useState(initialText);
-  const prevPropsRef = useRef(props);
 
-  useEffect(() => {
-    if (prevPropsRef.current.text !== props.text) {
-      setText(props.text);
-    }
-    prevPropsRef.current = props;
-  });
+  // Make sure state remain in sync with received props
+  useEffect(() => setText(initialText), [initialText]);
 
   // Render text
   return (

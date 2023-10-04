@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Box} from '@material-ui/core';
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
@@ -8,16 +8,16 @@ import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
  */
 const Toggle = (props) => {
   // First option selected by default if no default provided
-  const {options, selected} = props;
+  const {id, options, selected, orientation, setProps} = props;
   if (selected === undefined) {
-    props.setProps({selected: options[0]});
+    setProps({selected: options[0]});
   }
 
   const handleToggleChange = (event, value) => {
     // Enforce at least one active selection
     if (value !== null) {
       // Fire Dash-assigned callback
-      props.setProps({selected: value});
+      setProps({selected: value});
     }
   };
 
@@ -30,10 +30,10 @@ const Toggle = (props) => {
 
   // Render toggle group
   return (
-    <Box id={props.id} m={2}>
+    <Box id={id} m={2}>
       <ToggleButtonGroup
         size="small"
-        orientation={props.orientation}
+        orientation={orientation}
         value={selected}
         exclusive
         onChange={handleToggleChange}

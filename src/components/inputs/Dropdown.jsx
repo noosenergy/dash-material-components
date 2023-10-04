@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -14,13 +14,13 @@ import {
  * Dropdown component
  */
 const Dropdown = (props) => {
-  const {id, labelText, helperText, width, options, multiple, selected} = props;
+  const {id, labelText, helperText, width, options, multiple, selected, setProps} = props;
 
   const handleDropdownChange = (event) => {
     // Enforce selection to be an array in all cases
     const selected = event.target.value;
     // Fire Dash-assigned callback
-    props.setProps({selected: multiple ? selected : [selected]});
+    setProps({selected: multiple ? selected : [selected]});
   };
 
   const buildDropdownSelect = (selected) => {

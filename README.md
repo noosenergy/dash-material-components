@@ -126,7 +126,7 @@ The corresponding Python component API is auto-discovered from the React compone
 
 ```javascript
 /** Used to auto-generate the Python component and docstrings */
-function NeptuneComponent(props) {
+const NeptuneComponent = (props) => {
     const {text} = props;
 
     return (

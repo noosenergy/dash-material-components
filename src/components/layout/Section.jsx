@@ -9,11 +9,11 @@ import SectionGrid from '../../fragments/SectionGrid';
  * Dashboard > Page > Section
  */
 const Section = (props) => {
-  const {id, children, cards, size, orientation} = props;
+  const {id, children, cards, size, orientation, setProps, downloaded} = props;
 
   const handleSectionDownload = (event) => {
     // Fire Dash-assigned callback
-    props.setProps({downloaded: props.downloaded + 1});
+    setProps({downloaded: downloaded + 1});
   };
 
   let cardElement;

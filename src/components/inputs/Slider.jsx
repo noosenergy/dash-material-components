@@ -6,11 +6,11 @@ import {Box, FormControl, FormLabel, Slider as MuiSlider} from '@material-ui/cor
  * Slider component
  */
 const Slider = (props) => {
-  const {id, labelText, width, minValue, maxValue, stepValue, marks, selected} = props;
+  const {id, labelText, width, minValue, maxValue, stepValue, marks, selected, setProps} = props;
 
   const handleSliderChange = (event, value) => {
     // Fire Dash-assigned callback
-    props.setProps({selected: value});
+    setProps({selected: value});
   };
 
   // Fetch slider header
