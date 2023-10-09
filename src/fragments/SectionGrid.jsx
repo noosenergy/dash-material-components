@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import {Grid, makeStyles} from '@material-ui/core';
 
-import {Grid} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
-
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   sectionInColumn: {
     // Contain at max entire page length
     maxHeight: '100%',
@@ -17,34 +15,32 @@ const styles = (theme) => ({
     // Reset section element negative margins
     margin: 0
   }
-});
+}));
 
-class SectionGrid extends Component {
-  render() {
-    // props & state
-    const {classes, id, children, size, orientation} = this.props;
+const SectionGrid = (props) => {
+  // props & state
+  const {id, children, size, orientation} = props;
+  const classes = useStyles();
 
-    // Fetch section content
-    const sectionSize = size == undefined ? true : size;
-    const sectionDirection = orientation == 'columns' ? 'row' : 'column';
-    const sectionLayout =
-      orientation == 'columns' ? classes.sectionInColumn : classes.sectionInRow;
+  // Fetch section content
+  const sectionSize = size == undefined ? true : size;
+  const sectionDirection = orientation == 'columns' ? 'row' : 'column';
+  const sectionLayout = orientation == 'columns' ? classes.sectionInColumn : classes.sectionInRow;
 
-    return (
-      <Grid
-        id={id}
-        item
-        xs={sectionSize}
-        container
-        spacing={2}
-        direction={sectionDirection}
-        className={`${sectionLayout}`}
-      >
-        {children}
-      </Grid>
-    );
-  }
-}
+  return (
+    <Grid
+      id={id}
+      item
+      xs={sectionSize}
+      container
+      spacing={2}
+      direction={sectionDirection}
+      className={`${sectionLayout}`}
+    >
+      {children}
+    </Grid>
+  );
+};
 
 SectionGrid.defaultProps = {
   id: 'section',
@@ -58,4 +54,4 @@ SectionGrid.propTypes = {
   orientation: PropTypes.oneOf(['columns', 'rows'])
 };
 
-export default withStyles(styles, {withTheme: true})(SectionGrid);
+export default SectionGrid;

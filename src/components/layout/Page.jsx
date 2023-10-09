@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import {Box, Grid} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   pageLayout: {
     // Contain the entire page
     width: '100%',
@@ -11,29 +11,28 @@ const styles = (theme) => ({
     // Reset page element negative margins
     margin: 0
   }
-});
+}));
 
 /**
  * Page component, used to wrap section and card components
  * Dashboard > Page
  */
-class Page extends Component {
-  render() {
-    const {classes, id, children, orientation} = this.props;
+const Page = (props) => {
+  const {id, children, orientation} = props;
+  const classes = useStyles();
 
-    // Variables
-    const pageDirection = orientation == 'columns' ? 'row' : 'column';
+  // Variables
+  const pageDirection = orientation == 'columns' ? 'row' : 'column';
 
-    // Configure flex versus parent container
-    return (
-      <Box id={id} sx={{flexGrow: 1}}>
-        <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
-          {children}
-        </Grid>
-      </Box>
-    );
-  }
-}
+  // Configure flex versus parent container
+  return (
+    <Box id={id} sx={{flexGrow: 1}}>
+      <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
+        {children}
+      </Grid>
+    </Box>
+  );
+};
 
 Page.defaultProps = {
   id: 'page',
@@ -51,4 +50,4 @@ Page.propTypes = {
   orientation: PropTypes.oneOf(['columns', 'rows'])
 };
 
-export default withStyles(styles, {withTheme: true})(Page);
+export default Page;

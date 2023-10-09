@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '../../fragments/Card';
@@ -8,49 +8,45 @@ import SectionGrid from '../../fragments/SectionGrid';
  * Section component
  * Dashboard > Page > Section
  */
-export default class Section extends Component {
-  handleSectionDownload = (event) => {
+const Section = (props) => {
+  const {id, children, cards, size, orientation, setProps, downloaded} = props;
+
+  const handleSectionDownload = (event) => {
     // Fire Dash-assigned callback
-    this.props.setProps({downloaded: this.props.downloaded + 1});
+    setProps({downloaded: downloaded + 1});
   };
 
-  render() {
-    // props & state
-    const {id, children, cards, size, orientation} = this.props;
+  let cardElement;
+  let sectionElements = [];
 
-    // locals
-    let cardElement;
-    let sectionElements = [];
+  // Fetch cards
+  if (children) {
+    React.Children.forEach(children, (child, i) => {
+      cardElement = (
+        <Card
+          key={i}
+          id={`card-${i + 1}`}
+          title={cards[i].title}
+          size={cards[i].size}
+          orientation={orientation}
+          downloadable={cards[i].downloadable}
+          handleDownload={handleSectionDownload}
+        >
+          {child}
+        </Card>
+      );
 
-    // Fetch cards
-    if (children) {
-      React.Children.forEach(children, (child, i) => {
-        cardElement = (
-          <Card
-            key={i}
-            id={`card-${i + 1}`}
-            title={cards[i].title}
-            size={cards[i].size}
-            orientation={orientation}
-            downloadable={cards[i].downloadable}
-            handleDownload={this.handleSectionDownload}
-          >
-            {child}
-          </Card>
-        );
-
-        sectionElements.push(cardElement);
-      });
-    }
-
-    // Pass-on props given incompatibility with MUI styles and Dash callbacks
-    return (
-      <SectionGrid id={id} size={size} orientation={orientation}>
-        {sectionElements}
-      </SectionGrid>
-    );
+      sectionElements.push(cardElement);
+    });
   }
-}
+
+  // Pass-on props given incompatibility with MUI styles and Dash callbacks
+  return (
+    <SectionGrid id={id} size={size} orientation={orientation}>
+      {sectionElements}
+    </SectionGrid>
+  );
+};
 
 Section.defaultProps = {
   id: 'section',
@@ -91,3 +87,5 @@ Section.propTypes = {
   /** Section download counter */
   downloaded: PropTypes.number
 };
+
+export default Section;

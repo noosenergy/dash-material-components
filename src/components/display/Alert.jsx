@@ -17,17 +17,15 @@ const Alert = (props) => {
   };
 
   useEffect(() => {
-    if (initialMessage !== message) {
-      setMessage(initialMessage);
+    setMessage(initialMessage);
 
-      const timer = setTimeout(() => {
-        handleClose(null, 'timeout');
-      }, autoHide);
+    const timer = setTimeout(() => {
+      handleClose(null, 'timeout');
+    }, autoHide);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    }
+    return () => {
+      clearTimeout(timer);
+    };
   }, [initialMessage]);
 
   return (

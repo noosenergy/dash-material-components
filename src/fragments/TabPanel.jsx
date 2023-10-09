@@ -1,35 +1,32 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import {makeStyles} from '@material-ui/core/styles';
 
-import {withStyles} from '@material-ui/core/styles';
-
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tabpanelLayout: {
     height: '100%'
   },
   tabpanelContentLayout: {
     height: '100%'
   }
-});
+}));
 
-// directly from https://mui.com/components/tabs/
-class TabPanel extends Component {
-  render() {
-    const {classes, children, value, index} = this.props;
+const TabPanel = (props) => {
+  const {children, value, index} = props;
+  const classes = useStyles();
 
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`tabpanel-${index}`}
-        aria-labelledby={`card-tabpanel-${index}`}
-        className={classes.tabpanelLayout}
-      >
-        {value === index && <div className={classes.tabpanelContentLayout}>{children}</div>}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`card-tabpanel-${index}`}
+      className={classes.tabpanelLayout}
+    >
+      {value === index && <div className={classes.tabpanelContentLayout}>{children}</div>}
+    </div>
+  );
+};
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -37,4 +34,4 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired
 };
 
-export default withStyles(styles, {withTheme: true})(TabPanel);
+export default TabPanel;

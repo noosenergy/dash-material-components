@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   TableBody as MuiTableBody,
   TableCell,
@@ -8,28 +7,20 @@ import {
   TableRow
 } from '@material-ui/core';
 
-const TableHead = class extends Component {
-  render() {
-    const {columns} = this.props;
+const TableHead = (props) => {
+  const {columns} = props;
 
-    // locals
-    let headerElements = [];
+  const headerElements = columns.map((column, i) => (
+    <TableCell key={i} style={{width: column.width}}>
+      {column.field}
+    </TableCell>
+  ));
 
-    // Fetch table header
-    columns.forEach((column, i) => {
-      headerElements.push(
-        <TableCell key={i} style={{width: column.width}}>
-          {column.field}
-        </TableCell>
-      );
-    });
-
-    return (
-      <MuiTableHead>
-        <TableRow>{headerElements}</TableRow>
-      </MuiTableHead>
-    );
-  }
+  return (
+    <MuiTableHead>
+      <TableRow>{headerElements}</TableRow>
+    </MuiTableHead>
+  );
 };
 
 TableHead.propTypes = {
@@ -41,28 +32,21 @@ TableHead.propTypes = {
   )
 };
 
-const TableBody = class extends Component {
-  render() {
-    const {rows, page, rowsPerPage} = this.props;
+const TableBody = (props) => {
+  const {rows, page, rowsPerPage} = props;
 
-    // locals
-    let bodyElements = [];
-    const startRow = rowsPerPage * page;
-    const endRow = startRow + rowsPerPage;
+  const startRow = rowsPerPage * page;
+  const endRow = startRow + rowsPerPage;
 
-    // Fetch table body
-    rows.slice(startRow, endRow).forEach((row, i) => {
-      bodyElements.push(
-        <TableRow hover key={i}>
-          {Object.keys(row).map((key, j) => (
-            <TableCell key={j}>{row[key]}</TableCell>
-          ))}
-        </TableRow>
-      );
-    });
+  const bodyElements = rows.slice(startRow, endRow).map((row, i) => (
+    <TableRow hover key={i}>
+      {Object.keys(row).map((key, j) => (
+        <TableCell key={j}>{row[key]}</TableCell>
+      ))}
+    </TableRow>
+  ));
 
-    return <MuiTableBody>{bodyElements}</MuiTableBody>;
-  }
+  return <MuiTableBody>{bodyElements}</MuiTableBody>;
 };
 
 TableBody.propTypes = {

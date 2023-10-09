@@ -1,18 +1,15 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
 import {Box as MuiBox} from '@material-ui/core';
 
 /**
  * Box component from Material UI
  * https://mui.com/components/box/
  */
-export default class Box extends Component {
-  render() {
-    const {sx, children} = this.props;
-    return <MuiBox sx={sx}>{children}</MuiBox>;
-  }
-}
+const Box = (props) => {
+  const {sx, children} = props;
+  return <MuiBox sx={sx}>{children}</MuiBox>;
+};
 
 Box.defaultProps = {
   sx: {}
@@ -27,3 +24,5 @@ Box.propTypes = {
    */
   sx: PropTypes.object
 };
+
+export default Box;

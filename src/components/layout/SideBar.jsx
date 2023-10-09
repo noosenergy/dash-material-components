@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Box,
   Divider,
@@ -14,11 +13,11 @@ import {
   Typography
 } from '@material-ui/core';
 import {ChevronLeft, Settings} from '@material-ui/icons';
-import {withStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 const drawerWidth = 360;
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   fabLayout: {
     position: 'absolute',
     bottom: theme.spacing(5),
@@ -47,101 +46,96 @@ const styles = (theme) => ({
     height: '100%',
     overflow: 'auto'
   }
-});
+}));
 
 /**
- * SideBar component
- * Dashboard > SideBar
+ * Sidebar component
  */
-class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {toggledDrawer: false};
-  }
+const Sidebar = (props) => {
+  const {id, children, settings, title} = props;
+  const classes = useStyles();
+  const [toggledDrawer, setToggledDrawer] = useState(false);
 
-  handleDrawerOpen = () => {
-    this.setState({toggledDrawer: true});
+  const handleDrawerOpen = () => {
+    setToggledDrawer(true);
   };
 
-  handleDrawerClose = (event) => {
+  const handleDrawerClose = (event) => {
     // To prevent the drawer from closing
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    this.setState({toggledDrawer: false});
+    setToggledDrawer(false);
   };
 
-  render() {
-    const {classes, id, children, settings, title} = this.props;
-    const {toggledDrawer} = this.state;
+  // locals
+  let drawerHeader;
+  let drawerElements = [];
 
-    // locals
-    let drawerHeader;
-    let drawerElements = [];
+  // Fetch drawer button
+  const drawerButton = (
+    <Tooltip title="Open sidebar">
+      <Fab
+        onClick={handleDrawerOpen}
+        aria-label="open-sidebar"
+        size="medium"
+        color="primary"
+        className={classes.fabLayout}
+        id="sidebar-toggle"
+      >
+        <Settings />
+      </Fab>
+    </Tooltip>
+  );
 
-    // Fetch drawer button
-    const drawerButton = (
-      <Tooltip title="Open sidebar">
-        <Fab
-          onClick={this.handleDrawerOpen}
-          aria-label="open-sidebar"
-          size="medium"
-          color="primary"
-          className={classes.fabLayout}
-        >
-          <Settings />
-        </Fab>
-      </Tooltip>
-    );
-
-    // Fetch drawer header
-    if (title) {
-      drawerHeader = (
-        <Box className={classes.drawerHeaderLayout}>
-          <Typography component="p" variant="h3" color="inherit">
-            {title}
-          </Typography>
-          <Tooltip title="Close sidebar">
-            <IconButton color="inherit" onClick={this.handleDrawerClose}>
-              <ChevronLeft />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      );
-    }
-
-    // Fetch drawer elements
-    if (children) {
-      let listElement;
-      React.Children.forEach(children, (child, i) => {
-        listElement = (
-          <ListItem>
-            <ListItemText id={`list-item-${i + 1}`} primary={settings[i]} />
-            {child}
-          </ListItem>
-        );
-        drawerElements.push(listElement);
-      });
-    }
-
-    return (
-      <Box id={id}>
-        {drawerButton}
-        <Drawer
-          anchor="left"
-          open={toggledDrawer}
-          onClose={this.handleDrawerClose}
-          className={classes.drawerLayout}
-          classes={{paper: classes.drawerPaperLayout}}
-        >
-          {drawerHeader}
-          <Divider />
-          <List className={classes.drawerContentLayout}>{drawerElements}</List>
-        </Drawer>
+  // Fetch drawer header
+  if (title) {
+    drawerHeader = (
+      <Box className={classes.drawerHeaderLayout}>
+        <Typography component="p" variant="h3" color="inherit">
+          {title}
+        </Typography>
+        <Tooltip title="Close sidebar">
+          <IconButton id="close-sidebar-chevron" color="inherit" onClick={handleDrawerClose}>
+            <ChevronLeft />
+          </IconButton>
+        </Tooltip>
       </Box>
     );
   }
-}
+
+  // Fetch drawer elements
+  if (children) {
+    let listElement;
+    React.Children.forEach(children, (child, i) => {
+      const itemId = `sidebar-item-${i + 1}`;
+      listElement = (
+        <ListItem id={itemId} key={itemId}>
+          <ListItemText id={`${itemId}-text`} primary={settings[i]} />
+          {child}
+        </ListItem>
+      );
+      drawerElements.push(listElement);
+    });
+  }
+
+  return (
+    <Box id={id}>
+      {drawerButton}
+      <Drawer
+        anchor="left"
+        open={toggledDrawer}
+        onClose={handleDrawerClose}
+        className={classes.drawerLayout}
+        classes={{paper: classes.drawerPaperLayout}}
+      >
+        {drawerHeader}
+        <Divider />
+        <List className={classes.drawerContentLayout}>{drawerElements}</List>
+      </Drawer>
+    </Box>
+  );
+};
 
 Sidebar.defaultProps = {
   id: 'sidebar',
@@ -162,4 +156,4 @@ Sidebar.propTypes = {
   title: PropTypes.string
 };
 
-export default withStyles(styles, {withTheme: true})(Sidebar);
+export default Sidebar;

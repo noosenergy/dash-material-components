@@ -57,6 +57,14 @@ def test_default_selection(dash_duo, dash_app, selected, text):
     assert dash_duo.get_logs() is None
 
 
+def test_no_selection(dash_duo, dash_app):
+    """Test selected defaults to options[0] if undefined."""
+    dash_duo.start_server(dash_app())
+    dash_duo.wait_for_text_to_equal("#text", TOGGLE_OPTIONS[0])
+
+    assert dash_duo.get_logs() is None
+
+
 def test_unique_selection(dash_duo, dash_app):
     dash_duo.start_server(dash_app())
     elements = dash_duo.find_element("#toggle").find_elements_by_tag_name("button")

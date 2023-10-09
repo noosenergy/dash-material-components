@@ -1,74 +1,64 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-
 import {Grid, Tab as MuiTab, Tabs} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
-
+import {makeStyles} from '@material-ui/core/styles';
 import TabPanel from '../../fragments/TabPanel';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tabLayout: {
     height: '100%',
     width: '100%'
   }
-});
+}));
 
 /**
  * Tab component
  * Dashboard > Page > Section > Card > Tab
  * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
-class Tab extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {selectedTab: 0};
-  }
+const Tab = (props) => {
+  const {id, children, tabs} = props;
+  const classes = useStyles();
+  const [selectedTab, setSelectedTab] = useState(0);
 
-  handleTabChange = (event, value) => {
-    this.setState({selectedTab: value});
+  const handleTabChange = (event, value) => {
+    setSelectedTab(value);
   };
 
-  render() {
-    // props & state
-    const {classes, id, children, tabs} = this.props;
-    let {selectedTab} = this.state;
+  let tabElements = [];
+  let tabpanelElements = [];
 
-    // locals
-    let tabElements = [];
-    let tabpanelElements = [];
-
-    // Fetch cards or tabs
-    if (children) {
-      React.Children.forEach(children, (child, i) => {
-        tabpanelElements.push(
-          <TabPanel key={i} value={selectedTab} index={i}>
-            {child}
-          </TabPanel>
-        );
-        tabElements.push(<MuiTab key={i} label={tabs[i].label} />);
-      });
-    }
-
-    return (
-      <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
-        <Grid
-          item
-          component={Tabs}
-          value={selectedTab}
-          onChange={this.handleTabChange}
-          indicatorColor="primary"
-          aria-label="card-tabs"
-          selectionFollowsFocus
-        >
-          {tabElements}
-        </Grid>
-        <Grid item xs>
-          {tabpanelElements}
-        </Grid>
-      </Grid>
-    );
+  // Fetch cards or tabs
+  if (children) {
+    React.Children.forEach(children, (child, i) => {
+      tabpanelElements.push(
+        <TabPanel key={i} value={selectedTab} index={i}>
+          {child}
+        </TabPanel>
+      );
+      tabElements.push(<MuiTab key={i} label={tabs[i].label} />);
+    });
   }
-}
+
+  return (
+    <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
+      <Grid
+        item
+        component={Tabs}
+        value={selectedTab}
+        onChange={handleTabChange}
+        indicatorColor="primary"
+        aria-label="card-tabs"
+        selectionFollowsFocus
+      >
+        {tabElements}
+      </Grid>
+      <Grid item xs>
+        {tabpanelElements}
+      </Grid>
+    </Grid>
+  );
+};
 
 Tab.defaultProps = {
   id: 'tab'
@@ -90,4 +80,4 @@ Tab.propTypes = {
   )
 };
 
-export default withStyles(styles, {withTheme: true})(Tab);
+export default Tab;
