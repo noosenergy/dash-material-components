@@ -68,7 +68,10 @@ jobs:
           tests_directory: ./tests
           <<: *poetry_install
       - store_test_results:
-          path: ".pytest_results"
+          path: '.pytest_results'
+      - run:
+          name: JavaScript unit tests
+          command: yarn install && yarn test
 
   build_wheel:
     executor:

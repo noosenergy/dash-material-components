@@ -1,20 +1,89 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Box, FormControl, FormLabel, Slider as MuiSlider} from '@material-ui/core';
+import {Box, FormControl, FormLabel, Slider as MuiSlider, TextField} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  // remove updown arrow buttons from TextField
+  input: {
+    '& input': {
+      padding: '6px 0 2px',
+      textAlign: 'center'
+    }
+  }
+});
+
+const inputIsValid = (value, minValue, maxValue) => {
+  // not numeric or '-' sign
+  if (!/^[-]?[0-9]+$/i.test(value)) return false;
+
+  // check if within range
+  value = Number(value);
+  if (value < minValue || value > maxValue) return false;
+
+  return true;
+};
 
 /**
  * Slider component
  */
 const Slider = (props) => {
-  const {id, labelText, width, minValue, maxValue, stepValue, marks, selected, setProps} = props;
+  const {
+    id,
+    labelText,
+    width,
+    minValue,
+    maxValue,
+    stepValue,
+    marks,
+    selected,
+    setProps,
+    showInputText
+  } = props;
+
+  const classes = useStyles();
+  const [inputValue, setInputValue] = useState(String(selected));
+  const [prevInputValue, setPrevInputValue] = useState(inputValue);
 
   const handleSliderChange = (event, value) => {
+    setInputValue(String(value));
+    setPrevInputValue(String(value));
     // Fire Dash-assigned callback
     setProps({selected: value});
   };
 
+  const handleInputChange = (event) => {
+    let value = event.target.value;
+    const isValid = inputIsValid(value, minValue, maxValue);
+
+    if (isValid) {
+      setPrevInputValue(value);
+      setInputValue(value);
+      // Fire Dash-assigned callback
+      setProps({selected: Number(value)});
+    }
+    // check if incomplete number
+    else if (value === '' || value === '-') {
+      setInputValue(value);
+    }
+    // else leave input value as is
+  };
+
   // Fetch slider header
   const sliderLabel = labelText ? <FormLabel>{labelText}</FormLabel> : null;
+
+  const numOfDigits = Math.max(maxValue.toString().length, minValue.toString().length);
+  const inputText = showInputText ? (
+    <Box ml={3} mt={0.5} width={`${numOfDigits + 3}ch`}>
+      <TextField
+        value={inputValue}
+        onChange={handleInputChange}
+        variant="standard"
+        className={classes.input}
+        size="small"
+      />
+    </Box>
+  ) : null;
 
   // Configure slider controls
   const sliderControls = {
@@ -23,12 +92,12 @@ const Slider = (props) => {
     min: minValue,
     max: maxValue,
     step: stepValue,
-    marks: marks ? marks : true
+    marks: marks || true
   };
 
   // Render slider form
   return (
-    <Box id={id} m={2} width={width}>
+    <Box id={id} m={2} width={width} display="flex">
       <FormControl variant="standard" fullWidth>
         {sliderLabel}
         <MuiSlider
@@ -38,6 +107,7 @@ const Slider = (props) => {
           {...sliderControls}
         />
       </FormControl>
+      {inputText}
     </Box>
   );
 };
@@ -48,7 +118,8 @@ Slider.defaultProps = {
   maxValue: 100,
   minValue: 0,
   stepValue: 10,
-  selected: 50
+  selected: 50,
+  showInputText: false
 };
 
 Slider.propTypes = {
@@ -84,7 +155,10 @@ Slider.propTypes = {
   ),
 
   /** Active slider selection */
-  selected: PropTypes.number
+  selected: PropTypes.number,
+
+  /** Enable input text */
+  showInputText: PropTypes.bool
 };
 
 export default Slider;
