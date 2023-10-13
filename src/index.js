@@ -14,6 +14,7 @@ import Dropdown from './components/inputs/Dropdown';
 import Slider from './components/inputs/Slider';
 import Toggle from './components/inputs/Toggle';
 import InputText from './components/inputs/InputText';
+import Autocomplete from './components/inputs/Autocomplete';
 
 // Display components: component state managed by Dash renderer
 import Alert from './components/display/Alert';
@@ -35,6 +36,7 @@ export {
   Slider,
   Toggle,
   InputText,
+  Autocomplete,
   // Display
   Alert,
   Box,
