@@ -25,8 +25,7 @@ orbs:
 
 jobs:
   lint_package:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - noos-ci/python_lint_package:
@@ -34,8 +33,7 @@ jobs:
           <<: *poetry_install
 
   lint_library:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - run:
@@ -43,8 +41,7 @@ jobs:
           command: yarn install && yarn lint
 
   build_library:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - noos-ci/python_configure_venv:
@@ -58,8 +55,7 @@ jobs:
             - dash_mdc_neptune
 
   test_package:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
@@ -74,8 +70,7 @@ jobs:
           command: yarn install && yarn test
 
   build_wheel:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
@@ -87,8 +82,7 @@ jobs:
           destination: wheel
 
   publish_wheel:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
