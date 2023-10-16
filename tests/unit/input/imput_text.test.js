@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import InputText from '../../../src/components/inputs/InputText';
+import '@testing-library/jest-dom';
 
 const setPropsPlaceholder = () => true;
 
@@ -9,6 +10,12 @@ describe('InputText', () => {
     render(<InputText value="Hello World!"/>);
     const element = screen.getByRole('textbox');
     expect(element.value).toBe('Hello World!');
+  });
+
+  it('Should render with adornments', () => {
+    render(<InputText inputType="integer" adornmentLeft="LEFT" adornmentRight="RIGHT"/>);
+    expect(screen.getByText('LEFT')).toBeInTheDocument();
+    expect(screen.getByText('RIGHT')).toBeInTheDocument();
   });
 
   it('should only allow integers', () => {

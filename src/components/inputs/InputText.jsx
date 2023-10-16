@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {TextField} from '@material-ui/core';
+import {TextField, InputAdornment, Box} from '@material-ui/core';
 
 const validInput = (value, inputType, minValue, maxValue, precision, length) => {
   if (inputType === 'integer') {
@@ -44,9 +44,12 @@ const InputText = (props) => {
     maxLength,
     autoFocus,
     size,
-    setProps,
+    width,
     value,
-    precision
+    precision,
+    adornmentLeft,
+    adornmentRight,
+    setProps
   } = props;
 
   const [inputValue, setInputValue] = useState(value);
@@ -69,20 +72,30 @@ const InputText = (props) => {
   };
 
   return (
-    <TextField
-      id={id}
-      value={inputValue}
-      type={inputType}
-      size={size}
-      label={labelText}
-      InputLabelProps={{
-        shrink: true
-      }}
-      multiline={multiline}
-      variant={variant}
-      onChange={handleChange}
-      autoFocus={autoFocus}
-    />
+    <Box id={id} width={width}>
+      <TextField
+        value={inputValue}
+        type={inputType}
+        size={size}
+        label={labelText}
+        InputLabelProps={{
+          shrink: true
+        }}
+        multiline={multiline}
+        variant={variant}
+        onChange={handleChange}
+        autoFocus={autoFocus}
+        InputProps={{
+          startAdornment: adornmentLeft ? (
+            <InputAdornment position="start">{adornmentLeft}</InputAdornment>
+          ) : null,
+          endAdornment: adornmentRight ? (
+            <InputAdornment position="end">{adornmentRight}</InputAdornment>
+          ) : null
+        }}
+        style={{width: '100%'}}
+      />
+    </Box>
   );
 };
 
@@ -95,7 +108,10 @@ InputText.defaultProps = {
   multiline: false,
   variant: 'outlined',
   autoFocus: false,
-  size: 'small'
+  size: 'small',
+  width: '100%',
+  adornmentLeft: null,
+  adornmentRight: null
 };
 
 InputText.propTypes = {
@@ -136,7 +152,16 @@ InputText.propTypes = {
   autoFocus: PropTypes.bool,
 
   /** Mui TextField size parameter */
-  size: PropTypes.oneOf(['small', 'medium'])
+  size: PropTypes.oneOf(['small', 'medium']),
+
+  /** Component width */
+  width: PropTypes.string,
+
+  /** Adornment on the left of the input */
+  adornmentLeft: PropTypes.string,
+
+  /** Adornment on the right of the input */
+  adornmentRight: PropTypes.string
 };
 
 export default InputText;
