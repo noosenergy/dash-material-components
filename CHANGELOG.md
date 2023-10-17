@@ -80,3 +80,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrage to functional based components
 - Use node v18
 - Improve tests
+
+## [1.0.0] - 2023-10-17
+
+### Changed
+
+- Rename package from dash-mdc-neptune to dash-material-components
