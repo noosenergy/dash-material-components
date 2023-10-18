@@ -20,7 +20,8 @@ const validInput = (value, inputType, minValue, maxValue, precision, length) => 
     if (value.split('-').length > 2) return false;
     // check if within range
     value = Number(value);
-    if ((minValue && value < minValue) || (maxValue && value > maxValue)) return false;
+    if ((minValue != null && value < minValue) || (maxValue != null && value > maxValue))
+      return false;
   }
 
   // text - enforce length limit
