@@ -3,7 +3,7 @@ from dash import Dash, Input, Output
 from dash.testing.composite import DashComposite
 from selenium.common.exceptions import NoSuchElementException
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 TOGGLE_OPTIONS = ["test a", "test b"]

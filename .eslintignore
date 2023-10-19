@@ -4,7 +4,7 @@
 .venv/
 dist/
 node_modules/
-dash_mdc_neptune/
+dash_material_components/
 notebooks/
 tests/
 .vscode/

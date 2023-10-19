@@ -1,7 +1,7 @@
 import pytest
 from dash import Dash
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 TEXT_OPTIONS = ["Content...", "Other content..."]

@@ -1,8 +1,8 @@
-[![CircleCI](https://circleci.com/gh/noosenergy/dash-mdc-neptune.svg?style=svg&circle-token=6388fe0ebfc51208a8aec58b00e40edbb6a60724)](https://circleci.com/gh/noosenergy/dash-mdc-neptune)
+[![CircleCI](https://circleci.com/gh/noosenergy/dash-material-components.svg?style=svg&circle-token=6388fe0ebfc51208a8aec58b00e40edbb6a60724)](https://circleci.com/gh/noosenergy/dash-material-components)
 
 # Dash Material Design Components
 
-`dash-mdc-neptune` allows to build consistently styled dashboards with complex and reactive layouts, following Google's [Material Design](https://material.io/) principles.
+`dash-material-components` allows to build consistently styled dashboards with complex and reactive layouts, following Google's [Material Design](https://material.io/) principles.
 
 The library leverages [MUI React](https://mui.com/) components for use with [Plotly Dash](https://dash.plotly.com/).
 
@@ -12,10 +12,10 @@ This project has been initially boostrapped thanks to the [Dash plugin cookiecut
 
 ### Installation
 
-The python package is available from the [PyPi repository](https://pypi.org/project/dash-mdc-neptune),
+The python package is available from the [PyPi repository](https://pypi.org/project/dash-material-components),
 
 ```sh
-pip install dash-mdc-neptune
+pip install dash-material-components
 ```
 
 ### Usage as a library
@@ -25,20 +25,20 @@ Once installed, start using the Python components exactly like you would use oth
 ```python
 import dash
 
-import dash_mdc_neptune as mdc
+import dash_material_components as dmc
 
 
 # Compose a dashboard layout
-text = mdc.Typography(text="Content...", component="p", variant="body2")
+text = dmc.Typography(text="Content...", component="p", variant="body2")
 
-section_1 = mdc.Section(
+section_1 = dmc.Section(
     id="section-1",
     orientation="columns",
     children=[text, text_2],
     cards=[{"title": "Card 1a", "size": 3}, {"title": "Card 1b"}]
 )
 
-section_2 = mdc.Section(
+section_2 = dmc.Section(
     id="section-2",
     size=3,
     children=[text, text_2],
@@ -46,10 +46,10 @@ section_2 = mdc.Section(
     cards=[{"title": "Card 2a", "size": 4}, {"title": "Card 2b"}]
 )
 
-page = mdc.Page(orientation="columns", children=[section_1, section_2])
-navbar = mdc.NavBar(title="Custom dash")
+page = dmc.Page(orientation="columns", children=[section_1, section_2])
+navbar = dmc.NavBar(title="Custom dash")
 
-layout = mdc.Dashboard(children=[navbar, page])
+layout = dmc.Dashboard(children=[navbar, page])
 
 # Instantiate a Dash app
 app = dash.Dash(__name__)
@@ -154,7 +154,7 @@ export default NeptuneComponent;
 
 Once your components have been included into your package entrypoint, run:
 
-* `yarn build:js`, to generate the JavaScript bundle `dash_mdc_neptune.js`
+* `yarn build:js`, to generate the JavaScript bundle `dash_material_components.js`
 * `yarn build:py`, to generate the Python class files for the components.
 * `yarn build`, to generate everything: the JavaScript bundles and the Python class files.
 

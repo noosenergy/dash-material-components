@@ -9,7 +9,7 @@ from ._imports_ import *  # noqa
 from ._imports_ import __all__
 
 
-__version__ = _metadata.version("dash-mdc-neptune")
+__version__ = _metadata.version("dash-material-components")
 
 
 # Module imports trigger a dash.development import, need to check this first
@@ -27,10 +27,13 @@ if not hasattr(_dash, "__plotly_dash") and not hasattr(_dash, "development"):
 _js_dist = []
 _js_dist.extend(
     [
-        {"relative_package_path": "dash_mdc_neptune.js", "namespace": "dash_mdc_neptune"},
         {
-            "relative_package_path": "dash_mdc_neptune.js.map",
-            "namespace": "dash_mdc_neptune",
+            "relative_package_path": "dash_material_components.js",
+            "namespace": "dash_material_components",
+        },
+        {
+            "relative_package_path": "dash_material_components.js.map",
+            "namespace": "dash_material_components",
             "dynamic": True,
         },
     ]

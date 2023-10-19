@@ -1,12 +1,12 @@
 {
-  "name": "dash-mdc-neptune",
+  "name": "dash-material-components",
   "description": "Dash Material Design components for the Neptune platform.",
   "private": false,
   "author": "Noos Energy <contact@noos.energy>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/noosenergy/dash-mdc-neptune.git"
+    "url": "git://github.com/noosenergy/dash-material-components.git"
   },
   "version": "0.4.0",
   "engines": {
@@ -23,9 +23,9 @@
     "lint:prettier": "prettier ./src --config .prettierrc --list-different",
     "lint": "yarn run lint:prettier && yarn run lint:eslint",
     "build:js": "webpack --mode production",
-    "build:py": "poetry run dash-generate-components ./src/components dash_mdc_neptune -p package-info.json",
+    "build:py": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json",
     "build": "yarn run build:js && yarn run build:py",
-    "postbuild": "es-check es6 dash_mdc_neptune/*.js",
+    "postbuild": "es-check es6 dash_material_components/*.js",
     "watch": "webpack --watch --mode development",
     "test": "jest"
   },

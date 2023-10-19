@@ -4,7 +4,7 @@ from typing import Callable, List
 import pytest
 from dash import Dash, Input, Output
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 options = [
