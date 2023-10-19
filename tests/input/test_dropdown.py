@@ -3,7 +3,7 @@ from typing import Any, Callable, Dict, List
 import pytest
 from dash import Dash, Input, Output
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 DROPDOWN_OPTIONS = ["Content...", "Other content..."]

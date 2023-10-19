@@ -4,25 +4,25 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 # Description
-name = "dash-mdc-neptune"
-version = "0.4.0"
-description = "Dash Material Design components for the Neptune platform."
+name = "dash-material-components"
+version = "1.0.0"
+description = "Dash Material Design components for the Noos platform."
 # Credentials
 license = "MIT"
 authors = ["Noos Energy <contact@noos.energy>"]
-homepage = "https://github.com/noosenergy/dash-mdc-neptune"
+homepage = "https://github.com/noosenergy/dash-material-components"
 # Package data
 readme = "README.md"
 packages = [
-    { include = "dash_mdc_neptune"},
+    { include = "dash_material_components"},
 ]
 include = [
-    "dash_mdc_neptune/*.py",
-    "dash_mdc_neptune/*.js",
-    "dash_mdc_neptune/*.js.map",
-    "dash_mdc_neptune/metadata.json",
-    "dash_mdc_neptune/package-info.json",
-    "dash_mdc_neptune/themes/static/*.png",
+    "dash_material_components/*.py",
+    "dash_material_components/*.js",
+    "dash_material_components/*.js.map",
+    "dash_material_components/metadata.json",
+    "dash_material_components/package-info.json",
+    "dash_material_components/themes/static/*.png",
     "README.md",
     "LICENSE",
     "package.json",
@@ -68,7 +68,7 @@ profile = "black"
 multi_line_output = 3
 lines_after_imports = 2
 default_section = "THIRDPARTY"
-known_first_party = "dash_mdc_neptune,tests"
+known_first_party = "dash_material_components,tests"
 sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 
 [tool.mypy]

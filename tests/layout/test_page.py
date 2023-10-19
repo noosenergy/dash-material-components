@@ -1,6 +1,6 @@
 from dash import Dash
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 def test_render_page(dash_duo):

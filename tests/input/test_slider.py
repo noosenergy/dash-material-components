@@ -6,7 +6,7 @@ from dash import Dash, Input, Output
 from dash.testing.composite import DashComposite
 from selenium.webdriver.common.action_chains import ActionChains
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 SLIDER_OPTIONS = {"minValue": 0, "maxValue": 100, "stepValue": 1, "selected": 50, "width": 100}

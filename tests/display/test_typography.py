@@ -3,7 +3,7 @@ from typing import Callable
 import pytest
 from dash import Dash, Input, Output, dcc
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 @pytest.fixture

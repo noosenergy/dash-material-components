@@ -29,7 +29,7 @@ jobs:
     steps:
       - checkout
       - noos-ci/python_lint_package:
-          src_directory: ./dash_mdc_neptune
+          src_directory: ./dash_material_components
           <<: *poetry_install
 
   lint_library:
@@ -52,7 +52,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - dash_mdc_neptune
+            - dash_material_components
             - node_modules
 
   test_package_python:

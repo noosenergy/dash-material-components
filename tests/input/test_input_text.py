@@ -4,7 +4,7 @@ import pytest
 from dash import Dash, Input, Output
 from dash.testing.composite import DashComposite
 
-import dash_mdc_neptune as mdc
+import dash_material_components as mdc
 
 
 @pytest.fixture(scope="module")

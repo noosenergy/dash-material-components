@@ -1,10 +1,10 @@
 // Config documentation:
 // https://containers.dev/implementors/json_reference/
 {
-  "name": "dash-mdc-neptune",
+  "name": "dash-material-components",
   "runArgs": [
     "--name",
-    "dash-mdc-neptune_devcontainer"
+    "dash-material-components_devcontainer"
   ],
   // Docker image setup
   "image": "noosenergy/circleci",
