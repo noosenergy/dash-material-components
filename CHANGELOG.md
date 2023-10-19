@@ -70,3 +70,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump python to v3.11.4
 - Pin Dash version over 2.0 and under 2.10
 - Remove Selenium and Werkzeug pin
+
+## [0.4.0] - 2023-10-16
+
+### Changed
+
+- Add components InputText and Autocomplete
+- Update date picker to allow faster year change
+- Migrage to functional based components
+- Use node v18
+- Improve tests

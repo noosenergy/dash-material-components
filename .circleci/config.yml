@@ -25,8 +25,7 @@ orbs:
 
 jobs:
   lint_package:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - noos-ci/python_lint_package:
@@ -34,8 +33,7 @@ jobs:
           <<: *poetry_install
 
   lint_library:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - run:
@@ -43,8 +41,7 @@ jobs:
           command: yarn install && yarn lint
 
   build_library:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - noos-ci/python_configure_venv:
@@ -56,10 +53,10 @@ jobs:
           root: .
           paths:
             - dash_mdc_neptune
+            - node_modules
 
-  test_package:
-    executor:
-      name: noos-ci/default
+  test_package_python:
+    executor: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
@@ -68,11 +65,20 @@ jobs:
           tests_directory: ./tests
           <<: *poetry_install
       - store_test_results:
-          path: ".pytest_results"
+          path: '.pytest_results'
+
+  test_package_javascript:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: JavaScript unit tests
+          command: yarn test
 
   build_wheel:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
@@ -84,8 +90,7 @@ jobs:
           destination: wheel
 
   publish_wheel:
-    executor:
-      name: noos-ci/default
+    executor: noos-ci/default
     steps:
       - checkout
       - attach_workspace:
@@ -107,13 +112,17 @@ workflows:
           requires:
             - lint_library
       - lint_package
-      - test_package:
+      - test_package_python:
+          requires:
+            - build_library
+      - test_package_javascript:
           requires:
             - build_library
       - build_wheel:
           requires:
             - lint_package
-            - test_package
+            - test_package_python
+            - test_package_javascript
 
   publish:
     jobs:
