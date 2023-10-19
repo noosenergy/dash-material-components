@@ -6,7 +6,7 @@ build-backend = "poetry.masonry.api"
 # Description
 name = "dash-material-components"
 version = "1.0.0"
-description = "Dash Material Design components for the Neptune platform."
+description = "Dash Material Design components for the Noos platform."
 # Credentials
 license = "MIT"
 authors = ["Noos Energy <contact@noos.energy>"]

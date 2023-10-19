@@ -102,7 +102,7 @@ The project is shipped with off-the-shelf scripts to manage node packages as wel
 ~$ yarn install
 ```
 
-> :warning: the Dash Neptune components has only been tested against Node.js v16.
+> :warning: the Dash material components has only been tested against Node.js v18.
 
 And thanks to `poetry` python package manager, create a virtual environnement,
 
@@ -115,18 +115,18 @@ And thanks to `poetry` python package manager, create a virtual environnement,
 Compose your new Dash components in `src/components` and make sure the React components are exported in your package entrypoint `src/index.js`.
 
 ```javascript
-import NeptuneComponent from './components/NeptuneComponent.jsx';
+import NoosComponent from './components/NoosComponent.jsx';
 
-export {NeptuneComponent};
+export {NoosComponent};
 ```
 
-> :warning: the Dash Neptune components are currently using MUI v.4, with the aim to transitionning to MUI v.5 shortly.
+> :warning: the Dash material components are currently using MUI v.4, with the aim to transitionning to MUI v.5 shortly.
 
 The corresponding Python component API is auto-discovered from the React component declared `Props`, while the component Python docstring are automatically generated from the `Props` React docstrings.
 
 ```javascript
 /** Used to auto-generate the Python component and docstrings */
-const NeptuneComponent = (props) => {
+const NoosComponent = (props) => {
     const {text} = props;
 
     return (
@@ -145,7 +145,7 @@ Box.propTypes = {
   text: PropTypes.string,
 };
 
-export default NeptuneComponent;
+export default NoosComponent;
 ```
 
 > :heavy_exclamation_mark: Be careful to use the correct formatting for your docstrings for them to be properly recognized.
