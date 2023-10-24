@@ -7,8 +7,9 @@ const useStyles = makeStyles({
   // remove updown arrow buttons from TextField
   input: {
     '& input': {
-      padding: '6px 0 2px',
-      textAlign: 'center'
+      marginTop: '-5px',
+      textAlign: 'center',
+      padding: "0 0 2px 0",
     }
   }
 });
@@ -74,7 +75,7 @@ const Slider = (props) => {
 
   const numOfDigits = Math.max(maxValue.toString().length, minValue.toString().length);
   const inputText = showInputText ? (
-    <Box ml={3} mt={0.5} width={`${numOfDigits + 3}ch`}>
+    <Box ml={1.5} width={`${numOfDigits + 3}ch`}>
       <TextField
         value={inputValue}
         onChange={handleInputChange}
@@ -97,17 +98,19 @@ const Slider = (props) => {
 
   // Render slider form
   return (
-    <Box id={id} m={2} width={width} display="flex">
+    <Box id={id} m={2} width={width}>
       <FormControl variant="standard" fullWidth>
         {sliderLabel}
-        <MuiSlider
-          size="small"
-          aria-labelledby="slider"
-          valueLabelDisplay="auto"
-          {...sliderControls}
-        />
+        <Box display="flex">
+          <MuiSlider
+            size="small"
+            aria-labelledby="slider"
+            valueLabelDisplay="auto"
+            {...sliderControls}
+          />
+          {inputText}
+        </Box>
       </FormControl>
-      {inputText}
     </Box>
   );
 };
