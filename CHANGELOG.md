@@ -86,3 +86,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Rename package from dash-mdc-neptune to dash-material-components
+
+## [1.1.0] - 2023-10-25
+
+### Changed
+
+- Change Slider interface:
+  - Allow float/input type in the optional InputText
+  - Allow adornments
+  - Delete showInputText prop
+  - Add precision prop
+- Fix Slider and InputText spacing/style

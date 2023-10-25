@@ -73,7 +73,7 @@ const InputText = (props) => {
   };
 
   return (
-    <Box id={id} width={width}>
+    <Box id={id} m={2} width={width}>
       <TextField
         value={inputValue}
         type={inputType}

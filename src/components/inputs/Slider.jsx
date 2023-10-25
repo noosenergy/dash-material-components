@@ -1,22 +1,46 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Box, FormControl, FormLabel, Slider as MuiSlider, TextField} from '@material-ui/core';
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Slider as MuiSlider,
+  TextField,
+  InputAdornment
+} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   // remove updown arrow buttons from TextField
   input: {
     '& input': {
-      padding: '6px 0 2px',
-      textAlign: 'center'
+      marginTop: '-5px',
+      textAlign: 'center',
+      padding: '0 0 2px 0'
     }
+  },
+
+  // style adornments
+  adornment: {
+    margin: '0 0 7px 0'
   }
 });
 
-const inputIsValid = (value, minValue, maxValue) => {
-  // not numeric or '-' sign
-  if (!/^[-]?[0-9]+$/i.test(value)) return false;
+const validInput = (value, inputType, minValue, maxValue, precision) => {
+  if (inputType === 'integer') {
+    // not numeric or '-' sign
+    if (!/^[-]?[0-9]+$/i.test(value)) return false;
+  } else if (inputType === 'float') {
+    // not numeric or ['-', '.'] signs
+    if (!/^[-]?[0-9]+[.]?[0-9]*$/i.test(value)) return false;
+    // too many decimal places
+    const numParts = value.split('.');
+    if (precision && numParts.length > 1 && numParts[1].length > precision) return false;
+  }
 
+  // Any number checks
+  // check for misplaced '-' sign
+  if (value.split('-').length > 2) return false;
   // check if within range
   value = Number(value);
   if (value < minValue || value > maxValue) return false;
@@ -37,12 +61,18 @@ const Slider = (props) => {
     stepValue,
     marks,
     selected,
-    setProps,
-    showInputText
+    inputType,
+    precision,
+    inputLeftAdornment,
+    inputRightAdornment,
+    setProps
   } = props;
 
   const classes = useStyles();
-  const [inputValue, setInputValue] = useState(String(selected));
+  // Initialize input value with correct precision
+  const [inputValue, setInputValue] = useState(
+    String(selected.toFixed(inputType === 'float' ? precision : 0))
+  );
   const [prevInputValue, setPrevInputValue] = useState(inputValue);
 
   const handleSliderChange = (event, value) => {
@@ -54,9 +84,8 @@ const Slider = (props) => {
 
   const handleInputChange = (event) => {
     let value = event.target.value;
-    const isValid = inputIsValid(value, minValue, maxValue);
 
-    if (isValid) {
+    if (validInput(value, inputType, minValue, maxValue, precision)) {
       setPrevInputValue(value);
       setInputValue(value);
       // Fire Dash-assigned callback
@@ -72,15 +101,39 @@ const Slider = (props) => {
   // Fetch slider header
   const sliderLabel = labelText ? <FormLabel>{labelText}</FormLabel> : null;
 
-  const numOfDigits = Math.max(maxValue.toString().length, minValue.toString().length);
-  const inputText = showInputText ? (
-    <Box ml={3} mt={0.5} width={`${numOfDigits + 3}ch`}>
+  // Calculate width of input text in characters
+  let numOfDigits = Math.max(
+    maxValue.toString().split('.')[0].length,
+    minValue.toString().split('.')[0].length
+  );
+  // account for space taken by decimals
+  if (inputType === 'float') numOfDigits += precision + 1;
+  // account for space taken by '-'
+  numOfDigits += 3;
+  // account for space taken by adornments
+  if (inputLeftAdornment) numOfDigits += inputLeftAdornment.length;
+  if (inputRightAdornment) numOfDigits += inputRightAdornment.length;
+
+  const inputText = inputType ? (
+    <Box ml={1.5} width={`${numOfDigits}ch`}>
       <TextField
         value={inputValue}
         onChange={handleInputChange}
         variant="standard"
         className={classes.input}
         size="small"
+        InputProps={{
+          startAdornment: inputLeftAdornment ? (
+            <InputAdornment position="start" className={classes.adornment}>
+              {inputLeftAdornment}
+            </InputAdornment>
+          ) : null,
+          endAdornment: inputRightAdornment ? (
+            <InputAdornment position="end" className={classes.adornment}>
+              {inputRightAdornment}
+            </InputAdornment>
+          ) : null
+        }}
       />
     </Box>
   ) : null;
@@ -97,17 +150,19 @@ const Slider = (props) => {
 
   // Render slider form
   return (
-    <Box id={id} m={2} width={width} display="flex">
+    <Box id={id} m={2} width={width}>
       <FormControl variant="standard" fullWidth>
         {sliderLabel}
-        <MuiSlider
-          size="small"
-          aria-labelledby="slider"
-          valueLabelDisplay="auto"
-          {...sliderControls}
-        />
+        <Box display="flex">
+          <MuiSlider
+            size="small"
+            aria-labelledby="slider"
+            valueLabelDisplay="auto"
+            {...sliderControls}
+          />
+          {inputText}
+        </Box>
       </FormControl>
-      {inputText}
     </Box>
   );
 };
@@ -119,7 +174,10 @@ Slider.defaultProps = {
   minValue: 0,
   stepValue: 10,
   selected: 50,
-  showInputText: false
+  inputType: null,
+  precision: 2,
+  inputLeftAdornment: null,
+  inputRightAdornment: null
 };
 
 Slider.propTypes = {
@@ -157,8 +215,17 @@ Slider.propTypes = {
   /** Active slider selection */
   selected: PropTypes.number,
 
-  /** Enable input text */
-  showInputText: PropTypes.bool
+  /** Input type, if set an input text is displayed alongside the slider */
+  inputType: PropTypes.oneOf(['integer', 'float', null]),
+
+  /** Number of decimal places */
+  precision: PropTypes.number,
+
+  /** InputText LEFT adornment */
+  inputLeftAdornment: PropTypes.string,
+
+  /** InputText RIGHT adornment */
+  inputRightAdornment: PropTypes.string
 };
 
 export default Slider;

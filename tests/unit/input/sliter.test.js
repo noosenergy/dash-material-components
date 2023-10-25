@@ -20,7 +20,7 @@ describe('Slider', () => {
 
     render(<Slider selected={initialValue} minValue={min} maxValue={max}
       marks={[{"label": "x", "value": min}, {"label": "y", "value": max}]}
-      showInputText={true}
+      inputType="integer"
     />);
 
     const slider = screen.getByRole('slider');
@@ -38,6 +38,14 @@ describe('Slider', () => {
     const text_input = screen.getByRole('textbox');
     expect(text_input).toBeInTheDocument();
     expect(text_input).toHaveValue(String(initialValue));
+  });
+
+  it('should render correctly with adornments', () => {
+    render(<Slider selected={50} inputType="integer" inputLeftAdornment="left" inputRightAdornment="right" />);
+
+    // Test adornments are rendered
+    expect(screen.getByText('left')).toBeInTheDocument();
+    expect(screen.getByText('right')).toBeInTheDocument();
   });
 
 });
