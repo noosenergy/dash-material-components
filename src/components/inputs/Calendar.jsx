@@ -51,6 +51,7 @@ const Calendar = (props) => {
         helperText={helperText}
         variant="inline"
         inputVariant="outlined"
+        fullWidth
         {...calendarControls}
       />
     </Box>
