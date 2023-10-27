@@ -46,6 +46,7 @@ const InputText = (props) => {
     autoFocus,
     size,
     width,
+    margin,
     value,
     precision,
     adornmentLeft,
@@ -73,7 +74,7 @@ const InputText = (props) => {
   };
 
   return (
-    <Box id={id} m={2} width={width}>
+    <Box id={id} m={margin} width={width}>
       <TextField
         value={inputValue}
         type={inputType}
@@ -111,6 +112,7 @@ InputText.defaultProps = {
   autoFocus: false,
   size: 'small',
   width: '100%',
+  margin: 2,
   adornmentLeft: null,
   adornmentRight: null
 };
@@ -157,6 +159,9 @@ InputText.propTypes = {
 
   /** Component width */
   width: PropTypes.string,
+
+  /** Component margin */
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** Adornment on the left of the input */
   adornmentLeft: PropTypes.string,
