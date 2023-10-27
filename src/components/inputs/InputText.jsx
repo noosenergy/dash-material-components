@@ -51,6 +51,8 @@ const InputText = (props) => {
     precision,
     adornmentLeft,
     adornmentRight,
+    disabled,
+    error,
     setProps
   } = props;
 
@@ -95,7 +97,9 @@ const InputText = (props) => {
             <InputAdornment position="end">{adornmentRight}</InputAdornment>
           ) : null
         }}
-        style={{width: '100%'}}
+        fullWidth={width !== null}
+        disabled={disabled}
+        error={error}
       />
     </Box>
   );
@@ -111,10 +115,12 @@ InputText.defaultProps = {
   variant: 'outlined',
   autoFocus: false,
   size: 'small',
-  width: '100%',
+  width: null,
   margin: 2,
   adornmentLeft: null,
-  adornmentRight: null
+  adornmentRight: null,
+  disabled: false,
+  error: false
 };
 
 InputText.propTypes = {
@@ -167,7 +173,13 @@ InputText.propTypes = {
   adornmentLeft: PropTypes.string,
 
   /** Adornment on the right of the input */
-  adornmentRight: PropTypes.string
+  adornmentRight: PropTypes.string,
+
+  /** Input disabled */
+  disabled: PropTypes.bool,
+
+  /** Input error */
+  error: PropTypes.bool
 };
 
 export default InputText;
