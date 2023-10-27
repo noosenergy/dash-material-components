@@ -73,7 +73,7 @@ def test_single_selection(dash_duo, dash_app, index):
     dash_duo.start_server(dash_app())
     dash_duo.find_element("#autocomplete").click()
 
-    elements = dash_duo.find_element("#autocomplete-popup").find_elements_by_tag_name("li")
+    elements = dash_duo.find_element("#autocomplete-input-popup").find_elements_by_tag_name("li")
 
     # Select the option
     elements[index].click()
@@ -95,7 +95,9 @@ def test_multiple_selection(dash_duo, dash_app):
         # Open popup
         open_btn.click()
         # Get list of options
-        elements = dash_duo.find_element("#autocomplete-popup").find_elements_by_tag_name("li")
+        elements = dash_duo.find_element("#autocomplete-input-popup").find_elements_by_tag_name(
+            "li"
+        )
         # Click on the option
         elements[index].click()
 
