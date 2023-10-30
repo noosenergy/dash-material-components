@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
+import {TextField, Box} from '@material-ui/core';
 import {Autocomplete as MuiAutocomplete} from '@material-ui/lab';
 
 /**
@@ -19,6 +19,7 @@ const Autocomplete = (props) => {
     size,
     limitTags,
     width,
+    margin,
     setProps
   } = props;
 
@@ -28,20 +29,22 @@ const Autocomplete = (props) => {
   };
 
   return (
-    <MuiAutocomplete
-      id={id}
-      size={size}
-      value={multiple ? selected : selected[0] || null}
-      options={options}
-      getOptionLabel={(option) => option.label}
-      freeSolo={freeSolo}
-      groupBy={groupByField ? (option) => option[groupByField] : undefined}
-      multiple={multiple}
-      limitTags={limitTags}
-      onChange={handleChange}
-      style={{width: width}}
-      renderInput={(params) => <TextField {...params} label={labelText} variant={variant} />}
-    />
+    <Box id={id} m={margin} width={width}>
+      <MuiAutocomplete
+        id={`${id}-input`}
+        size={size}
+        value={multiple ? selected : selected[0] || null}
+        options={options}
+        getOptionLabel={(option) => option.label}
+        freeSolo={freeSolo}
+        groupBy={groupByField ? (option) => option[groupByField] : undefined}
+        multiple={multiple}
+        limitTags={limitTags}
+        onChange={handleChange}
+        fullWidth
+        renderInput={(params) => <TextField {...params} label={labelText} variant={variant} />}
+      />
+    </Box>
   );
 };
 
@@ -51,7 +54,8 @@ Autocomplete.defaultProps = {
   variant: 'outlined',
   size: 'small',
   multiple: false,
-  width: '100%'
+  width: '100%',
+  margin: 2
 };
 
 const optionsType = PropTypes.arrayOf(
@@ -98,7 +102,10 @@ Autocomplete.propTypes = {
   multiple: PropTypes.bool,
 
   /** Component width */
-  width: PropTypes.string
+  width: PropTypes.string,
+
+  /** Component margin */
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default Autocomplete;

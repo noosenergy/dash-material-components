@@ -22,7 +22,10 @@ const useStyles = makeStyles({
 
   // style adornments
   adornment: {
-    margin: '0 0 7px 0'
+    margin: '0 0 7px 0',
+    '& p': {
+      fontSize: 'smaller'
+    }
   }
 });
 
@@ -48,6 +51,10 @@ const validInput = (value, inputType, minValue, maxValue, precision) => {
   return true;
 };
 
+const countUppercase = (str) => {
+  return (str.match(/[A-Z]/g) || []).length;
+};
+
 /**
  * Slider component
  */
@@ -56,6 +63,7 @@ const Slider = (props) => {
     id,
     labelText,
     width,
+    margin,
     minValue,
     maxValue,
     stepValue,
@@ -110,9 +118,11 @@ const Slider = (props) => {
   if (inputType === 'float') numOfDigits += precision + 1;
   // account for space taken by '-'
   numOfDigits += 3;
-  // account for space taken by adornments
-  if (inputLeftAdornment) numOfDigits += inputLeftAdornment.length;
-  if (inputRightAdornment) numOfDigits += inputRightAdornment.length;
+  // account for space taken by adornments, take extra space for uppercase letters
+  if (inputLeftAdornment)
+    numOfDigits += inputLeftAdornment.length + countUppercase(inputLeftAdornment) * 1.8;
+  if (inputRightAdornment)
+    numOfDigits += inputRightAdornment.length + countUppercase(inputRightAdornment) * 1.8;
 
   const inputText = inputType ? (
     <Box ml={1.5} width={`${numOfDigits}ch`}>
@@ -150,7 +160,7 @@ const Slider = (props) => {
 
   // Render slider form
   return (
-    <Box id={id} m={2} width={width}>
+    <Box id={id} m={margin} width={width}>
       <FormControl variant="standard" fullWidth>
         {sliderLabel}
         <Box display="flex">
@@ -170,6 +180,7 @@ const Slider = (props) => {
 Slider.defaultProps = {
   id: 'slider',
   width: '100%',
+  margin: 2,
   maxValue: 100,
   minValue: 0,
   stepValue: 10,
@@ -192,6 +203,9 @@ Slider.propTypes = {
 
   /** Width of slider form */
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  /** Margin of the component */
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** Maximum selection allowed in the slider */
   maxValue: PropTypes.number,

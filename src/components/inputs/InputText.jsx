@@ -46,10 +46,13 @@ const InputText = (props) => {
     autoFocus,
     size,
     width,
+    margin,
     value,
     precision,
     adornmentLeft,
     adornmentRight,
+    disabled,
+    error,
     setProps
   } = props;
 
@@ -73,7 +76,7 @@ const InputText = (props) => {
   };
 
   return (
-    <Box id={id} m={2} width={width}>
+    <Box id={id} m={margin} width={width}>
       <TextField
         value={inputValue}
         type={inputType}
@@ -94,7 +97,9 @@ const InputText = (props) => {
             <InputAdornment position="end">{adornmentRight}</InputAdornment>
           ) : null
         }}
-        style={{width: '100%'}}
+        fullWidth={width !== null}
+        disabled={disabled}
+        error={error}
       />
     </Box>
   );
@@ -110,9 +115,12 @@ InputText.defaultProps = {
   variant: 'outlined',
   autoFocus: false,
   size: 'small',
-  width: '100%',
+  width: null,
+  margin: 2,
   adornmentLeft: null,
-  adornmentRight: null
+  adornmentRight: null,
+  disabled: false,
+  error: false
 };
 
 InputText.propTypes = {
@@ -158,11 +166,20 @@ InputText.propTypes = {
   /** Component width */
   width: PropTypes.string,
 
+  /** Component margin */
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
   /** Adornment on the left of the input */
   adornmentLeft: PropTypes.string,
 
   /** Adornment on the right of the input */
-  adornmentRight: PropTypes.string
+  adornmentRight: PropTypes.string,
+
+  /** Input disabled */
+  disabled: PropTypes.bool,
+
+  /** Input error */
+  error: PropTypes.bool
 };
 
 export default InputText;

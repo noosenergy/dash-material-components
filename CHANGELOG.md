@@ -97,3 +97,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Delete showInputText prop
   - Add precision prop
 - Fix Slider and InputText spacing/style
+
+## [1.1.1] - 2023-10-30
+
+### Changed
+
+- Add margin prop to all input components
+- Improve the sizing of the slider input
+- Fix calendar width scaling

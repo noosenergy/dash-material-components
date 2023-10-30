@@ -15,6 +15,7 @@ const Calendar = (props) => {
     labelText,
     helperText,
     width,
+    margin,
     maxDate,
     minDate,
     disableFuture,
@@ -44,13 +45,14 @@ const Calendar = (props) => {
   };
 
   return (
-    <Box id={id} m={2} width={width}>
+    <Box id={id} m={margin} width={width}>
       <DatePicker
         id={`${id}-input`}
         label={labelText}
         helperText={helperText}
         variant="inline"
         inputVariant="outlined"
+        fullWidth
         {...calendarControls}
       />
     </Box>
@@ -60,6 +62,7 @@ const Calendar = (props) => {
 Calendar.defaultProps = {
   id: 'calendar',
   width: '100%',
+  margin: 2,
   maxDate: '2100-01-01',
   minDate: '1900-01-01',
   disableFuture: true,
@@ -83,6 +86,9 @@ Calendar.propTypes = {
 
   /** Width of calendar form */
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  /** Margin */
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** Latest date available in the calendar */
   maxDate: PropTypes.string,
