@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Box, Snackbar} from '@material-ui/core';
 import {Alert as MuiAlert} from '@material-ui/lab';
@@ -7,32 +7,21 @@ import {Alert as MuiAlert} from '@material-ui/lab';
  * Alert component
  */
 const Alert = (props) => {
-  const {id, severity, autoHide, message: initialMessage} = props;
-  const [message, setMessage] = useState(initialMessage);
+  const {id, severity, autoHide, message, setProps} = props;
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway' || reason === 'timeout') {
-      setMessage(null);
+      setProps({message: null});
     }
   };
-
-  useEffect(() => {
-    setMessage(initialMessage);
-
-    const timer = setTimeout(() => {
-      handleClose(null, 'timeout');
-    }, autoHide);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [initialMessage]);
 
   return (
     <Box id={id}>
       <Snackbar
         open={Boolean(message)}
         onClose={handleClose}
+        autoHideDuration={autoHide}
+        autoHide={true}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right'
@@ -50,7 +39,8 @@ Alert.defaultProps = {
   id: 'alert',
   severity: 'error',
   autoHide: 5000,
-  message: null
+  message: null,
+  setProps: () => {}
 };
 
 Alert.propTypes = {
@@ -64,7 +54,10 @@ Alert.propTypes = {
   autoHide: PropTypes.number,
 
   /** Message to display */
-  message: PropTypes.string
+  message: PropTypes.string,
+
+  /** Dash callback to update props on the server */
+  setProps: PropTypes.func
 };
 
 export default Alert;
