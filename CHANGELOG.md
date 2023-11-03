@@ -105,3 +105,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add margin prop to all input components
 - Improve the sizing of the slider input
 - Fix calendar width scaling
+
+## [1.1.2] - 2023-11-03
+
+### Changed
+
+- Add setProps prop to alert component
