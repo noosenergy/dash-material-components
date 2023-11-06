@@ -24,6 +24,21 @@ const Autocomplete = (props) => {
   } = props;
 
   const handleChange = (event, value) => {
+    // In case of freeSolo, the new value can be a string
+    if (freeSolo) {
+      if (typeof value === 'string') {
+        value = {label: value, value: value};
+      }
+
+      // if multiple and last array element is string
+      else if (multiple && value.length && typeof value[value.length - 1] === 'string') {
+        // pop last element
+        const newValue = value.pop();
+        // append new element
+        value.push({label: newValue, value: newValue});
+      }
+    }
+
     // Fire Dash-assigned callback
     setProps({selected: multiple ? value : [value]});
   };
@@ -33,7 +48,7 @@ const Autocomplete = (props) => {
       <MuiAutocomplete
         id={`${id}-input`}
         size={size}
-        value={multiple ? selected : selected[0] || null}
+        value={multiple ? selected : selected[0]}
         options={options}
         getOptionLabel={(option) => option.label}
         freeSolo={freeSolo}

@@ -13,10 +13,12 @@ options = [
     {"label": "option_c", "value": "value_c"},
 ]
 
+NO_SELECTION_TEXT = "Please select an option"
+
 
 @pytest.fixture(scope="module")
-def dash_app() -> Callable[[List[dict], bool], Dash]:
-    def app_factory(selected: List[dict] = [], multiple: bool = False) -> Dash:
+def dash_app() -> Callable[[List[dict], bool, bool], Dash]:
+    def app_factory(selected: List[dict] = [], multiple: bool = False, free_solo: bool = False) -> Dash:
         app = Dash(name=__name__)
         app.layout = mdc.Dashboard(
             children=mdc.Page(
@@ -29,6 +31,7 @@ def dash_app() -> Callable[[List[dict], bool], Dash]:
                                 labelText="Select an option",
                                 selected=selected,
                                 multiple=multiple,
+                                freeSolo=free_solo
                             ),
                             mdc.Typography(id="text"),
                         ],
@@ -47,7 +50,7 @@ def dash_app() -> Callable[[List[dict], bool], Dash]:
             if value:
                 return f"You have selected: {', '.join(labels)}"
             else:
-                return "Please select an option"
+                return NO_SELECTION_TEXT
 
         return app
 
@@ -56,7 +59,7 @@ def dash_app() -> Callable[[List[dict], bool], Dash]:
 
 def test_no_selection(dash_duo, dash_app):
     dash_duo.start_server(dash_app())
-    dash_duo.wait_for_text_to_equal("#text", "Please select an option")
+    dash_duo.wait_for_text_to_equal("#text", NO_SELECTION_TEXT)
     assert dash_duo.get_logs() is None
 
 
@@ -105,5 +108,57 @@ def test_multiple_selection(dash_duo, dash_app):
         "#text",
         f'You have selected: {options[rand_idxs[0]]["label"]}, {options[rand_idxs[1]]["label"]}',
     )
+
+    assert dash_duo.get_logs() is None
+
+def test_allow_new_value_not_in_options(dash_duo, dash_app):
+    dash_duo.start_server(dash_app(free_solo=True))
+    dash_duo.find_element("#autocomplete").click()
+
+    # Type a new value
+    dash_duo.find_element("#autocomplete-input").send_keys("new_value")
+    # Type enter
+    dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
+
+    dash_duo.wait_for_text_to_equal("#text", "You have selected: new_value")
+
+    assert dash_duo.get_logs() is None
+
+def test_not_allow_new_value_not_in_options(dash_duo, dash_app):
+    dash_duo.start_server(dash_app(free_solo=False))
+    dash_duo.find_element("#autocomplete").click()
+
+    # Type a new value
+    dash_duo.find_element("#autocomplete-input").send_keys("new_value")
+    # Type enter
+    dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
+
+    dash_duo.wait_for_text_to_equal("#text", NO_SELECTION_TEXT)
+
+    assert dash_duo.get_logs() is None
+
+def test_multiple_allow_new_value_not_in_options(dash_duo, dash_app):
+    dash_duo.start_server(dash_app(selected=[options[1], options[2]], multiple=True, free_solo=True))
+    dash_duo.find_element("#autocomplete").click()
+
+    # Type a new value
+    dash_duo.find_element("#autocomplete-input").send_keys("new_value")
+    # Type enter
+    dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
+
+    dash_duo.wait_for_text_to_equal("#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}, new_value')
+
+    assert dash_duo.get_logs() is None
+
+def test_multiple_not_allow_new_value_not_in_options(dash_duo, dash_app):
+    dash_duo.start_server(dash_app(selected=[options[1], options[2]], multiple=True, free_solo=False))
+    dash_duo.find_element("#autocomplete").click()
+
+    # Type a new value
+    dash_duo.find_element("#autocomplete-input").send_keys("new_value")
+    # Type enter
+    dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
+
+    dash_duo.wait_for_text_to_equal("#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}')
 
     assert dash_duo.get_logs() is None
