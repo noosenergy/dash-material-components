@@ -111,3 +111,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add setProps prop to alert component
+
+## [1.1.3] - 2023-11-07
+
+### Changed
+
+- Add Button component
+- Fix freeSolo in Autocomplete component
