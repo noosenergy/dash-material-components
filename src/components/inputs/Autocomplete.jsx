@@ -48,9 +48,9 @@ const Autocomplete = (props) => {
       <MuiAutocomplete
         id={`${id}-input`}
         size={size}
-        value={multiple ? selected : selected[0]}
+        value={multiple ? selected : selected[0] || null}
         options={options}
-        getOptionLabel={(option) => option.label}
+        getOptionLabel={(option) => option.label || option}
         freeSolo={freeSolo}
         groupBy={groupByField ? (option) => option[groupByField] : undefined}
         multiple={multiple}
