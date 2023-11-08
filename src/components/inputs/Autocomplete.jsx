@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TextField, Box} from '@material-ui/core';
 import {Autocomplete as MuiAutocomplete} from '@material-ui/lab';
+import {createFilterOptions} from '@material-ui/lab/Autocomplete';
+
+const filter = createFilterOptions();
 
 /**
  * Autocomplete component
@@ -23,24 +26,27 @@ const Autocomplete = (props) => {
     setProps
   } = props;
 
-  const handleChange = (event, value) => {
-    // In case of freeSolo, the new value can be a string
-    if (freeSolo) {
-      if (typeof value === 'string') {
-        value = {label: value, value: value};
-      }
+  const handleChange = (event, selection) => {
+    // Always treat input as an array
+    if (!multiple) selection = selection ? [selection] : [];
 
-      // if multiple and last array element is string
-      else if (multiple && value.length && typeof value[value.length - 1] === 'string') {
-        // pop last element
-        const newValue = value.pop();
-        // append new element
-        value.push({label: newValue, value: newValue});
+    // In case of freeSolo
+    if (freeSolo && selection.length) {
+      const newOption = selection.pop();
+      // User pressed enter and new value is as string
+      if (typeof newOption === 'string') {
+        selection.push({label: newOption, value: newOption});
       }
+      // User has clicked "Add option"
+      else if (newOption.inputValue) {
+        selection.push({label: newOption.inputValue, value: newOption.inputValue});
+      }
+      // User has selected an existing option
+      else selection.push(newOption);
     }
 
     // Fire Dash-assigned callback
-    setProps({selected: multiple ? value : [value]});
+    setProps({selected: selection});
   };
 
   return (
@@ -48,15 +54,31 @@ const Autocomplete = (props) => {
       <MuiAutocomplete
         id={`${id}-input`}
         size={size}
-        value={multiple ? selected : selected[0]}
+        value={multiple ? selected : selected[0] || null}
         options={options}
-        getOptionLabel={(option) => option.label}
+        getOptionLabel={(option) => option.label || option}
+        renderOption={(option) => option.label}
         freeSolo={freeSolo}
         groupBy={groupByField ? (option) => option[groupByField] : undefined}
         multiple={multiple}
         limitTags={limitTags}
         onChange={handleChange}
+        filterOptions={(options, params) => {
+          const filtered = filter(options, params);
+
+          // Suggest the creation of a new value
+          if (params.inputValue !== '' && freeSolo) {
+            filtered.push({
+              value: params.inputValue,
+              inputValue: params.inputValue,
+              label: `Add "${params.inputValue}"`
+            });
+          }
+
+          return filtered;
+        }}
         fullWidth
+        clearOnBlur
         renderInput={(params) => <TextField {...params} label={labelText} variant={variant} />}
       />
     </Box>

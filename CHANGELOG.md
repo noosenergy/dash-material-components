@@ -118,3 +118,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add Button component
 - Fix freeSolo in Autocomplete component
+
+## [1.1.4] - 2023-11-07
+
+### Changed
+
+- Fix freeSolo in Autocomplete component
