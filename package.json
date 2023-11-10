@@ -27,7 +27,7 @@
     "build": "yarn run build:js && yarn run build:py",
     "postbuild": "es-check es6 dash_material_components/*.js",
     "watch": "webpack --watch --mode development",
-    "test": "jest"
+    "test": "jest ./src"
   },
   "dependencies": {
     "@date-io/core": "^1.0",
