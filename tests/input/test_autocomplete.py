@@ -18,7 +18,9 @@ NO_SELECTION_TEXT = "Please select an option"
 
 @pytest.fixture(scope="module")
 def dash_app() -> Callable[[List[dict], bool, bool], Dash]:
-    def app_factory(selected: List[dict] = [], multiple: bool = False, free_solo: bool = False) -> Dash:
+    def app_factory(
+        selected: List[dict] = [], multiple: bool = False, free_solo: bool = False
+    ) -> Dash:
         app = Dash(name=__name__)
         app.layout = mdc.Dashboard(
             children=mdc.Page(
@@ -31,7 +33,7 @@ def dash_app() -> Callable[[List[dict], bool, bool], Dash]:
                                 labelText="Select an option",
                                 selected=selected,
                                 multiple=multiple,
-                                freeSolo=free_solo
+                                freeSolo=free_solo,
                             ),
                             mdc.Typography(id="text"),
                         ],
@@ -111,6 +113,7 @@ def test_multiple_selection(dash_duo, dash_app):
 
     assert dash_duo.get_logs() is None
 
+
 def test_allow_new_value_not_in_options(dash_duo, dash_app):
     dash_duo.start_server(dash_app(free_solo=True))
     dash_duo.find_element("#autocomplete").click()
@@ -123,6 +126,7 @@ def test_allow_new_value_not_in_options(dash_duo, dash_app):
     dash_duo.wait_for_text_to_equal("#text", "You have selected: new_value")
 
     assert dash_duo.get_logs() is None
+
 
 def test_not_allow_new_value_not_in_options(dash_duo, dash_app):
     dash_duo.start_server(dash_app(free_solo=False))
@@ -137,8 +141,11 @@ def test_not_allow_new_value_not_in_options(dash_duo, dash_app):
 
     assert dash_duo.get_logs() is None
 
+
 def test_multiple_allow_new_value_not_in_options(dash_duo, dash_app):
-    dash_duo.start_server(dash_app(selected=[options[1], options[2]], multiple=True, free_solo=True))
+    dash_duo.start_server(
+        dash_app(selected=[options[1], options[2]], multiple=True, free_solo=True)
+    )
     dash_duo.find_element("#autocomplete").click()
 
     # Type a new value
@@ -146,12 +153,17 @@ def test_multiple_allow_new_value_not_in_options(dash_duo, dash_app):
     # Type enter
     dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
 
-    dash_duo.wait_for_text_to_equal("#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}, new_value')
+    dash_duo.wait_for_text_to_equal(
+        "#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}, new_value'
+    )
 
     assert dash_duo.get_logs() is None
 
+
 def test_multiple_not_allow_new_value_not_in_options(dash_duo, dash_app):
-    dash_duo.start_server(dash_app(selected=[options[1], options[2]], multiple=True, free_solo=False))
+    dash_duo.start_server(
+        dash_app(selected=[options[1], options[2]], multiple=True, free_solo=False)
+    )
     dash_duo.find_element("#autocomplete").click()
 
     # Type a new value
@@ -159,6 +171,8 @@ def test_multiple_not_allow_new_value_not_in_options(dash_duo, dash_app):
     # Type enter
     dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
 
-    dash_duo.wait_for_text_to_equal("#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}')
+    dash_duo.wait_for_text_to_equal(
+        "#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}'
+    )
 
     assert dash_duo.get_logs() is None

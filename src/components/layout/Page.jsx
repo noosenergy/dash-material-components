@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Box, Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import Error from './Error';
+import Error from '../../fragments/Error';
 
 const useStyles = makeStyles((theme) => ({
   pageLayout: {

@@ -24,14 +24,6 @@ orbs:
 # --------------
 
 jobs:
-  lint_package:
-    executor: noos-ci/default
-    steps:
-      - checkout
-      - noos-ci/python_lint_package:
-          src_directory: ./dash_material_components
-          <<: *poetry_install
-
   lint_library:
     executor: noos-ci/default
     steps:
@@ -39,6 +31,14 @@ jobs:
       - run:
           name: Lint JavaScript library
           command: yarn install && yarn lint
+
+  test_library:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - run:
+          name: Run JavaScript tests
+          command: yarn install && yarn test
 
   build_library:
     executor: noos-ci/default
@@ -55,7 +55,15 @@ jobs:
             - dash_material_components
             - node_modules
 
-  test_package_python:
+  lint_package:
+    executor: noos-ci/default
+    steps:
+      - checkout
+      - noos-ci/python_lint_package:
+          src_directory: ./dash_material_components
+          <<: *poetry_install
+
+  test_package:
     executor: noos-ci/default
     steps:
       - checkout
@@ -65,17 +73,7 @@ jobs:
           tests_directory: ./tests
           <<: *poetry_install
       - store_test_results:
-          path: '.pytest_results'
-
-  test_package_javascript:
-    executor: noos-ci/default
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: JavaScript unit tests
-          command: yarn test
+          path: ".pytest_results"
 
   build_wheel:
     executor: noos-ci/default
@@ -108,21 +106,14 @@ workflows:
   lint_test_build:
     jobs:
       - lint_library
+      - test_library
       - build_library:
-          requires:
-            - lint_library
+          requires: [lint_library, test_library]
       - lint_package
-      - test_package_python:
-          requires:
-            - build_library
-      - test_package_javascript:
-          requires:
-            - build_library
+      - test_package:
+          requires: [build_library]
       - build_wheel:
-          requires:
-            - lint_package
-            - test_package_python
-            - test_package_javascript
+          requires: [lint_package, test_package]
 
   publish:
     jobs:
@@ -130,11 +121,9 @@ workflows:
           type: approval
           <<: *release_filters
       - build_library:
-          requires:
-            - approve_for_publishing
+          requires: [approve_for_publishing]
           <<: *release_filters
       - publish_wheel:
           context: PYPI_SHARED
-          requires:
-            - build_library
+          requires: [build_library]
           <<: *release_filters

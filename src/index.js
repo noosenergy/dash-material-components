@@ -2,7 +2,6 @@
 import Dashboard from './components/Dashboard';
 
 // Layout components: component state managed locally
-import Error from './components/layout/Error';
 import NavBar from './components/layout/NavBar';
 import Page from './components/layout/Page';
 import Section from './components/layout/Section';
@@ -27,7 +26,6 @@ import Typography from './components/display/Typography';
 export {
   // Layout
   Dashboard,
-  Error,
   NavBar,
   Page,
   Section,

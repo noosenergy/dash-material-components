@@ -1,16 +1,16 @@
 {
   "editor.formatOnSave": true,
-  "python.formatting.provider": "black",
-  "python.linting.flake8Enabled": true,
-  "python.linting.pydocstyleEnabled": true,
-  "python.linting.mypyEnabled": true,
-  "python.testing.pytestEnabled": true,
   "[python]": {
-    // Necessity to install VSCode extension 'iSort'
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.fixAll": true,
+      "source.organizeImports": true,
     },
   },
+  "python.testing.pytestEnabled": true,
   "python.terminal.activateEnvironment": false,
-  "python.analysis.typeCheckingMode": "basic",
+  // Necessity to install below VSCode extensions
+  "isort.importStrategy": "fromEnvironment",
+  "black-formatter.importStrategy": "fromEnvironment",
+  "flake8.importStrategy": "fromEnvironment",
+  "mypy-type-checker.importStrategy": "fromEnvironment",
 }

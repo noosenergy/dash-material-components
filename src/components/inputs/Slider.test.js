@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Slider from '../../../src/components/inputs/Slider';
+import {render, screen} from '@testing-library/react';
+import Slider from './Slider';
 import '@testing-library/jest-dom';
 
 describe('Slider', () => {
@@ -18,10 +18,18 @@ describe('Slider', () => {
     const max = 100;
     const min = 0;
 
-    render(<Slider selected={initialValue} minValue={min} maxValue={max}
-      marks={[{"label": "x", "value": min}, {"label": "y", "value": max}]}
-      inputType="integer"
-    />);
+    render(
+      <Slider
+        selected={initialValue}
+        minValue={min}
+        maxValue={max}
+        marks={[
+          {label: 'x', value: min},
+          {label: 'y', value: max}
+        ]}
+        inputType="integer"
+      />
+    );
 
     const slider = screen.getByRole('slider');
 
@@ -41,11 +49,17 @@ describe('Slider', () => {
   });
 
   it('should render correctly with adornments', () => {
-    render(<Slider selected={50} inputType="integer" inputLeftAdornment="left" inputRightAdornment="right" />);
+    render(
+      <Slider
+        selected={50}
+        inputType="integer"
+        inputLeftAdornment="left"
+        inputRightAdornment="right"
+      />
+    );
 
     // Test adornments are rendered
     expect(screen.getByText('left')).toBeInTheDocument();
     expect(screen.getByText('right')).toBeInTheDocument();
   });
-
 });

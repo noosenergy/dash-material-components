@@ -9,13 +9,17 @@ import dash_material_components as mdc
 
 @pytest.fixture
 def dash_app() -> Callable[[str], Dash]:
-    def app_factory(text: Optional[str] = None, component: Optional[str] = None,
-                    status: Optional[int] = None, message: Optional[str] = None) -> Dash:
+    def app_factory(
+        text: Optional[str] = None,
+        component: Optional[str] = None,
+        status: Optional[int] = None,
+        message: Optional[str] = None,
+    ) -> Dash:
         app = Dash(name=__name__)
         app.layout = mdc.Dashboard(
             children=[
                 mdc.Page(
-                    id='page',
+                    id="page",
                     children=mdc.Section(
                         children=mdc.Box(
                             children=[
@@ -36,7 +40,7 @@ def dash_app() -> Callable[[str], Dash]:
             prevent_initial_call=True,
         )
         def show_error_page(n_clicks):
-            print('inside', status, message)
+            print("inside", status, message)
             return [status, message]
 
         return app
