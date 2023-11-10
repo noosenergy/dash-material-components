@@ -124,3 +124,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fix freeSolo in Autocomplete component
+
+## [1.1.5] - 2023-11-09
+
+### Added
+
+- layout component: error
+
+### Changed
+
+- Show error page in page component

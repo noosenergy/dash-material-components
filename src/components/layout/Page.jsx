@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Box, Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import Error from './Error';
 
 const useStyles = makeStyles((theme) => ({
   pageLayout: {
@@ -18,17 +19,20 @@ const useStyles = makeStyles((theme) => ({
  * Dashboard > Page
  */
 const Page = (props) => {
-  const {id, children, orientation} = props;
+  const {id, children, orientation, errorStatus, errorMessage} = props;
   const classes = useStyles();
 
   // Variables
   const pageDirection = orientation == 'columns' ? 'row' : 'column';
 
   // Configure flex versus parent container
+  const elements =
+    errorStatus != null ? <Error status={errorStatus} message={errorMessage} /> : children;
+
   return (
     <Box id={id} sx={{flexGrow: 1}}>
       <Grid container spacing={2} direction={pageDirection} className={classes.pageLayout}>
-        {children}
+        {elements}
       </Grid>
     </Box>
   );
@@ -36,7 +40,9 @@ const Page = (props) => {
 
 Page.defaultProps = {
   id: 'page',
-  orientation: 'columns'
+  orientation: 'columns',
+  errorStatus: null,
+  errorMessage: ''
 };
 
 Page.propTypes = {
@@ -47,7 +53,13 @@ Page.propTypes = {
   children: PropTypes.node,
 
   /** Page general orientation (rows or columns) */
-  orientation: PropTypes.oneOf(['columns', 'rows'])
+  orientation: PropTypes.oneOf(['columns', 'rows']),
+
+  /** Error status code */
+  errorStatus: PropTypes.number,
+
+  /** Error message */
+  errorMessage: PropTypes.string
 };
 
 export default Page;
