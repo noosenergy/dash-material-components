@@ -10,7 +10,7 @@ const Alert = (props) => {
   const {id, severity, autoHide, message, setProps} = props;
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway' || reason === 'timeout') {
+    if (reason === 'clickaway') {
       setProps({message: null});
     }
   };
