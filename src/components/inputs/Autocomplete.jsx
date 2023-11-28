@@ -63,6 +63,7 @@ const Autocomplete = (props) => {
         multiple={multiple}
         limitTags={limitTags}
         onChange={handleChange}
+        disableCloseOnSelect={multiple}
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
 
