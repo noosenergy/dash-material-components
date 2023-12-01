@@ -93,12 +93,11 @@ def test_multiple_selection(dash_duo, dash_app):
     rand_idxs = random.sample(range(len(options)), 2)
 
     dash_duo.start_server(dash_app(multiple=True))
-    open_btn = dash_duo.find_element("button[title=Open]")
+    # Open popup
+    dash_duo.find_element("button[title=Open]").click()
 
     # select the options
     for index in rand_idxs:
-        # Open popup
-        open_btn.click()
         # Get list of options
         elements = dash_duo.find_element("#autocomplete-input-popup").find_elements_by_tag_name(
             "li"
