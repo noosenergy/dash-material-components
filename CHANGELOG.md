@@ -134,3 +134,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Show error page in page component
+
+## [1.1.6] - 2023-12-04
+
+### Changed
+
+- Keep popup open after selecting an option in Autocomplete component if multiple is true
