@@ -8,7 +8,7 @@ import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
  */
 const Toggle = (props) => {
   // First option selected by default if no default provided
-  const {id, options, selected, orientation, margin, setProps} = props;
+  const {id, options, selected, orientation, margin, disabled, setProps} = props;
   if (selected === undefined) {
     setProps({selected: options[0]});
   }
@@ -23,7 +23,7 @@ const Toggle = (props) => {
 
   // Fetch toggle buttons
   const toggleElements = options.map((option, i) => (
-    <ToggleButton key={i} value={option}>
+    <ToggleButton key={i} value={option} disabled={disabled}>
       {option}
     </ToggleButton>
   ));
@@ -67,7 +67,10 @@ Toggle.propTypes = {
   selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** Margin of the component */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  /** Disable component */
+  disabled: PropTypes.bool
 };
 
 export default Toggle;

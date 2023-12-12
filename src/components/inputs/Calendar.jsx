@@ -22,6 +22,7 @@ const Calendar = (props) => {
     disablePast,
     selected,
     disableToolbar,
+    disabled,
     setProps
   } = props;
 
@@ -53,6 +54,7 @@ const Calendar = (props) => {
         variant="inline"
         inputVariant="outlined"
         fullWidth
+        disabled={disabled}
         {...calendarControls}
       />
     </Box>
@@ -68,7 +70,8 @@ Calendar.defaultProps = {
   disableFuture: true,
   disablePast: false,
   selected: null,
-  disableToolbar: false
+  disableToolbar: false,
+  disabled: false
 };
 
 Calendar.propTypes = {
@@ -106,7 +109,10 @@ Calendar.propTypes = {
   selected: PropTypes.string,
 
   /** Disable toolbar */
-  disableToolbar: PropTypes.bool
+  disableToolbar: PropTypes.bool,
+
+  /** Disable the whole component */
+  disabled: PropTypes.bool
 };
 
 export default Calendar;
