@@ -23,6 +23,7 @@ const Autocomplete = (props) => {
     limitTags,
     width,
     margin,
+    disabled,
     setProps
   } = props;
 
@@ -64,6 +65,7 @@ const Autocomplete = (props) => {
         limitTags={limitTags}
         onChange={handleChange}
         disableCloseOnSelect={multiple}
+        disabled={disabled}
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
 
@@ -93,7 +95,8 @@ Autocomplete.defaultProps = {
   size: 'small',
   multiple: false,
   width: '100%',
-  margin: 2
+  margin: 2,
+  disabled: false
 };
 
 const optionsType = PropTypes.arrayOf(
@@ -143,7 +146,10 @@ Autocomplete.propTypes = {
   width: PropTypes.string,
 
   /** Component margin */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  /** Disable the input */
+  disabled: PropTypes.bool
 };
 
 export default Autocomplete;

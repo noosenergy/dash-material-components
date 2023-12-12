@@ -49,7 +49,8 @@ Button.defaultProps = {
   width: null,
   startIcon: null,
   endIcon: null,
-  nClicks: 0
+  nClicks: 0,
+  disabled: false
 };
 
 Button.propTypes = {

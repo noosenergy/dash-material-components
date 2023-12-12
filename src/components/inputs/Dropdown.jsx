@@ -14,7 +14,18 @@ import {
  * Dropdown component
  */
 const Dropdown = (props) => {
-  const {id, labelText, helperText, width, margin, options, multiple, selected, setProps} = props;
+  const {
+    id,
+    labelText,
+    helperText,
+    width,
+    margin,
+    options,
+    multiple,
+    selected,
+    setProps,
+    disabled
+  } = props;
 
   const handleDropdownChange = (event) => {
     // Enforce selection to be an array in all cases
@@ -68,7 +79,7 @@ const Dropdown = (props) => {
   // Render form control
   return (
     <Box id={id} m={margin} width={width}>
-      <FormControl variant="outlined" fullWidth>
+      <FormControl variant="outlined" fullWidth disabled={disabled}>
         {menuLabel ? menuLabel : null}
         <Select labelId={`${id}-label`} label={labelText} id={`${id}-select`} {...menuControls}>
           {menuElements}
@@ -114,7 +125,10 @@ Dropdown.propTypes = {
   multiple: PropTypes.bool,
 
   /** Active option selection */
-  selected: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+  selected: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+
+  /** Disabled the component */
+  disabled: PropTypes.bool
 };
 
 export default Dropdown;

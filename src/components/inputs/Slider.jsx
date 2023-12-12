@@ -73,6 +73,7 @@ const Slider = (props) => {
     precision,
     inputLeftAdornment,
     inputRightAdornment,
+    disabled,
     setProps
   } = props;
 
@@ -132,6 +133,7 @@ const Slider = (props) => {
         variant="standard"
         className={classes.input}
         size="small"
+        disabled={disabled}
         InputProps={{
           startAdornment: inputLeftAdornment ? (
             <InputAdornment position="start" className={classes.adornment}>
@@ -155,7 +157,8 @@ const Slider = (props) => {
     min: minValue,
     max: maxValue,
     step: stepValue,
-    marks: marks || true
+    marks: marks || true,
+    disabled: disabled
   };
 
   // Render slider form
@@ -188,7 +191,8 @@ Slider.defaultProps = {
   inputType: null,
   precision: 2,
   inputLeftAdornment: null,
-  inputRightAdornment: null
+  inputRightAdornment: null,
+  disabled: false
 };
 
 Slider.propTypes = {
@@ -239,7 +243,10 @@ Slider.propTypes = {
   inputLeftAdornment: PropTypes.string,
 
   /** InputText RIGHT adornment */
-  inputRightAdornment: PropTypes.string
+  inputRightAdornment: PropTypes.string,
+
+  /** Disable the component */
+  disabled: PropTypes.bool
 };
 
 export default Slider;

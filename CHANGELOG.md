@@ -140,3 +140,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Keep popup open after selecting an option in Autocomplete component if multiple is true
+
+## [1.1.7] - 2023-12-12
+
+### Changed
+
+- Add disabled parameter to all input components, allowing to have them rendered but not interactable
