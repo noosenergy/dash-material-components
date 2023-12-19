@@ -1,9 +1,10 @@
 {
   "editor.formatOnSave": true,
+  "npm.packageManager": "yarn",
   "[python]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": true,
-      "source.organizeImports": true,
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
     },
   },
   "python.testing.pytestEnabled": true,
@@ -12,5 +13,5 @@
   "isort.importStrategy": "fromEnvironment",
   "black-formatter.importStrategy": "fromEnvironment",
   "flake8.importStrategy": "fromEnvironment",
-  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "mypy-type-checker.importStrategy": "fromEnvironment"
 }
