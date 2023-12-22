@@ -170,7 +170,7 @@ const Slider = (props) => {
           <MuiSlider
             size="small"
             aria-labelledby="slider"
-            valueLabelDisplay="auto"
+            valueLabelDisplay={inputType ? 'auto' : 'on'}
             {...sliderControls}
           />
           {inputText}
