@@ -146,3 +146,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add disabled parameter to all input components, allowing to have them rendered but not interactable
+
+## [1.1.8] - 2023-12-22
+
+### Changed
+
+- Keep Slider label always visible when inputText is disabled
