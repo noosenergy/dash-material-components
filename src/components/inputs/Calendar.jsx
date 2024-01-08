@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Box} from '@mui/material';
-import {DatePicker} from '@material-ui/pickers';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 
 // Accepted format for parsing calendar dates
 const dateFormat = 'yyyy-MM-dd';
+
+import {parseISO} from 'date-fns';
 
 /**
  * Calendar component
@@ -29,18 +31,19 @@ const Calendar = (props) => {
   const handleCalendarChange = (value) => {
     // Fire Dash-assigned callback
     if (value) {
-      setProps({selected: value.toISOString().split('T')[0]});
+      const selected = value.toISOString().split('T')[0];
+      setProps({selected});
     }
   };
 
   const calendarControls = {
     autoOk: true,
     disableToolbar: disableToolbar,
-    value: selected,
+    value: parseISO(selected),
     onChange: handleCalendarChange,
     format: dateFormat,
-    maxDate: maxDate ? new Date(maxDate) : undefined,
-    minDate: minDate ? new Date(minDate) : undefined,
+    maxDate: maxDate ? parseISO(maxDate) : undefined,
+    minDate: minDate ? parseISO(minDate) : undefined,
     disableFuture: disableFuture,
     disablePast: disablePast
   };
