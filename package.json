@@ -37,6 +37,10 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/pickers": "^3.0",
     "@material-ui/styles": "^4.0",
+    "@mui/icons-material": "^5.15.3",
+    "@mui/lab": "^5.0.0-alpha.159",
+    "@mui/material": "^5.15.3",
+    "@mui/styles": "^5.15.3",
     "date-fns": "^2.0",
     "prop-types": "^15.7.2"
   },
