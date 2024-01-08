@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Tab as MuiTab, Tabs} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import {Grid, Tab as MuiTab, Tabs} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import TabPanel from '../../fragments/TabPanel';
 
 const useStyles = makeStyles((theme) => ({

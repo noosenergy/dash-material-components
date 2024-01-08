@@ -1,56 +1,58 @@
-import {createTheme, responsiveFontSizes} from '@material-ui/core/styles';
+import {createTheme, responsiveFontSizes, adaptV4Theme} from '@mui/material/styles';
 
 // A custom theme for this app
 // https://mui.com/customization/default-theme/
 // https://bareynol.github.io/mui-theme-creator/
-let theme = createTheme({
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#151515',
-      contrastText: '#FAC505'
+let theme = createTheme(
+  adaptV4Theme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#151515',
+        contrastText: '#FAC505'
+      },
+      secondary: {
+        main: '#E9E9E9'
+      },
+      background: {
+        paper: '#FFFFFF',
+        default: '#E9E9E9'
+      },
+      text: {
+        primary: '#151515',
+        disabled: '#C7C7C7'
+      },
+      error: {
+        main: '#721C24'
+      }
     },
-    secondary: {
-      main: '#E9E9E9'
+    shape: {
+      borderRadius: 8
     },
-    background: {
-      paper: '#FFFFFF',
-      default: '#E9E9E9'
-    },
-    text: {
-      primary: '#151515',
-      disabled: '#C7C7C7'
-    },
-    error: {
-      main: '#721C24'
+    typography: {
+      fontFamily: '"Roboto", sans-serif',
+      h1: {
+        fontWeight: 700,
+        fontSize: '2rem'
+      },
+      h2: {
+        fontWeight: 600,
+        fontSize: '1.4rem'
+      },
+      h3: {
+        fontWeight: 600,
+        fontSize: '1rem'
+      },
+      body1: {
+        fontWeight: 400,
+        fontSize: '0.9rem'
+      },
+      button: {
+        textTransform: 'none'
+      }
     }
-  },
-  shape: {
-    borderRadius: 8
-  },
-  typography: {
-    fontFamily: '"Roboto", sans-serif',
-    h1: {
-      fontWeight: 700,
-      fontSize: '2rem'
-    },
-    h2: {
-      fontWeight: 600,
-      fontSize: '1.4rem'
-    },
-    h3: {
-      fontWeight: 600,
-      fontSize: '1rem'
-    },
-    body1: {
-      fontWeight: 400,
-      fontSize: '0.9rem'
-    },
-    button: {
-      textTransform: 'none'
-    }
-  }
-});
+  })
+);
 
 theme.overrides = {
   MuiChip: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button as MuiButton, Icon, Box} from '@material-ui/core';
+import {Button as MuiButton, Icon, Box} from '@mui/material';
 
 /**
  * Button component

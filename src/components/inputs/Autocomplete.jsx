@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TextField, Box} from '@material-ui/core';
-import {Autocomplete as MuiAutocomplete} from '@material-ui/lab';
-import {createFilterOptions} from '@material-ui/lab/Autocomplete';
+import {TextField, Box} from '@mui/material';
+import {Autocomplete as MuiAutocomplete} from '@mui/material';
+import {createFilterOptions} from '@mui/material/Autocomplete';
 
 const filter = createFilterOptions();
 

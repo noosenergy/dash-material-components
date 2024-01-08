@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Box} from '@material-ui/core';
-import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
+import {Box} from '@mui/material';
+import {ToggleButton, ToggleButtonGroup} from '@mui/material';
 
 /**
  * Toggle component

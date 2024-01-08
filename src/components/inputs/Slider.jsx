@@ -7,8 +7,8 @@ import {
   Slider as MuiSlider,
   TextField,
   InputAdornment
-} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles({
   // remove updown arrow buttons from TextField

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Box, Grid} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import {Box, Grid} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import Error from '../../fragments/Error';
 
 const useStyles = makeStyles((theme) => ({

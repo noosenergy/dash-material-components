@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Box, Typography as MuiTypography} from '@material-ui/core';
+import {Box, Typography as MuiTypography} from '@mui/material';
 
 /**
  * Typography component from Material UI

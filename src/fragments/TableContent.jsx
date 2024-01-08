@@ -5,7 +5,7 @@ import {
   TableCell,
   TableHead as MuiTableHead,
   TableRow
-} from '@material-ui/core';
+} from '@mui/material';
 
 const TableHead = (props) => {
   const {columns} = props;
