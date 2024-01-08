@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Box} from '@mui/material';
-import {StyledEngineProvider} from '@mui/material/styles';
 
 import ThemeProvider from '../utils/ThemeProvider';
 
@@ -16,13 +15,11 @@ const Dashboard = (props) => {
   // Enforce and reset a MUI-theme on the entire page
   // And display a dashboard on a full screen width
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider>
-        <Box id={id} sx={{display: 'flex', flexDirection: 'column', height: height}}>
-          {children}
-        </Box>
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <ThemeProvider>
+      <Box id={id} sx={{display: 'flex', flexDirection: 'column', height: height}}>
+        {children}
+      </Box>
+    </ThemeProvider>
   );
 };
 
