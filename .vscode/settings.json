@@ -1,5 +1,8 @@
 {
   "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "npm.packageManager": "yarn",
   "[python]": {
     "editor.codeActionsOnSave": {
