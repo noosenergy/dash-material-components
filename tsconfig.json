@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "src/ts",
+    "inlineSources": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "lib": ["ES7", "dom"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true
+  },
+  "exclude": ["node_modules"]
+}
