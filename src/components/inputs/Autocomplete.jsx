@@ -58,7 +58,6 @@ const Autocomplete = (props) => {
         value={multiple ? selected : selected[0] || null}
         options={options}
         getOptionLabel={(option) => option.label || option}
-        renderOption={(option) => option.label}
         freeSolo={freeSolo}
         groupBy={groupByField ? (option) => option[groupByField] : undefined}
         multiple={multiple}
