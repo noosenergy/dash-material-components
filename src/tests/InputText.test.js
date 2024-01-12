@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
-import InputText from './InputText';
+import InputText from '../components/inputs/InputText';
 import '@testing-library/jest-dom';
 
 const setPropsPlaceholder = () => true;

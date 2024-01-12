@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
-import Autocomplete from './Autocomplete';
+import Autocomplete from '../components/inputs/Autocomplete';
 import '@testing-library/jest-dom';
 
 const options = [
