@@ -39,7 +39,7 @@ const Dropdown = (props) => {
   // locals
   let menuLabel;
   let menuHelper;
-  let menuElements = [];
+  let menuElements: JSX.Element[] = [];
 
   // Fetch menu header
   if (labelText) {

@@ -16,8 +16,8 @@ const Section = (props) => {
     setProps({downloaded: downloaded + 1});
   };
 
-  let cardElement;
-  let sectionElements = [];
+  let cardElement: JSX.Element;
+  let sectionElements: JSX.Element[] = [];
 
   // Fetch cards
   if (children) {

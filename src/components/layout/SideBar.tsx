@@ -9,6 +9,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Theme,
   Tooltip,
   Typography
 } from '@mui/material';
@@ -17,7 +18,7 @@ import makeStyles from '@mui/styles/makeStyles';
 
 const drawerWidth = 360;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   fabLayout: {
     position: 'absolute',
     bottom: theme.spacing(5),
@@ -70,7 +71,7 @@ const Sidebar = (props) => {
 
   // locals
   let drawerHeader;
-  let drawerElements = [];
+  let drawerElements: JSX.Element[] = [];
 
   // Fetch drawer button
   const drawerButton = (

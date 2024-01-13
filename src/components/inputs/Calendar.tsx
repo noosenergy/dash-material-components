@@ -51,12 +51,15 @@ const Calendar = (props) => {
   return (
     <Box id={id} m={margin} width={width}>
       <DatePicker
-        id={`${id}-input`}
         label={labelText}
-        helperText={helperText}
-        variant="inline"
-        inputVariant="outlined"
-        fullWidth
+        slotProps={{
+          textField: {
+            helperText,
+            id: `${id}-input`,
+            variant: 'outlined',
+            fullWidth: true
+          }
+        }}
         disabled={disabled}
         {...calendarControls}
       />

@@ -50,48 +50,47 @@ let theme = createTheme(
       button: {
         textTransform: 'none'
       }
+    },
+    overrides: {
+      MuiChip: {
+        root: {
+          color: 'rgba(0, 0, 0, 0.54)',
+          backgroundColor: 'rgba(0, 0, 0, 0.15)'
+        }
+      },
+      MuiInputLabel: {
+        root: {
+          color: 'rgba(0, 0, 0, 0.38)',
+          '&$focused': {
+            color: 'rgba(0, 0, 0, 0.54)'
+          }
+        }
+      },
+      MuiListItem: {
+        root: {
+          color: 'rgba(0, 0, 0, 0.38)',
+          '&$selected': {
+            color: 'rgba(0, 0, 0, 0.54)'
+          }
+        }
+      },
+      MuiOutlinedInput: {
+        root: {
+          '& $notchedOutline': {
+            borderColor: 'rgba(0, 0, 0, 0.15)'
+          },
+          '&:hover $notchedOutline': {
+            borderColor: 'rgba(0, 0, 0, 0.54)'
+          },
+          '&$focused $notchedOutline': {
+            borderColor: 'rgba(0, 0, 0, 0.54)',
+            borderWidth: 1
+          }
+        }
+      }
     }
   })
 );
-
-theme.overrides = {
-  MuiChip: {
-    root: {
-      color: 'rgba(0, 0, 0, 0.54)',
-      backgroundColor: 'rgba(0, 0, 0, 0.15)'
-    }
-  },
-  MuiInputLabel: {
-    root: {
-      color: 'rgba(0, 0, 0, 0.38)',
-      '&$focused': {
-        color: 'rgba(0, 0, 0, 0.54)'
-      }
-    }
-  },
-  MuiListItem: {
-    root: {
-      color: 'rgba(0, 0, 0, 0.38)',
-      '&$selected': {
-        color: 'rgba(0, 0, 0, 0.54)'
-      }
-    }
-  },
-  MuiOutlinedInput: {
-    root: {
-      '& $notchedOutline': {
-        borderColor: 'rgba(0, 0, 0, 0.15)'
-      },
-      '&:hover $notchedOutline': {
-        borderColor: 'rgba(0, 0, 0, 0.54)'
-      },
-      '&$focused $notchedOutline': {
-        borderColor: 'rgba(0, 0, 0, 0.54)',
-        borderWidth: 1
-      }
-    }
-  }
-};
 
 theme = responsiveFontSizes(theme);
 

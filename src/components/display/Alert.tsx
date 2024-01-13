@@ -21,7 +21,6 @@ const Alert = (props) => {
         open={Boolean(message)}
         onClose={handleClose}
         autoHideDuration={autoHide}
-        autoHide={true}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right'

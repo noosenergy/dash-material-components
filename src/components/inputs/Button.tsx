@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button as MuiButton, Icon, Box} from '@mui/material';
+import PropTypes from 'prop-types';
 
 /**
  * Button component

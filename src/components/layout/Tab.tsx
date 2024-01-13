@@ -25,8 +25,8 @@ const Tab = (props) => {
     setSelectedTab(value);
   };
 
-  let tabElements = [];
-  let tabpanelElements = [];
+  let tabElements: JSX.Element[] = [];
+  let tabpanelElements: JSX.Element[] = [];
 
   // Fetch cards or tabs
   if (children) {
