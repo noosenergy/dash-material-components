@@ -1,42 +1,54 @@
-"""Automatic upload of Dash Nepune Material components."""
-
+import json
+import os as _os
 import sys as _sys
-from importlib import metadata as _metadata
 
 import dash as _dash
 
-from ._imports_ import *  # noqa
+# noinspection PyUnresolvedReferences
+from ._imports_ import *
 from ._imports_ import __all__
 
 
-__version__ = _metadata.version("dash-material-components")
+# from __future__ import print_function as _
 
 
-# Module imports trigger a dash.development import, need to check this first
 if not hasattr(_dash, "__plotly_dash") and not hasattr(_dash, "development"):
     print(
-        (
-            "Dash was not successfully imported.\n"
-            "Make sure you don't have a file `dash.py` in your directory."
-        ),
+        "Dash was not successfully imported. "
+        "Make sure you don't have a file "
+        'named \n"dash.py" in your current directory.',
         file=_sys.stderr,
     )
     _sys.exit(1)
 
+_basepath = _os.path.dirname(__file__)
+_filepath = _os.path.abspath(_os.path.join(_basepath, "package-info.json"))
+with open(_filepath) as f:
+    package = json.load(f)
+
+package_name = package["name"].replace(" ", "_").replace("-", "_")
+__version__ = package["version"]
+
+_current_path = _os.path.dirname(_os.path.abspath(__file__))
+
+_this_module = _sys.modules[__name__]
 
 _js_dist = []
+
 _js_dist.extend(
     [
+        {"relative_package_path": "dash_typescript.js", "namespace": package_name},
         {
-            "relative_package_path": "dash_material_components.js",
-            "namespace": "dash_material_components",
-        },
-        {
-            "relative_package_path": "dash_material_components.js.map",
-            "namespace": "dash_material_components",
+            "relative_package_path": "dash_typescript.js.map",
+            "namespace": package_name,
             "dynamic": True,
         },
     ]
 )
+
+_css_dist = []
+
+
 for _component in __all__:
     setattr(locals()[_component], "_js_dist", _js_dist)
+    setattr(locals()[_component], "_css_dist", _css_dist)
