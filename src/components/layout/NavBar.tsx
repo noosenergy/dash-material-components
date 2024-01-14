@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Box, AppBar, IconButton, Toolbar, Typography} from '@mui/material';
 import NoosIcon from '../../fragments/NoosIcon';
+import {DashComponentProps} from 'props';
 
 /**
  * Dashboard navigation bar component
  * https://mui.com/components/app-bar/
  */
-const NavBar = (props) => {
-  const {id, title} = props;
-
+const NavBar = ({id = 'navbar', title}: NavBarProps) => {
   return (
     <Box id={id}>
       <AppBar position="static" elevation={4}>
@@ -26,10 +25,13 @@ const NavBar = (props) => {
   );
 };
 
-NavBar.defaultProps = {
-  id: 'navbar'
-};
+// TypeScript props type
+type NavBarProps = {
+  /** Dashboard navigation bar title */
+  title?: string;
+} & DashComponentProps;
 
+// PropTypes for runtime type checking
 NavBar.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,
@@ -37,5 +39,8 @@ NavBar.propTypes = {
   /** Dashboard navigation bar title */
   title: PropTypes.string
 };
+
+// Default props
+NavBar.defaultProps = {};
 
 export default NavBar;
