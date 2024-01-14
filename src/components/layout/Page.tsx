@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Box, Grid} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import Error from '../../fragments/Error';
+import {DashComponentProps} from 'props';
 
 const useStyles = makeStyles((theme) => ({
   pageLayout: {
@@ -16,12 +17,17 @@ const useStyles = makeStyles((theme) => ({
  * Page component, used to wrap section and card components
  * Dashboard > Page
  */
-const Page = (props) => {
-  const {id, children, orientation, errorStatus, errorMessage} = props;
+const Page = ({
+  id = 'page',
+  children,
+  orientation = 'columns',
+  errorStatus = null,
+  errorMessage = ''
+}: PageProps) => {
   const classes = useStyles();
 
   // Variables
-  const pageDirection = orientation == 'columns' ? 'row' : 'column';
+  const pageDirection = orientation === 'columns' ? 'row' : 'column';
 
   // Configure flex versus parent container
   const elements =
@@ -42,13 +48,19 @@ const Page = (props) => {
   );
 };
 
-Page.defaultProps = {
-  id: 'page',
-  orientation: 'columns',
-  errorStatus: null,
-  errorMessage: ''
-};
+// TypeScript props type
+type PageProps = {
+  /** Page general orientation (rows or columns) */
+  orientation?: 'columns' | 'rows';
 
+  /** Error status code */
+  errorStatus?: number;
+
+  /** Error message */
+  errorMessage?: string;
+} & DashComponentProps;
+
+// PropTypes for runtime type checking
 Page.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,
@@ -65,5 +77,8 @@ Page.propTypes = {
   /** Error message */
   errorMessage: PropTypes.string
 };
+
+// Default props
+Page.defaultProps = {};
 
 export default Page;
