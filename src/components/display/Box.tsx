@@ -13,11 +13,17 @@ const Box = ({sx = {}, children}: BoxProps) => {
 
 type BoxProps = {
   children?: ReactNode;
+  /** All Material system properties are available via the `sx prop`
+   * Allow additional css styles to be applied to the component
+   */
   sx?: object;
 } & DashComponentProps;
 
 Box.propTypes = {
   children: PropTypes.node,
+  /** All Material system properties are available via the `sx prop`
+   * Allow additional css styles to be applied to the component
+   */
   sx: PropTypes.object
 };
 

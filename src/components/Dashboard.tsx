@@ -22,6 +22,7 @@ const Dashboard = ({id = 'dashboard', children, height = '100vh'}: DashboardProp
 
 type DashboardProps = {
   id?: string;
+  /** Dashboard display height */
   height?: string;
 } & DashComponentProps;
 
