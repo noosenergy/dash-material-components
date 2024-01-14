@@ -27,7 +27,7 @@
     "test": "jest ./src",
     "build:js::dev": "webpack --mode development",
     "build:js": "webpack",
-    "build:backends": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json --r-prefix '' --jl-prefix '' --ignore \\.test\\.",
+    "build:backends": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json --ignore \\.test\\.",
     "build": "npm run build:js && npm run build:backends",
     "watch": "npm run build:js::dev -- --watch"
   },
