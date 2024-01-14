@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 /**
  * Every Dash components are given these props.
  * Use with your own props:
@@ -18,4 +20,8 @@ export type DashComponentProps = {
      * Update props to trigger callbacks.
      */
     setProps: (props: Record<string, any>) => void;
+    /**
+     * Component children
+     */
+    children?: ReactNode;
 }
