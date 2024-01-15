@@ -85,7 +85,7 @@ def test_table(dash_duo, dash_app):
     for i in range(1, len(rows)):
         assert rows[i].text == " ".join(str(e) for e in DATA[i - 1].values())
 
-    dash_duo.find_element("#table").find_element_by_xpath('//*[@title="Next page"]').click()
+    dash_duo.find_element("#table").find_element_by_xpath('//*[@title="Go to next page"]').click()
     rows = dash_duo.find_element("#table").find_elements_by_tag_name("tr")
 
     assert len(rows) == len(DATA) - row_per_page + 1

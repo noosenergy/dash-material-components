@@ -78,7 +78,7 @@ def test_single_selection(dash_duo, dash_app, index):
     dash_duo.start_server(dash_app())
     dash_duo.find_element("#autocomplete").click()
 
-    elements = dash_duo.find_element("#autocomplete-input-popup").find_elements_by_tag_name("li")
+    elements = dash_duo.find_element(".MuiAutocomplete-popper").find_elements_by_tag_name("li")
 
     # Select the option
     elements[index].click()
@@ -99,7 +99,7 @@ def test_multiple_selection(dash_duo, dash_app):
     # select the options
     for index in rand_idxs:
         # Get list of options
-        elements = dash_duo.find_element("#autocomplete-input-popup").find_elements_by_tag_name(
+        elements = dash_duo.find_element(".MuiAutocomplete-popper").find_elements_by_tag_name(
             "li"
         )
         # Click on the option

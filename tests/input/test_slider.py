@@ -39,7 +39,7 @@ def dash_app() -> Callable[[Optional[int], Optional[str]], Dash]:
             Output(component_id="text", component_property="text"),
             Input(component_id="slider", component_property="selected"),
         )
-        def on_change(selected: int) -> str:
+        def on_change(selected: int | float) -> str:
             return str(selected)
 
         return app
@@ -75,17 +75,16 @@ def test_slide_action(dash_duo: DashComposite, dash_app):
 
     assert dash_duo.get_logs() is None
 
-
 def test_slider_render_float_input_text(dash_duo: DashComposite, dash_app):
-    dash_duo.start_server(dash_app(input_type="float", selected=12.34))
-    input_field = dash_duo.find_element("input")
-    assert input_field.get_attribute("value") == "12.34"
+    dash_duo.start_server(dash_app(input_type="float", selected=43.21))
+    input_field = dash_duo.find_element(".MuiInputBase-input")
+    assert input_field.get_attribute("value") == "43.21"
     assert dash_duo.get_logs() is None
 
 
 def test_slider_render_integer_input_text(dash_duo: DashComposite, dash_app):
-    dash_duo.start_server(dash_app(input_type="float", selected=12))
-    input_field = dash_duo.find_element("input")
+    dash_duo.start_server(dash_app(input_type="integer", selected=12))
+    input_field = dash_duo.find_element(".MuiInputBase-input")
     assert input_field.get_attribute("value") == "12"
     assert dash_duo.get_logs() is None
 
