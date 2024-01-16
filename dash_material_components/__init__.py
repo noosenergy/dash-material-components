@@ -37,9 +37,9 @@ _js_dist = []
 
 _js_dist.extend(
     [
-        {"relative_package_path": "dash_typescript.js", "namespace": package_name},
+        {"relative_package_path": "dash_material_components.js", "namespace": package_name},
         {
-            "relative_package_path": "dash_typescript.js.map",
+            "relative_package_path": "dash_material_components.js.map",
             "namespace": package_name,
             "dynamic": True,
         },
