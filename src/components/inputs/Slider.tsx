@@ -9,6 +9,7 @@ import {
   InputAdornment
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import {DashComponentProps} from 'props';
 
 const useStyles = makeStyles({
   // remove updown arrow buttons from TextField
@@ -29,7 +30,13 @@ const useStyles = makeStyles({
   }
 });
 
-const validInput = (value, inputType, minValue, maxValue, precision) => {
+const validInput = (
+  value: string,
+  inputType: 'integer' | 'float',
+  minValue: number,
+  maxValue: number,
+  precision: number
+): boolean => {
   if (inputType === 'integer') {
     // not numeric or '-' sign
     if (!/^[-]?[0-9]+$/i.test(value)) return false;
@@ -45,41 +52,39 @@ const validInput = (value, inputType, minValue, maxValue, precision) => {
   // check for misplaced '-' sign
   if (value.split('-').length > 2) return false;
   // check if within range
-  value = Number(value);
-  if (value < minValue || value > maxValue) return false;
+  const valueNumber = Number(value);
+  if (valueNumber < minValue || valueNumber > maxValue) return false;
 
   return true;
 };
 
-const countUppercase = (str) => {
+const countUppercase = (str: string): number => {
   return (str.match(/[A-Z]/g) || []).length;
 };
 
 /**
  * Slider component
  */
-const Slider = (props) => {
-  const {
-    id,
-    labelText,
-    width,
-    margin,
-    minValue,
-    maxValue,
-    stepValue,
-    marks,
-    selected,
-    inputType,
-    precision,
-    inputLeftAdornment,
-    inputRightAdornment,
-    disabled,
-    setProps
-  } = props;
-
+const Slider = ({
+  id = 'slider',
+  labelText,
+  width = '100%',
+  margin = 2,
+  minValue = 0,
+  maxValue = 100,
+  stepValue = 10,
+  marks,
+  selected = 50,
+  inputType = null,
+  precision = 2,
+  inputLeftAdornment = null,
+  inputRightAdornment = null,
+  disabled = false,
+  setProps
+}: SliderProps) => {
   const classes = useStyles();
   // Initialize input value with correct precision
-  const [inputValue, setInputValue] = useState(
+  const [inputValue, setInputValue] = useState<string>(
     String(selected.toFixed(inputType === 'float' ? precision : 0))
   );
   const [prevInputValue, setPrevInputValue] = useState(inputValue);
@@ -91,7 +96,7 @@ const Slider = (props) => {
     setProps({selected: value});
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
 
     if (validInput(value, inputType, minValue, maxValue, precision)) {
@@ -180,20 +185,35 @@ const Slider = (props) => {
   );
 };
 
-Slider.defaultProps = {
-  id: 'slider',
-  width: '100%',
-  margin: 2,
-  maxValue: 100,
-  minValue: 0,
-  stepValue: 10,
-  selected: 50,
-  inputType: null,
-  precision: 2,
-  inputLeftAdornment: null,
-  inputRightAdornment: null,
-  disabled: false
-};
+// TypeScript props type
+type SliderProps = {
+  /** Text to display above the slider form */
+  labelText?: string;
+  /** Width of slider form */
+  width?: string | number;
+  /** Margin of the component */
+  margin?: string | number;
+  /** Maximum selection allowed in the slider */
+  maxValue?: number;
+  /** Minimum selection allowed in the slider */
+  minValue?: number;
+  /** Slider selection increment */
+  stepValue?: number;
+  /** Array of selection marks to display below the slider form */
+  marks?: {value: number; label: string}[];
+  /** Active slider selection */
+  selected?: number;
+  /** Input type, if set an input text is displayed alongside the slider */
+  inputType?: 'integer' | 'float' | null;
+  /** Number of decimal places */
+  precision?: number;
+  /** InputText LEFT adornment */
+  inputLeftAdornment?: string;
+  /** InputText RIGHT adornment */
+  inputRightAdornment?: string;
+  /** Disable the component */
+  disabled?: boolean;
+} & DashComponentProps;
 
 Slider.propTypes = {
   /** Used to identify dash components in callbacks */
@@ -248,5 +268,7 @@ Slider.propTypes = {
   /** Disable the component */
   disabled: PropTypes.bool
 };
+
+Slider.defaultProps = {};
 
 export default Slider;
