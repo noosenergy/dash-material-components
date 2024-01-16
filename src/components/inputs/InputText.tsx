@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {TextField, InputAdornment, Box} from '@mui/material';
+import {DashComponentProps} from 'props';
 
 const validInput = (value, inputType, minValue, maxValue, precision, length) => {
   if (inputType === 'integer') {
@@ -33,29 +34,27 @@ const validInput = (value, inputType, minValue, maxValue, precision, length) => 
 /**
  * InputText component
  */
-const InputText = (props) => {
-  const {
-    id,
-    minValue,
-    maxValue,
-    labelText,
-    inputType,
-    multiline,
-    variant,
-    maxLength,
-    autoFocus,
-    size,
-    width,
-    margin,
-    value,
-    precision,
-    adornmentLeft,
-    adornmentRight,
-    disabled,
-    error,
-    setProps
-  } = props;
-
+const InputText = ({
+  id = 'input-text',
+  minValue = null,
+  maxValue = null,
+  labelText,
+  inputType = 'text',
+  multiline = false,
+  variant = 'outlined',
+  maxLength,
+  autoFocus = false,
+  size = 'small',
+  width = null,
+  margin = 2,
+  value = '',
+  precision = 2,
+  adornmentLeft = null,
+  adornmentRight = null,
+  disabled = false,
+  error = false,
+  setProps
+}: InputTextProps) => {
   const [inputValue, setInputValue] = useState(value);
 
   const handleChange = (event) => {
@@ -105,23 +104,26 @@ const InputText = (props) => {
   );
 };
 
-InputText.defaultProps = {
-  inputType: 'text',
-  value: '',
-  maxValue: null,
-  minValue: null,
-  precision: 2,
-  multiline: false,
-  variant: 'outlined',
-  autoFocus: false,
-  size: 'small',
-  width: null,
-  margin: 2,
-  adornmentLeft: null,
-  adornmentRight: null,
-  disabled: false,
-  error: false
-};
+// TypeScript props type
+type InputTextProps = {
+  labelText?: string;
+  value?: string | number;
+  maxValue?: number | null;
+  minValue?: number | null;
+  precision?: number;
+  inputType?: 'text' | 'integer' | 'float';
+  multiline?: boolean;
+  variant?: 'filled' | 'outlined' | 'standard';
+  maxLength?: number;
+  autoFocus?: boolean;
+  size?: 'small' | 'medium';
+  width?: string | null;
+  margin?: string | number;
+  adornmentLeft?: string;
+  adornmentRight?: string;
+  disabled?: boolean;
+  error?: boolean;
+} & DashComponentProps;
 
 InputText.propTypes = {
   /** Used to identify dash components in callbacks */
@@ -181,5 +183,7 @@ InputText.propTypes = {
   /** Input error */
   error: PropTypes.bool
 };
+
+InputText.defaultProps = {};
 
 export default InputText;
