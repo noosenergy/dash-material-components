@@ -3,30 +3,29 @@ import PropTypes from 'prop-types';
 import {TextField, Box} from '@mui/material';
 import {Autocomplete as MuiAutocomplete} from '@mui/material';
 import {createFilterOptions} from '@mui/material/Autocomplete';
+import {DashComponentProps} from 'props';
 
 const filter = createFilterOptions();
 
 /**
  * Autocomplete component
  */
-const Autocomplete = (props) => {
-  const {
-    id,
-    labelText,
-    selected,
-    options,
-    freeSolo,
-    groupByField,
-    multiple,
-    variant,
-    size,
-    limitTags,
-    width,
-    margin,
-    disabled,
-    setProps
-  } = props;
-
+const Autocomplete = ({
+  id = 'autocomplete',
+  labelText,
+  selected = [],
+  options,
+  freeSolo = false,
+  groupByField,
+  multiple = false,
+  variant = 'outlined',
+  size = 'small',
+  limitTags,
+  width = '100%',
+  margin = 2,
+  disabled = false,
+  setProps
+}: AutocompleteProps) => {
   const handleChange = (event, selection) => {
     // Always treat input as an array
     if (!multiple) selection = selection ? [selection] : [];
@@ -87,15 +86,25 @@ const Autocomplete = (props) => {
   );
 };
 
-Autocomplete.defaultProps = {
-  id: 'autocomplete',
-  selected: [],
-  variant: 'outlined',
-  size: 'small',
-  multiple: false,
-  width: '100%',
-  margin: 2,
-  disabled: false
+// TypeScript props type
+type AutocompleteProps = {
+  labelText?: string;
+  size?: 'small' | 'medium';
+  variant?: 'filled' | 'outlined' | 'standard';
+  selected?: OptionType[] | OptionType;
+  options: OptionType[];
+  limitTags?: number;
+  freeSolo?: boolean;
+  groupByField?: string;
+  multiple?: boolean;
+  width?: string;
+  margin?: string | number;
+  disabled?: boolean;
+} & DashComponentProps;
+
+type OptionType = {
+  label: string;
+  value: string;
 };
 
 const optionsType = PropTypes.arrayOf(
@@ -150,5 +159,7 @@ Autocomplete.propTypes = {
   /** Disable the input */
   disabled: PropTypes.bool
 };
+
+Autocomplete.defaultProps = {};
 
 export default Autocomplete;
