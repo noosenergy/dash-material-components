@@ -2,32 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Box} from '@mui/material';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import {DashComponentProps} from 'props';
+import {parseISO} from 'date-fns';
 
 // Accepted format for parsing calendar dates
 const dateFormat = 'yyyy-MM-dd';
 
-import {parseISO} from 'date-fns';
-
 /**
  * Calendar component
  */
-const Calendar = (props) => {
-  const {
-    id,
-    labelText,
-    helperText,
-    width,
-    margin,
-    maxDate,
-    minDate,
-    disableFuture,
-    disablePast,
-    selected,
-    disableToolbar,
-    disabled,
-    setProps
-  } = props;
-
+const Calendar = ({
+  id = 'calendar',
+  labelText,
+  helperText,
+  width = '100%',
+  margin = 2,
+  maxDate = '2100-01-01',
+  minDate = '1900-01-01',
+  disableFuture = true,
+  disablePast = false,
+  selected = null,
+  disableToolbar = false,
+  disabled = false,
+  setProps
+}: CalendarProps) => {
   const handleCalendarChange = (value) => {
     // Fire Dash-assigned callback
     if (value) {
@@ -67,18 +65,20 @@ const Calendar = (props) => {
   );
 };
 
-Calendar.defaultProps = {
-  id: 'calendar',
-  width: '100%',
-  margin: 2,
-  maxDate: '2100-01-01',
-  minDate: '1900-01-01',
-  disableFuture: true,
-  disablePast: false,
-  selected: null,
-  disableToolbar: false,
-  disabled: false
-};
+// TypeScript props type
+type CalendarProps = {
+  labelText?: string;
+  helperText?: string;
+  width?: string | number;
+  margin?: string | number;
+  maxDate?: string;
+  minDate?: string;
+  disableFuture?: boolean;
+  disablePast?: boolean;
+  selected?: string | null;
+  disableToolbar?: boolean;
+  disabled?: boolean;
+} & DashComponentProps;
 
 Calendar.propTypes = {
   /** Used to identify dash components in callbacks */
@@ -120,5 +120,7 @@ Calendar.propTypes = {
   /** Disable the whole component */
   disabled: PropTypes.bool
 };
+
+Calendar.defaultProps = {};
 
 export default Calendar;
