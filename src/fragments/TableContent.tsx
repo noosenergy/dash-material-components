@@ -52,7 +52,7 @@ const TableBody = (props) => {
 TableBody.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object),
   page: PropTypes.number,
-  rowsPerPage: PropTypes.arrayOf(PropTypes.number) // TODO this was previously called rowsPerPageOptions
+  rowsPerPage: PropTypes.number
 };
 
 export {TableHead, TableBody};
