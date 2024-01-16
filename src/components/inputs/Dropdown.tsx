@@ -1,24 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Box, Chip, FormControl, FormHelperText, InputLabel, MenuItem, Select} from '@mui/material';
+import {DashComponentProps} from 'props';
 
 /**
  * Dropdown component
  */
-const Dropdown = (props) => {
-  const {
-    id,
-    labelText,
-    helperText,
-    width,
-    margin,
-    options,
-    multiple,
-    selected,
-    setProps,
-    disabled
-  } = props;
-
+const Dropdown = ({
+  id = 'select',
+  labelText,
+  helperText,
+  width = '100%',
+  margin = 2,
+  options,
+  multiple = true,
+  selected = [],
+  setProps,
+  disabled = false
+}: DropdownProps) => {
   const handleDropdownChange = (event) => {
     // Enforce selection to be an array in all cases
     const selected = event.target.value;
@@ -82,14 +81,25 @@ const Dropdown = (props) => {
   );
 };
 
-Dropdown.defaultProps = {
-  id: 'select',
-  width: '100%',
-  margin: 2,
-  multiple: true,
-  // No option selected by default
-  selected: []
-};
+// TypeScript props type
+type DropdownProps = {
+  /** Text to display in the dropdown form, when no items are selected */
+  labelText?: string;
+  /** Text to display under the dropdown form */
+  helperText?: string;
+  /** Width of dropdown form */
+  width?: string | number;
+  /** Margin of the component */
+  margin?: string | number;
+  /** Array of options to select in the dropdown form */
+  options: Array<string | number>;
+  /** Allow multiple selections */
+  multiple?: boolean;
+  /** Active option selection */
+  selected?: Array<string | number>;
+  /** Disabled the component */
+  disabled?: boolean;
+} & DashComponentProps;
 
 Dropdown.propTypes = {
   /** Used to identify dash components in callbacks */
@@ -122,5 +132,7 @@ Dropdown.propTypes = {
   /** Disabled the component */
   disabled: PropTypes.bool
 };
+
+Dropdown.defaultProps = {};
 
 export default Dropdown;
