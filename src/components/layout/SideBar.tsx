@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import {ChevronLeft, Settings} from '@mui/icons-material';
 import makeStyles from '@mui/styles/makeStyles';
+import {DashComponentProps} from 'props';
 
 const drawerWidth = 360;
 
@@ -52,8 +53,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 /**
  * Sidebar component
  */
-const Sidebar = (props) => {
-  const {id, children, settings, title} = props;
+const Sidebar = ({
+  id = 'sidebar',
+  children,
+  settings,
+  title = 'Dashboard Settings'
+}: SidebarProps) => {
   const classes = useStyles();
   const [toggledDrawer, setToggledDrawer] = useState(false);
 
@@ -143,10 +148,13 @@ const Sidebar = (props) => {
   );
 };
 
-Sidebar.defaultProps = {
-  id: 'sidebar',
-  title: 'Dashboard Settings'
-};
+// TypeScript props type
+type SidebarProps = {
+  /** Array of settings to render as component children */
+  settings?: string[];
+  /** Dashboard sidebar title */
+  title?: string;
+} & DashComponentProps;
 
 Sidebar.propTypes = {
   /** Used to identify dash components in callbacks */
@@ -161,5 +169,7 @@ Sidebar.propTypes = {
   /** Dashboard sidebar title */
   title: PropTypes.string
 };
+
+Sidebar.defaultProps = {};
 
 export default Sidebar;
