@@ -1,9 +1,6 @@
-import {createTheme, responsiveFontSizes} from '@mui/material/styles';
-
 // A custom theme for this app
 // https://mui.com/customization/default-theme/
-// https://bareynol.github.io/mui-theme-creator/
-let theme = createTheme({
+export const theme = {
   palette: {
     mode: 'light',
     primary: {
@@ -96,8 +93,4 @@ let theme = createTheme({
       }
     }
   }
-});
-
-theme = responsiveFontSizes(theme);
-
-export default theme;
+};
