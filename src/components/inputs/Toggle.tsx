@@ -1,17 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Box} from '@mui/material';
 import {ToggleButton, ToggleButtonGroup} from '@mui/material';
+import {DashComponentProps} from 'props';
 
 /**
  * Toggle component
  */
-const Toggle = (props) => {
-  // First option selected by default if no default provided
-  const {id, options, selected, orientation, margin, disabled, setProps} = props;
-  if (selected === undefined) {
-    setProps({selected: options[0]});
-  }
+const Toggle = ({
+  id = 'toggle',
+  options,
+  selected,
+  orientation = 'horizontal',
+  margin = 2,
+  disabled = false,
+  setProps
+}: ToggleProps) => {
+  useEffect(() => {
+    // First option selected by default if no default provided
+    if (!selected) {
+      setProps({selected: options[0]});
+    }
+  }, [selected]);
 
   const handleToggleChange = (event, value) => {
     // Enforce at least one active selection
@@ -44,11 +54,19 @@ const Toggle = (props) => {
   );
 };
 
-Toggle.defaultProps = {
-  id: 'toggle',
-  orientation: 'horizontal',
-  margin: 2
-};
+// TypeScript props type
+type ToggleProps = {
+  /** Toggle orientation (horizontal or vertical) */
+  orientation?: 'horizontal' | 'vertical';
+  /** Array of options to select through the toggle */
+  options: Array<string | number>;
+  /** Selected toggle index */
+  selected?: string | number;
+  /** Margin of the component */
+  margin?: string | number;
+  /** Disable component */
+  disabled?: boolean;
+} & DashComponentProps;
 
 Toggle.propTypes = {
   /** Used to identify dash components in callbacks */
@@ -72,5 +90,7 @@ Toggle.propTypes = {
   /** Disable component */
   disabled: PropTypes.bool
 };
+
+Toggle.defaultProps = {};
 
 export default Toggle;
