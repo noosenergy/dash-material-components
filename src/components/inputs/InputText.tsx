@@ -106,6 +106,7 @@ const InputText = ({
 
 // TypeScript props type
 type InputTextProps = {
+  /** Text to display above the slider form */
   labelText?: string;
   value?: string | number;
   maxValue?: number | null;
