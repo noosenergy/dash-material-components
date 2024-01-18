@@ -87,6 +87,8 @@ const Slider = ({
   const [inputValue, setInputValue] = useState<string>(
     String(selected.toFixed(inputType === 'float' ? precision : 0))
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [prevInputValue, setPrevInputValue] = useState(inputValue);
 
   const handleSliderChange = (event, value) => {
@@ -97,7 +99,7 @@ const Slider = ({
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let value = event.target.value;
+    const value = event.target.value;
 
     if (validInput(value, inputType, minValue, maxValue, precision)) {
       setPrevInputValue(value);

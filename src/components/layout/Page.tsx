@@ -5,7 +5,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import Error from '../../fragments/Error';
 import {DashComponentProps} from 'props';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   pageLayout: {
     // Contain the entire page
     width: '100%',

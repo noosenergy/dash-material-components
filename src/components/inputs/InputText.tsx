@@ -58,7 +58,7 @@ const InputText = ({
   const [inputValue, setInputValue] = useState(value);
 
   const handleChange = (event) => {
-    let nextValue = event.target.value;
+    const nextValue = event.target.value;
     // DEBUG PRINT: console.log(`nextValue: ${nextValue}, inputValue: ${inputValue}`);
     const isValid = validInput(nextValue, inputType, minValue, maxValue, precision, maxLength);
 

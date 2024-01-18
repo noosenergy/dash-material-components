@@ -57,6 +57,4 @@ Alert.propTypes = {
   setProps: PropTypes.func.isRequired
 };
 
-Alert.defaultProps = {};
-
 export default Alert;

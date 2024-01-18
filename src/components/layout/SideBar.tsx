@@ -76,7 +76,7 @@ const Sidebar = ({
 
   // locals
   let drawerHeader;
-  let drawerElements: JSX.Element[] = [];
+  const drawerElements: JSX.Element[] = [];
 
   // Fetch drawer button
   const drawerButton = (

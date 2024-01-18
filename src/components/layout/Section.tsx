@@ -18,13 +18,13 @@ const Section = ({
   setProps,
   downloaded = 0
 }: SectionProps) => {
-  const handleSectionDownload = (event: React.MouseEvent) => {
+  const handleSectionDownload = () => {
     // Fire Dash-assigned callback
     setProps({downloaded: downloaded + 1});
   };
 
   let cardElement: JSX.Element;
-  let sectionElements: JSX.Element[] = [];
+  const sectionElements: JSX.Element[] = [];
 
   // Fetch cards
   if (children) {

@@ -5,7 +5,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import TabPanel from '../../fragments/TabPanel';
 import {DashComponentProps} from 'props';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   tabLayout: {
     height: '100%',
     width: '100%'
@@ -21,12 +21,12 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const handleTabChange = (event: React.ChangeEvent<{}>, value: number) => {
+  const handleTabChange = (_: React.ChangeEvent, value: number) => {
     setSelectedTab(value);
   };
 
-  let tabElements: JSX.Element[] = [];
-  let tabpanelElements: JSX.Element[] = [];
+  const tabElements: JSX.Element[] = [];
+  const tabpanelElements: JSX.Element[] = [];
 
   // Fetch cards or tabs
   if (children && tabs) {

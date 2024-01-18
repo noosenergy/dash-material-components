@@ -4,7 +4,7 @@ import {Card as MuiCard, CardContent, CardHeader, Grid, IconButton, Tooltip} fro
 import makeStyles from '@mui/styles/makeStyles';
 import {GetApp} from '@mui/icons-material';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   cardInColumn: {
     maxHeight: '100%'
   },

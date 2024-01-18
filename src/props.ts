@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from 'react';
 
 /**
  * Every Dash components are given these props.
@@ -12,16 +12,16 @@ import { ReactNode } from "react";
  * order of props with types concatenation.
  */
 export type DashComponentProps = {
-    /**
-     * Unique ID to identify this component in Dash callbacks.
-     */
-    id?: string;
-    /**
-     * Update props to trigger callbacks.
-     */
-    setProps: (props: Record<string, any>) => void;
-    /**
-     * Component children
-     */
-    children?: ReactNode;
-}
+  /**
+   * Unique ID to identify this component in Dash callbacks.
+   */
+  id?: string;
+  /**
+   * Update props to trigger callbacks.
+   */
+  setProps: (props: Record<string, object>) => void;
+  /**
+   * Component children
+   */
+  children?: ReactNode;
+};

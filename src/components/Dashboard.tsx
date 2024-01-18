@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Box} from '@mui/material';
 import ThemeProvider from '../utils/ThemeProvider';

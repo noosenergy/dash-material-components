@@ -23,10 +23,9 @@ const Button = ({
   disableRipple,
   disableFocusRipple,
   disableElevation,
-  href,
-  ...remainingProps
+  href
 }: ButtonProps) => {
-  const handleClick = (event) => {
+  const handleClick = () => {
     // Fire Dash-assigned callback
     setProps({nClicks: nClicks + 1});
   };
@@ -40,7 +39,14 @@ const Button = ({
         fullWidth={width !== null}
         startIcon={startIcon ? <Icon color={iconColor}>{startIcon}</Icon> : null}
         endIcon={endIcon ? <Icon color={iconColor}>{endIcon}</Icon> : null}
-        {...remainingProps}
+        variant={variant}
+        color={color}
+        size={size}
+        disabled={disabled}
+        disableFocusRipple={disableFocusRipple}
+        disableRipple={disableRipple}
+        disableElevation={disableElevation}
+        href={href}
       >
         {text}
       </MuiButton>
@@ -55,7 +61,7 @@ type ButtonProps = {
   /** MUI button variant */
   variant?: 'contained' | 'outlined' | 'text';
   /** MUI button color */
-  color?: 'primary' | 'secondary' | 'inherit' | 'default';
+  color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
   /** Icon color */
   iconColor?: 'primary' | 'secondary' | 'action' | 'error' | 'disabled';
   /** MUI button size, small | medium | large */

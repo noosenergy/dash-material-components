@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   tabpanelLayout: {
     height: '100%'
   },

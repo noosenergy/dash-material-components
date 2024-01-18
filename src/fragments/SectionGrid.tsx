@@ -4,7 +4,7 @@ import {Grid} from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   sectionInColumn: {
     // Contain at max entire page length
     maxHeight: '100%',

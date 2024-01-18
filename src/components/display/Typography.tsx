@@ -1,13 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  Typography as MuiTypography,
-  TypographyTypeMap,
-  TypographyVariant
-} from '@mui/material';
+import {Box, Typography as MuiTypography, TypographyVariant} from '@mui/material';
 import {DashComponentProps} from 'props';
-import {DefaultComponentProps} from '@mui/material/OverridableComponent';
 
 /**
  * Typography component from Material UI
