@@ -1,8 +1,13 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
-  "parser": "@babel/eslint-parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 7,
     "sourceType": "module",
     "ecmaFeatures": {
       "arrowFunctions": true,
@@ -23,13 +28,13 @@
     "jasmine": true,
     "node": true
   },
-  "plugins": [
-    "react",
-    "import"
-  ],
+  "plugins": ["react", "import"],
   "settings": {
     "react": {
       "version": "detect"
     }
+  },
+  "rules": {
+    "react/prop-types": "off"
   }
 }
