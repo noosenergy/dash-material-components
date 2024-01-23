@@ -64,7 +64,15 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
 
   /** MUI button color */
-  color: PropTypes.oneOf(['primary', 'secondary', 'inherit', 'default']),
+  color: PropTypes.oneOf([
+    'inherit',
+    'primary',
+    'secondary',
+    'success',
+    'error',
+    'info',
+    'warning'
+  ]),
 
   /** Icon color */
   iconColor: PropTypes.oneOf(['primary', 'secondary', 'action', 'error', 'disabled']),
