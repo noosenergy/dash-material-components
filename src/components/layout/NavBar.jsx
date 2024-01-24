@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Box, AppBar, IconButton, Toolbar, Typography} from '@material-ui/core';
+import {Box, AppBar, IconButton, Toolbar, Typography} from '@mui/material';
 import NoosIcon from '../../fragments/NoosIcon';
 
 /**
@@ -14,7 +14,7 @@ const NavBar = (props) => {
     <Box id={id}>
       <AppBar position="static" elevation={4}>
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
+          <IconButton edge="start" color="inherit" aria-label="menu" size="large">
             <NoosIcon viewBox="0 0 50 20" />
           </IconButton>
           <Typography variant="h1" component="h1">

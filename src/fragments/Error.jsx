@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Box, Grid, Hidden, Typography} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import {Box, Grid, Hidden, Typography} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles({
   // Change overall body background
@@ -37,7 +37,7 @@ const Error = (props) => {
   const classes = useStyles();
 
   const errorStatus = (
-    <Hidden smDown>
+    <Hidden mdDown>
       <Grid item sm={4} className={`${classes.errorLayout} ${classes.errorStatusLayout}`}>
         <Typography component="h1" style={{fontWeight: 900, fontSize: '10rem'}}>
           {status}

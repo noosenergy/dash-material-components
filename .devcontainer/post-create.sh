@@ -6,7 +6,7 @@ set -e
 # Install js libs
 # ---------------
 echo "$(date) - installing javascript libraries"
-yarn install
+yarn install --frozen-lockfile
 
 # Install py libs
 # ---------------

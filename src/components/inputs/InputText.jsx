@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {TextField, InputAdornment, Box} from '@material-ui/core';
+import {TextField, InputAdornment, Box} from '@mui/material';
 
 const validInput = (value, inputType, minValue, maxValue, precision, length) => {
   if (inputType === 'integer') {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import Slider from './Slider';
+import Slider from '../components/inputs/Slider';
 import '@testing-library/jest-dom';
 
 describe('Slider', () => {

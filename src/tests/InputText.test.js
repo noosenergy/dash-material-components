@@ -1,6 +1,6 @@
 import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react';
-import InputText from './InputText';
+import {render, screen, fireEvent, act} from '@testing-library/react';
+import InputText from '../components/inputs/InputText';
 import '@testing-library/jest-dom';
 
 const setPropsPlaceholder = () => true;
@@ -21,7 +21,9 @@ describe('InputText', () => {
   it('should only allow integers', () => {
     render(<InputText inputType="integer" setProps={setPropsPlaceholder} />);
     const element = screen.getByRole('textbox');
-    element.focus();
+    act(() => {
+      element.focus();
+    });
     fireEvent.change(element, {target: {value: '12'}});
     expect(element.value).toBe('12');
     fireEvent.change(element, {target: {value: 'a'}});
@@ -35,7 +37,9 @@ describe('InputText', () => {
   it('should only allow floats', () => {
     render(<InputText inputType="float" precision={3} setProps={setPropsPlaceholder} />);
     const element = screen.getByRole('textbox');
-    element.focus();
+    act(() => {
+      element.focus();
+    });
     fireEvent.change(element, {target: {value: '12.3'}});
     expect(element.value).toBe('12.3');
     fireEvent.change(element, {target: {value: 'a'}});
@@ -63,7 +67,9 @@ describe('InputText', () => {
       />
     );
     const element = screen.getByRole('textbox');
-    element.focus();
+    act(() => {
+      element.focus();
+    });
     fireEvent.change(element, {target: {value: '12'}});
     expect(element.value).toBe('0');
     fireEvent.change(element, {target: {value: '-12'}});
@@ -85,7 +91,9 @@ describe('InputText', () => {
       />
     );
     const element = screen.getByRole('textbox');
-    element.focus();
+    act(() => {
+      element.focus();
+    });
     fireEvent.change(element, {target: {value: '12.3'}});
     expect(element.value).toBe('0');
     fireEvent.change(element, {target: {value: '-12.3'}});
@@ -99,7 +107,9 @@ describe('InputText', () => {
   it('should only allow string up to max length', () => {
     render(<InputText inputType="text" maxLength={5} setProps={setPropsPlaceholder} />);
     const element = screen.getByRole('textbox');
-    element.focus();
+    act(() => {
+      element.focus();
+    });
     fireEvent.change(element, {target: {value: '12345'}});
     expect(element.value).toBe('12345');
     fireEvent.change(element, {target: {value: '123456'}});

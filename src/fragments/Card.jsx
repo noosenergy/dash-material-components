@@ -1,15 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Card as MuiCard,
-  CardContent,
-  CardHeader,
-  Grid,
-  IconButton,
-  Tooltip,
-  makeStyles
-} from '@material-ui/core';
-import {GetApp} from '@material-ui/icons';
+import {Card as MuiCard, CardContent, CardHeader, Grid, IconButton, Tooltip} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import {GetApp} from '@mui/icons-material';
 
 const useStyles = makeStyles((theme) => ({
   cardInColumn: {
@@ -33,7 +26,7 @@ const Card = (props) => {
       action={
         downloadable ? (
           <Tooltip title="Download card">
-            <IconButton aria-label="download-card" onClick={handleDownload}>
+            <IconButton aria-label="download-card" onClick={handleDownload} size="large">
               <GetApp />
             </IconButton>
           </Tooltip>

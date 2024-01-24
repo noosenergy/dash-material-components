@@ -1,14 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  Chip,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select
-} from '@material-ui/core';
+import {Box, Chip, FormControl, FormHelperText, InputLabel, MenuItem, Select} from '@mui/material';
 
 /**
  * Dropdown component

@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, makeStyles} from '@material-ui/core';
+import {Grid} from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   sectionInColumn: {
     // Contain at max entire page length
     maxHeight: '100%',
     // Reset section element negative margins
+    padding: 0,
     margin: 0
   },
   sectionInRow: {
     // Contain at max entire page width
     maxWidth: '100%',
     // Reset section element negative margins
+    padding: 0,
     margin: 0
   }
 }));
@@ -33,7 +37,8 @@ const SectionGrid = (props) => {
       item
       xs={sectionSize}
       container
-      spacing={2}
+      rowSpacing={2}
+      columnSpacing={2}
       direction={sectionDirection}
       className={`${sectionLayout}`}
     >

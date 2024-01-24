@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Box, Table as MuiTable, TableContainer, TablePagination} from '@material-ui/core';
+import {Box, Table as MuiTable, TableContainer, TablePagination} from '@mui/material';
 import {TableBody, TableHead} from '../../fragments/TableContent';
 
 /**

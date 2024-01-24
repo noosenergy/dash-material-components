@@ -30,7 +30,7 @@ jobs:
       - checkout
       - run:
           name: Lint JavaScript library
-          command: yarn install && yarn lint
+          command: yarn install --frozen-lockfile && yarn lint
 
   test_library:
     executor: noos-ci/default
@@ -38,7 +38,7 @@ jobs:
       - checkout
       - run:
           name: Run JavaScript tests
-          command: yarn install && yarn test
+          command: yarn install --frozen-lockfile && yarn test
 
   build_library:
     executor: noos-ci/default
@@ -48,7 +48,7 @@ jobs:
           <<: *poetry_install
       - run:
           name: Build JavaScript library
-          command: yarn install && yarn build
+          command: yarn install --frozen-lockfile && yarn build
       - persist_to_workspace:
           root: .
           paths:

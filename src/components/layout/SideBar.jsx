@@ -11,9 +11,9 @@ import {
   ListItemText,
   Tooltip,
   Typography
-} from '@material-ui/core';
-import {ChevronLeft, Settings} from '@material-ui/icons';
-import {makeStyles} from '@material-ui/core/styles';
+} from '@mui/material';
+import {ChevronLeft, Settings} from '@mui/icons-material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const drawerWidth = 360;
 
@@ -96,7 +96,12 @@ const Sidebar = (props) => {
           {title}
         </Typography>
         <Tooltip title="Close sidebar">
-          <IconButton id="close-sidebar-chevron" color="inherit" onClick={handleDrawerClose}>
+          <IconButton
+            id="close-sidebar-chevron"
+            color="inherit"
+            onClick={handleDrawerClose}
+            size="large"
+          >
             <ChevronLeft />
           </IconButton>
         </Tooltip>

@@ -99,7 +99,7 @@ app.run_server(mode='jupyterlab', host="0.0.0.0", port=8001)
 The project is shipped with off-the-shelf scripts to manage node packages as well as a set of utilities for local development. If the `yarn` node package manager is installed globally, install all javascript dependencies,
 
 ```shell
-~$ yarn install
+~$ yarn install --frozen-lockfile
 ```
 
 > :warning: the Dash material components has only been tested against Node.js v18.

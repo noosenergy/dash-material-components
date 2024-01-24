@@ -1,21 +1,26 @@
 import React from 'react';
 
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
-
-import {CssBaseline} from '@material-ui/core';
-import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
-
+import {CssBaseline} from '@mui/material';
+import {ThemeProvider as MuiThemeProvider, StyledEngineProvider} from '@mui/material/styles';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {frFR} from '@mui/x-date-pickers/locales';
 import theme from './theme';
+import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 
 const ThemeProvider = ({children}) => {
   // Enforce and reset a MUI-theme on the entire page
   return (
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>{children}</MuiPickersUtilsProvider>
-    </MuiThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <LocalizationProvider
+          dateAdapter={AdapterDateFns}
+          localeText={frFR.components.MuiLocalizationProvider.defaultProps.localeText}
+        >
+          {children}
+        </LocalizationProvider>
+      </MuiThemeProvider>
+    </StyledEngineProvider>
   );
 };
 
