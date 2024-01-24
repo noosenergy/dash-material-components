@@ -152,3 +152,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Keep Slider label always visible when inputText is disabled
+
+## [1.2.0] - 2024-01-23
+
+### Changed
+
+- Upgrade react to react@^18.2.0
+- Migrate material-ui from v4 to v5 (@mui)
+- Install dependencies using yarn.lock file
+- Add .nvmrc file for local development

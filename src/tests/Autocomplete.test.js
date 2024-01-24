@@ -59,7 +59,7 @@ describe('Autocomplete', () => {
   it('should allow selection by clicking on option', async () => {
     render(<Autocomplete options={options} setProps={() => true} />);
     const input = screen.getByRole('combobox');
-    userEvent.type(input, 'opt');
+    fireEvent.click(input);
 
     await waitFor(() => {
       const element = screen.getByRole('presentation');

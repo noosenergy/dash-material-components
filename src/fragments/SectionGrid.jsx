@@ -9,12 +9,14 @@ const useStyles = makeStyles((theme) => ({
     // Contain at max entire page length
     maxHeight: '100%',
     // Reset section element negative margins
+    padding: 0,
     margin: 0
   },
   sectionInRow: {
     // Contain at max entire page width
     maxWidth: '100%',
     // Reset section element negative margins
+    padding: 0,
     margin: 0
   }
 }));
@@ -35,7 +37,8 @@ const SectionGrid = (props) => {
       item
       xs={sectionSize}
       container
-      spacing={2}
+      rowSpacing={2}
+      columnSpacing={2}
       direction={sectionDirection}
       className={`${sectionLayout}`}
     >
