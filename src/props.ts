@@ -19,7 +19,7 @@ export type DashComponentProps = {
   /**
    * Update props to trigger callbacks.
    */
-  setProps: (props: Record<string, object>) => void;
+  setProps: (props: Record<string, object | string | number>) => void;
   /**
    * Component children
    */

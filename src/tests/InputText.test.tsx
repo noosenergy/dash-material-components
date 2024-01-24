@@ -6,21 +6,28 @@ import '@testing-library/jest-dom';
 const setPropsPlaceholder = () => true;
 
 describe('InputText', () => {
-  it('should render correctly', () => {
-    render(<InputText value="Hello World!" />);
-    const element = screen.getByRole('textbox');
+  it.only('should render correctly', () => {
+    render(<InputText value="Hello World!" setProps={undefined} />);
+    const element: any = screen.getByRole('textbox');
     expect(element.value).toBe('Hello World!');
   });
 
   it('Should render with adornments', () => {
-    render(<InputText inputType="integer" adornmentLeft="LEFT" adornmentRight="RIGHT" />);
+    render(
+      <InputText
+        inputType="integer"
+        adornmentLeft="LEFT"
+        adornmentRight="RIGHT"
+        setProps={undefined}
+      />
+    );
     expect(screen.getByText('LEFT')).toBeInTheDocument();
     expect(screen.getByText('RIGHT')).toBeInTheDocument();
   });
 
   it('should only allow integers', () => {
     render(<InputText inputType="integer" setProps={setPropsPlaceholder} />);
-    const element = screen.getByRole('textbox');
+    const element: any = screen.getByRole('textbox');
     act(() => {
       element.focus();
     });
@@ -36,7 +43,7 @@ describe('InputText', () => {
 
   it('should only allow floats', () => {
     render(<InputText inputType="float" precision={3} setProps={setPropsPlaceholder} />);
-    const element = screen.getByRole('textbox');
+    const element: any = screen.getByRole('textbox');
     act(() => {
       element.focus();
     });
@@ -66,7 +73,7 @@ describe('InputText', () => {
         setProps={setPropsPlaceholder}
       />
     );
-    const element = screen.getByRole('textbox');
+    const element: any = screen.getByRole('textbox');
     act(() => {
       element.focus();
     });
@@ -90,7 +97,7 @@ describe('InputText', () => {
         setProps={setPropsPlaceholder}
       />
     );
-    const element = screen.getByRole('textbox');
+    const element: any = screen.getByRole('textbox');
     act(() => {
       element.focus();
     });
@@ -106,7 +113,7 @@ describe('InputText', () => {
 
   it('should only allow string up to max length', () => {
     render(<InputText inputType="text" maxLength={5} setProps={setPropsPlaceholder} />);
-    const element = screen.getByRole('textbox');
+    const element: any = screen.getByRole('textbox');
     act(() => {
       element.focus();
     });

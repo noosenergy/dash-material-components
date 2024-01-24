@@ -12,20 +12,20 @@ const options = [
 
 describe('Autocomplete', () => {
   it('should render correctly', () => {
-    render(<Autocomplete options={options} />);
+    render(<Autocomplete options={options} setProps={undefined} />);
     const element = screen.getByRole('combobox');
     expect(element).toBeInTheDocument();
   });
 
   it('should render correctly with initialized value', () => {
-    render(<Autocomplete options={options} selected={[options[2]]} />);
-    const input = screen.getByRole('combobox');
+    render(<Autocomplete options={options} selected={[options[2]]} setProps={undefined} />);
+    const input: any = screen.getByRole('combobox');
     expect(input.value).toBe('option_c');
   });
 
   it('should render matching options with inserted input', async () => {
-    render(<Autocomplete options={options} />);
-    const input = screen.getByRole('combobox');
+    render(<Autocomplete options={options} setProps={undefined} />);
+    const input: any = screen.getByRole('combobox');
     userEvent.type(input, 'option');
 
     await waitFor(() => {
@@ -36,8 +36,8 @@ describe('Autocomplete', () => {
   });
 
   it('should render no options if non-matching input is inserted', async () => {
-    render(<Autocomplete options={options} />);
-    const input = screen.getByRole('combobox');
+    render(<Autocomplete options={options} setProps={undefined} />);
+    const input: any = screen.getByRole('combobox');
 
     // Use userEvent.type to simulate typing
     userEvent.type(input, 'jiberish');
@@ -58,7 +58,7 @@ describe('Autocomplete', () => {
 
   it('should allow selection by clicking on option', async () => {
     render(<Autocomplete options={options} setProps={() => true} />);
-    const input = screen.getByRole('combobox');
+    const input: any = screen.getByRole('combobox');
     fireEvent.click(input);
 
     await waitFor(() => {
