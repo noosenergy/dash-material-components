@@ -12,9 +12,6 @@
   "engines": {
     "node": ">=18"
   },
-  "jest": {
-    "testEnvironment": "jsdom"
-  },
   "scripts": {
     "format:eslint": "eslint ./src --fix --ext .js,.jsx,.ts,.tsx",
     "format:prettier": "prettier ./src --config .prettierrc --write",
@@ -39,7 +36,6 @@
     "@mui/material": "^5.15.3",
     "@mui/styles": "^5.15.3",
     "@mui/x-date-pickers": "^6.18.7",
-    "@types/jest": "^29.5.11",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
     "date-fns": "^2.25.0",
@@ -58,6 +54,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
+    "@types/jest": "^29.5.11",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.7.1",
     "es-check": "^5.2.4",
@@ -73,6 +70,7 @@
     "react-dom": "^18.2.0",
     "style-loader": "^3.3.1",
     "styled-jsx": "^3.4.4",
+    "ts-jest": "^29.1.2",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
     "webpack": "^5.73.0",
