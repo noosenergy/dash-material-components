@@ -54,7 +54,6 @@ const Button = ({
   );
 };
 
-// TypeScript props type
 type ButtonProps = {
   /** Button text */
   text?: string;
@@ -72,7 +71,7 @@ type ButtonProps = {
   disabled?: boolean;
   /** Button has no ripple effect */
   disableRipple?: boolean;
-  /* Disable keyboard focus ripple */
+  /** Disable keyboard focus ripple */
   disableFocusRipple?: boolean;
   /** Disable elevation */
   disableElevation?: boolean;

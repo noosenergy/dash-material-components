@@ -86,19 +86,30 @@ const Autocomplete = ({
   );
 };
 
-// TypeScript props type
 type AutocompleteProps = {
+  /** The label text displayed for the autocomplete input */
   labelText?: string;
+  /** The size of the autocomplete input, can be 'small' or 'medium' */
   size?: 'small' | 'medium';
+  /** The variant of the autocomplete input, can be 'filled', 'outlined', or 'standard' */
   variant?: 'filled' | 'outlined' | 'standard';
+  /** Currently selected option(s), can be a single option or an array of options */
   selected?: OptionType[] | OptionType;
+  /** Options available for selection in the autocomplete */
   options: OptionType[];
+  /** Limit the number of tags displayed when `multiple` is enabled */
   limitTags?: number;
+  /** Allow the user to enter a value not included in the options */
   freeSolo?: boolean;
+  /** Field in the option object to group options by in the list */
   groupByField?: string;
+  /** Allow multiple selections */
   multiple?: boolean;
+  /** Width of the autocomplete box (CSS value as string) */
   width?: string;
+  /** Margin around the autocomplete box (CSS value as string or number) */
   margin?: string | number;
+  /** If true, the autocomplete input will be disabled */
   disabled?: boolean;
 } & DashComponentProps;
 

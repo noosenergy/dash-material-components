@@ -106,23 +106,39 @@ const InputText = ({
 
 // TypeScript props type
 type InputTextProps = {
-  /** Text to display above the slider form */
+  /** The label text displayed for the input field */
   labelText?: string;
+  /** The initial value of the input */
   value?: string | number;
+  /** The maximum numeric value allowed (for numeric input types) */
   maxValue?: number | null;
+  /** The minimum numeric value allowed (for numeric input types) */
   minValue?: number | null;
+  /** The number of decimal places to allow (for 'float' input type) */
   precision?: number;
+  /** The type of input ('text', 'integer', or 'float') */
   inputType?: 'text' | 'integer' | 'float';
+  /** Whether the text field should allow multiline input */
   multiline?: boolean;
+  /** The variant of the text field */
   variant?: 'filled' | 'outlined' | 'standard';
+  /** The maximum length of the input string */
   maxLength?: number;
+  /** If true, the input will be focused automatically */
   autoFocus?: boolean;
+  /** The size of the input field */
   size?: 'small' | 'medium';
+  /** The width of the input field (CSS value as string) */
   width?: string | null;
+  /** Margin around the input field (CSS value as string or number) */
   margin?: string | number;
+  /** An adornment to be displayed at the start of the input */
   adornmentLeft?: string;
+  /** An adornment to be displayed at the end of the input */
   adornmentRight?: string;
+  /** If true, the input field will be disabled */
   disabled?: boolean;
+  /** If true, the input field will indicate an error */
   error?: boolean;
 } & DashComponentProps;
 
