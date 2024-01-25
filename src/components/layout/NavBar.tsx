@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Box, AppBar, IconButton, Toolbar, Typography} from '@mui/material';
 import NoosIcon from '../../fragments/NoosIcon';
 import {DashComponentProps} from 'props';
@@ -30,14 +29,5 @@ type NavBarProps = {
   /** Dashboard navigation bar title */
   title?: string;
 } & DashComponentProps;
-
-// PropTypes for runtime type checking
-NavBar.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Dashboard navigation bar title */
-  title: PropTypes.string
-};
 
 export default NavBar;

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Box} from '@mui/material';
 import ThemeProvider from '../utils/ThemeProvider';
 import {DashComponentProps} from 'props';
@@ -25,13 +24,5 @@ type DashboardProps = {
   /** Dashboard display height */
   height?: string;
 } & DashComponentProps;
-
-Dashboard.propTypes = {
-  /** Unique ID to identify this component in Dash callbacks. */
-  id: PropTypes.string,
-  children: PropTypes.node,
-  /** Dashboard display height */
-  height: PropTypes.string
-};
 
 export default Dashboard;

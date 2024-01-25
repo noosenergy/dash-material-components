@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {Box, Typography as MuiTypography, TypographyVariant} from '@mui/material';
 import {DashComponentProps} from 'props';
 
@@ -39,23 +38,5 @@ type TypographyProps = {
   /** Text to display */
   text?: string;
 } & DashComponentProps;
-
-// PropTypes for runtime type checking
-Typography.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
-  /** Typography HTML node type */
-  component: PropTypes.string,
-
-  /** Typography variant */
-  variant: PropTypes.string,
-
-  /** Text to display */
-  text: PropTypes.string
-};
 
 export default Typography;

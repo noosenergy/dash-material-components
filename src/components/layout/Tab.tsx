@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {Grid, Tab as MuiTab, Tabs} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import TabPanel from '../../fragments/TabPanel';
@@ -68,20 +67,5 @@ type TabProps = {
     label: string;
   }>;
 } & DashComponentProps;
-
-// PropTypes for runtime type checking
-Tab.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-  /** Used to render elements inside the component */
-  children: PropTypes.node,
-  /** Array of tabs to render as component children */
-  tabs: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Element label */
-      label: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
-};
 
 export default Tab;

@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {Box} from '@mui/material';
 import {ToggleButton, ToggleButtonGroup} from '@mui/material';
 import {DashComponentProps} from 'props';
@@ -67,28 +66,5 @@ type ToggleProps = {
   /** Disable component */
   disabled?: boolean;
 } & DashComponentProps;
-
-Toggle.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
-  /** Toggle orientation (horizontal or vertical) */
-  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
-
-  /** Array of options to select through the toggle */
-  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
-
-  /** Selected toggle index */
-  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /** Margin of the component */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /** Disable component */
-  disabled: PropTypes.bool
-};
 
 export default Toggle;

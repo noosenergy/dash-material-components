@@ -5,7 +5,6 @@ import {
   TableHead as MuiTableHead,
   TableRow
 } from '@mui/material';
-import PropTypes from 'prop-types';
 
 const TableHead = ({columns}: TableHeadProps) => {
   const headerElements = columns.map((column, i) => (
@@ -31,15 +30,6 @@ type TableHeadProps = {
   columns: TableColumn[];
 };
 
-TableHead.propTypes = {
-  columns: PropTypes.arrayOf(
-    PropTypes.exact({
-      field: PropTypes.string,
-      width: PropTypes.number
-    })
-  )
-};
-
 const TableBody = ({rows, page, rowsPerPage}: TableBodyProps) => {
   const startRow = rowsPerPage * page;
   const endRow = startRow + rowsPerPage;
@@ -62,11 +52,5 @@ type TableBodyProps = {
 };
 
 type TableRowData = {[key: string]: any};
-
-TableBody.propTypes = {
-  rows: PropTypes.arrayOf(PropTypes.object),
-  page: PropTypes.number,
-  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
-};
 
 export {TableHead, TableBody};

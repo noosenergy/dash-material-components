@@ -59,22 +59,4 @@ type PageProps = {
   errorMessage?: string;
 } & Partial<DashComponentProps>;
 
-// PropTypes for runtime type checking
-Page.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to render elements inside the component */
-  children: PropTypes.node,
-
-  /** Page general orientation (rows or columns) */
-  orientation: PropTypes.oneOf(['columns', 'rows']),
-
-  /** Error status code */
-  errorStatus: PropTypes.number,
-
-  /** Error message */
-  errorMessage: PropTypes.string
-};
-
 export default Page;

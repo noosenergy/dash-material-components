@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Box} from '@mui/material';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {DashComponentProps} from 'props';
@@ -89,46 +88,5 @@ type CalendarProps = {
   /** If true, the calendar input will be disabled */
   disabled?: boolean;
 } & DashComponentProps;
-
-Calendar.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
-  /** Text to display in the calendar form */
-  labelText: PropTypes.string,
-
-  /** Text to display under the calendar form */
-  helperText: PropTypes.string,
-
-  /** Width of calendar form */
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /** Margin */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /** Latest date available in the calendar */
-  maxDate: PropTypes.string,
-
-  /** Earliest date available in the calendar */
-  minDate: PropTypes.string,
-
-  /** Disable future dates */
-  disableFuture: PropTypes.bool,
-
-  /** Disable past dates */
-  disablePast: PropTypes.bool,
-
-  /** Active date selection */
-  selected: PropTypes.string,
-
-  /** Disable toolbar */
-  disableToolbar: PropTypes.bool,
-
-  /** Disable the whole component */
-  disabled: PropTypes.bool
-};
 
 export default Calendar;

@@ -1,7 +1,6 @@
 import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import {DashComponentProps} from 'props';
-import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(() => ({
   tabpanelLayout: {
@@ -34,11 +33,5 @@ type TabPanelProps = {
   // Currently selected tab index
   value: number;
 } & Partial<DashComponentProps>;
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired
-};
 
 export default TabPanel;

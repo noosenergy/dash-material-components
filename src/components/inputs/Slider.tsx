@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {
   Box,
   FormControl,
@@ -216,59 +215,5 @@ type SliderProps = {
   /** Disable the component */
   disabled?: boolean;
 } & DashComponentProps;
-
-Slider.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
-  /** Text to display above the slider form */
-  labelText: PropTypes.string,
-
-  /** Width of slider form */
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /** Margin of the component */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /** Maximum selection allowed in the slider */
-  maxValue: PropTypes.number,
-
-  /** Minimum selection allowed in the slider */
-  minValue: PropTypes.number,
-
-  /** Slider selection increment */
-  stepValue: PropTypes.number,
-
-  /** Array of selection marks to display below the slider form */
-  marks: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Mark value */
-      value: PropTypes.number,
-      /** Mark label */
-      label: PropTypes.string
-    })
-  ),
-
-  /** Active slider selection */
-  selected: PropTypes.number,
-
-  /** Input type, if set an input text is displayed alongside the slider */
-  inputType: PropTypes.oneOf(['integer', 'float', null]),
-
-  /** Number of decimal places */
-  precision: PropTypes.number,
-
-  /** InputText LEFT adornment */
-  inputLeftAdornment: PropTypes.string,
-
-  /** InputText RIGHT adornment */
-  inputRightAdornment: PropTypes.string,
-
-  /** Disable the component */
-  disabled: PropTypes.bool
-};
 
 export default Slider;

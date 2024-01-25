@@ -2,7 +2,6 @@ import React from 'react';
 import {Box, Grid, Hidden, Typography} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import {DashComponentProps} from 'props';
-import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
   // Change overall body background
@@ -73,16 +72,5 @@ type ErrorProps = {
   /** Error message */
   message: string;
 } & Partial<DashComponentProps>;
-
-Error.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Error status code */
-  status: PropTypes.number.isRequired,
-
-  /** Error message */
-  message: PropTypes.string.isRequired
-};
 
 export default Error;

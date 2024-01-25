@@ -3,7 +3,6 @@ import {Card as MuiCard, CardContent, CardHeader, Grid, IconButton, Tooltip} fro
 import makeStyles from '@mui/styles/makeStyles';
 import {GetApp} from '@mui/icons-material';
 import {DashComponentProps} from 'props';
-import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(() => ({
   cardInColumn: {
@@ -72,15 +71,5 @@ type CardProps = {
   // Function to handle card download
   handleDownload?: () => void;
 } & Partial<DashComponentProps>;
-
-Card.propTypes = {
-  id: PropTypes.string,
-  children: PropTypes.node,
-  title: PropTypes.string,
-  size: PropTypes.number,
-  orientation: PropTypes.oneOf(['columns', 'rows']),
-  downloadable: PropTypes.bool,
-  handleDownload: PropTypes.func
-};
 
 export default Card;

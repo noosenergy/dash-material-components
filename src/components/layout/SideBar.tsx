@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {
   Box,
   Divider,
@@ -155,19 +154,5 @@ type SidebarProps = {
   /** Dashboard sidebar title */
   title?: string;
 } & DashComponentProps;
-
-Sidebar.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to render elements inside the component */
-  children: PropTypes.node,
-
-  /** Array of settings to render as component children */
-  settings: PropTypes.arrayOf(PropTypes.string),
-
-  /** Dashboard sidebar title */
-  title: PropTypes.string
-};
 
 export default Sidebar;

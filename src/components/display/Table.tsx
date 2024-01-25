@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {Box, Table as MuiTable, TableContainer, TablePagination} from '@mui/material';
 import {TableBody, TableHead} from '../../fragments/TableContent';
 import {DashComponentProps} from 'props';
@@ -64,27 +63,5 @@ type TableProps = {
   /** Table pagination setting */
   rowsPerPageOptions?: Array<number>;
 } & DashComponentProps;
-
-// PropTypes for runtime type checking
-Table.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Array of table columns to render */
-  columns: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Column field */
-      field: PropTypes.string,
-      /** Column width */
-      width: PropTypes.number
-    })
-  ).isRequired,
-
-  /** Array of table rows to render */
-  rows: PropTypes.arrayOf(PropTypes.object),
-
-  /** Table pagination setting */
-  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
-};
 
 export default Table;
