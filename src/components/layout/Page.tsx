@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Box, Grid} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import Error from '../../fragments/Error';
@@ -58,7 +57,7 @@ type PageProps = {
 
   /** Error message */
   errorMessage?: string;
-} & DashComponentProps;
+} & Partial<DashComponentProps>;
 
 // PropTypes for runtime type checking
 Page.propTypes = {
