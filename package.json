@@ -36,8 +36,7 @@
     "@mui/material": "^5.15.3",
     "@mui/styles": "^5.15.3",
     "@mui/x-date-pickers": "^6.18.7",
-    "date-fns": "^2.25.0",
-    "prop-types": "^15.8.1"
+    "date-fns": "^2.25.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
