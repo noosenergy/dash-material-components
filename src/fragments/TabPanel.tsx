@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import makeStyles from '@mui/styles/makeStyles';
+import {DashComponentProps} from 'props';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(() => ({
   tabpanelLayout: {
@@ -11,8 +12,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TabPanel = (props) => {
-  const {children, value, index} = props;
+const TabPanel = ({children, value, index}: TabPanelProps) => {
   const classes = useStyles();
 
   return (
@@ -27,6 +27,13 @@ const TabPanel = (props) => {
     </div>
   );
 };
+
+type TabPanelProps = {
+  // Current index of the TabPanel
+  index: number;
+  // Currently selected tab index
+  value: number;
+} & Partial<DashComponentProps>;
 
 TabPanel.propTypes = {
   children: PropTypes.node,

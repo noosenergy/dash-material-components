@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Grid} from '@mui/material';
+import {DashComponentProps} from 'props';
+import PropTypes from 'prop-types';
 
 import makeStyles from '@mui/styles/makeStyles';
 
@@ -21,9 +22,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const SectionGrid = (props) => {
+const SectionGrid = ({id = 'section', children, size, orientation = 'rows'}: SectionGridProps) => {
   // props & state
-  const {id, children, size, orientation} = props;
   const classes = useStyles();
 
   // Fetch section content
@@ -46,6 +46,13 @@ const SectionGrid = (props) => {
     </Grid>
   );
 };
+
+type SectionGridProps = {
+  // Size of the section
+  size?: number;
+  // Orientation of the section (columns or rows)
+  orientation?: 'columns' | 'rows';
+} & Partial<DashComponentProps>;
 
 SectionGrid.defaultProps = {
   id: 'section',

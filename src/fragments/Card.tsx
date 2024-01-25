@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Card as MuiCard, CardContent, CardHeader, Grid, IconButton, Tooltip} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import {GetApp} from '@mui/icons-material';
+import {DashComponentProps} from 'props';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(() => ({
   cardInColumn: {
@@ -17,8 +18,15 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Card = (props) => {
-  const {id, children, title, size, orientation, downloadable, handleDownload} = props;
+const Card = ({
+  id = 'card',
+  children,
+  title,
+  size,
+  orientation = 'columns',
+  downloadable = false,
+  handleDownload
+}: CardProps) => {
   const classes = useStyles();
 
   const header = title ? (
@@ -51,6 +59,19 @@ const Card = (props) => {
     </Grid>
   );
 };
+
+type CardProps = {
+  // Title of the card
+  title?: string;
+  // Size of the card
+  size?: number;
+  // Orientation of the card (columns or rows)
+  orientation?: 'columns' | 'rows';
+  // Flag indicating if the card is downloadable
+  downloadable?: boolean;
+  // Function to handle card download
+  handleDownload?: () => void;
+} & Partial<DashComponentProps>;
 
 Card.defaultProps = {
   id: 'card',
