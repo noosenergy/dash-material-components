@@ -74,10 +74,6 @@ type ErrorProps = {
   message: string;
 } & Partial<DashComponentProps>;
 
-Error.defaultProps = {
-  id: 'error'
-};
-
 Error.propTypes = {
   /** Used to identify dash components in callbacks */
   id: PropTypes.string,

@@ -73,12 +73,6 @@ type CardProps = {
   handleDownload?: () => void;
 } & Partial<DashComponentProps>;
 
-Card.defaultProps = {
-  id: 'card',
-  orientation: 'columns',
-  downloadable: false
-};
-
 Card.propTypes = {
   id: PropTypes.string,
   children: PropTypes.node,

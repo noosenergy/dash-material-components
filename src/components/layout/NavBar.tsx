@@ -40,7 +40,4 @@ NavBar.propTypes = {
   title: PropTypes.string
 };
 
-// Default props
-NavBar.defaultProps = {};
-
 export default NavBar;

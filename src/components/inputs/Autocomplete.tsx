@@ -171,6 +171,4 @@ Autocomplete.propTypes = {
   disabled: PropTypes.bool
 };
 
-Autocomplete.defaultProps = {};
-
 export default Autocomplete;

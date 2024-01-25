@@ -58,7 +58,4 @@ Typography.propTypes = {
   text: PropTypes.string
 };
 
-// Default props
-Typography.defaultProps = {};
-
 export default Typography;

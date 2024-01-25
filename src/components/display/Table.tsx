@@ -87,7 +87,4 @@ Table.propTypes = {
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
 };
 
-// Default props
-Table.defaultProps = {};
-
 export default Table;

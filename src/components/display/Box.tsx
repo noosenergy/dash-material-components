@@ -27,6 +27,4 @@ Box.propTypes = {
   sx: PropTypes.object
 };
 
-Box.defaultProps = {};
-
 export default Box;

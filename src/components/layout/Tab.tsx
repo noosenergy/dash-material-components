@@ -84,7 +84,4 @@ Tab.propTypes = {
   ).isRequired
 };
 
-// Default props
-Tab.defaultProps = {};
-
 export default Tab;

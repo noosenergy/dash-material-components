@@ -101,8 +101,4 @@ Section.propTypes = {
   downloaded: PropTypes.number
 };
 
-// Default
-
-Section.defaultProps = {};
-
 export default Section;

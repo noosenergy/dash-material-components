@@ -271,6 +271,4 @@ Slider.propTypes = {
   disabled: PropTypes.bool
 };
 
-Slider.defaultProps = {};
-
 export default Slider;

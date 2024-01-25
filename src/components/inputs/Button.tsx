@@ -87,8 +87,6 @@ type ButtonProps = {
   nClicks?: number;
 } & DashComponentProps;
 
-Button.defaultProps = {};
-
 Button.propTypes = {
   /** Component id */
   id: PropTypes.string,

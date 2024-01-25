@@ -131,6 +131,4 @@ Calendar.propTypes = {
   disabled: PropTypes.bool
 };
 
-Calendar.defaultProps = {};
-
 export default Calendar;

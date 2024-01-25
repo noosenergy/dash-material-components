@@ -133,6 +133,4 @@ Dropdown.propTypes = {
   disabled: PropTypes.bool
 };
 
-Dropdown.defaultProps = {};
-
 export default Dropdown;

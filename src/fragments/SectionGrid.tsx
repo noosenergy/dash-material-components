@@ -54,11 +54,6 @@ type SectionGridProps = {
   orientation?: 'columns' | 'rows';
 } & Partial<DashComponentProps>;
 
-SectionGrid.defaultProps = {
-  id: 'section',
-  orientation: 'rows'
-};
-
 SectionGrid.propTypes = {
   id: PropTypes.string,
   children: PropTypes.node,

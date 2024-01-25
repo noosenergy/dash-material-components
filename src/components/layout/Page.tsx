@@ -77,7 +77,4 @@ Page.propTypes = {
   errorMessage: PropTypes.string
 };
 
-// Default props
-Page.defaultProps = {};
-
 export default Page;

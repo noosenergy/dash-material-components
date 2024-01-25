@@ -201,6 +201,4 @@ InputText.propTypes = {
   error: PropTypes.bool
 };
 
-InputText.defaultProps = {};
-
 export default InputText;

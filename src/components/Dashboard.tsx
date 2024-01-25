@@ -34,6 +34,4 @@ Dashboard.propTypes = {
   height: PropTypes.string
 };
 
-Dashboard.defaultProps = {};
-
 export default Dashboard;

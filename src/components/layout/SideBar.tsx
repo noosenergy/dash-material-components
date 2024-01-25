@@ -170,6 +170,4 @@ Sidebar.propTypes = {
   title: PropTypes.string
 };
 
-Sidebar.defaultProps = {};
-
 export default Sidebar;
