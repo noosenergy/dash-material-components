@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "jsx": "react",
     "baseUrl": "src",
     "inlineSources": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "lib": ["ES7", "dom"],
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react"
   },
   "exclude": ["node_modules"]
 }

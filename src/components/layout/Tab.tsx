@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React, {useState} from 'react';
 import {Grid, Tab as MuiTab, Tabs} from '@mui/material';
 import TabPanel from '../../fragments/TabPanel';

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Box, Grid} from '@mui/material';
 import Error from '../../fragments/Error';

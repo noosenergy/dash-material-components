@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Grid} from '@mui/material';
 import {DashComponentProps} from 'props';

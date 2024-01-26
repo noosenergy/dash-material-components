@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {DashComponentProps} from 'props';
 import {css} from '@emotion/react';

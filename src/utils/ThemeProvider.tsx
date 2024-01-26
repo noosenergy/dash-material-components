@@ -7,7 +7,7 @@ import {frFR} from '@mui/x-date-pickers/locales';
 import theme from './theme';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 
-const ThemeProvider = ({children}) => {
+const ThemeProvider = ({children}: {children: JSX.Element}) => {
   // Enforce and reset a MUI-theme on the entire page
   return (
     <StyledEngineProvider injectFirst>

@@ -33,5 +33,9 @@
     "react": {
       "version": "detect"
     }
+  },
+  "rules": {
+    "react/prop-types": 0,
+    "react/no-unknown-property": ["error", {"ignore": ["css"]}]
   }
 }
