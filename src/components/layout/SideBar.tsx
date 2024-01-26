@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, {useState} from 'react';
 import {
   Box,
@@ -13,41 +14,49 @@ import {
   Typography
 } from '@mui/material';
 import {ChevronLeft, Settings} from '@mui/icons-material';
-import makeStyles from '@mui/styles/makeStyles';
 import {DashComponentProps} from 'props';
+import {Interpolation, css, useTheme} from '@emotion/react';
 
 const drawerWidth = 360;
 
-const useStyles = makeStyles((theme: Theme) => ({
-  fabLayout: {
-    position: 'absolute',
-    bottom: theme.spacing(5),
-    left: theme.spacing(5),
-    // Position just below the drawer
-    zIndex: theme.zIndex.drawer - 50
-  },
-  drawerLayout: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaperLayout: {
-    width: drawerWidth,
-    background: theme.palette.secondary.main
-  },
-  drawerHeaderLayout: {
+const useSidebarStyles = (theme: Theme) => {
+  const fabLayout = css`
+    position: absolute;
+    bottom: ${theme.spacing(5)};
+    left: ${theme.spacing(5)};
+    z-index: ${theme.zIndex.drawer - 50};
+  `;
+
+  const drawerLayout = css`
+    width: ${drawerWidth}px; // NOTE px was added in @emotion/react
+    flex-shrink: 0;
+    '&:.muidrawer-paper': {
+      width: ${drawerWidth}px; // NOTE px was added in @emotion/react
+      background: ${theme.palette.secondary.main};
+    }
+  `;
+
+  const drawerHeaderLayout = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.spacing(0, 2),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar
-  },
-  drawerContentLayout: {
-    width: '100%',
-    height: '100%',
-    overflow: 'auto'
-  }
-}));
+  } as Interpolation<Theme>;
+
+  const drawerContentLayout = css`
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  `;
+
+  return {
+    fabLayout,
+    drawerLayout,
+    drawerHeaderLayout,
+    drawerContentLayout
+  };
+};
 
 /**
  * Sidebar component
@@ -58,7 +67,10 @@ const Sidebar = ({
   settings,
   title = 'Dashboard Settings'
 }: SidebarProps) => {
-  const classes = useStyles();
+  const theme = useTheme() as Theme;
+  const {fabLayout, drawerLayout, drawerHeaderLayout, drawerContentLayout} =
+    useSidebarStyles(theme);
+
   const [toggledDrawer, setToggledDrawer] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -85,7 +97,7 @@ const Sidebar = ({
         aria-label="open-sidebar"
         size="medium"
         color="primary"
-        className={classes.fabLayout}
+        css={fabLayout}
         id="sidebar-toggle"
       >
         <Settings />
@@ -96,7 +108,7 @@ const Sidebar = ({
   // Fetch drawer header
   if (title) {
     drawerHeader = (
-      <Box className={classes.drawerHeaderLayout}>
+      <Box css={drawerHeaderLayout}>
         <Typography component="p" variant="h3" color="inherit">
           {title}
         </Typography>
@@ -132,16 +144,10 @@ const Sidebar = ({
   return (
     <Box id={id}>
       {drawerButton}
-      <Drawer
-        anchor="left"
-        open={toggledDrawer}
-        onClose={handleDrawerClose}
-        className={classes.drawerLayout}
-        classes={{paper: classes.drawerPaperLayout}}
-      >
+      <Drawer anchor="left" open={toggledDrawer} onClose={handleDrawerClose} css={drawerLayout}>
         {drawerHeader}
         <Divider />
-        <List className={classes.drawerContentLayout}>{drawerElements}</List>
+        <List css={drawerContentLayout}>{drawerElements}</List>
       </Drawer>
     </Box>
   );

@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, {useState} from 'react';
 import {
   Box,
@@ -7,27 +8,23 @@ import {
   TextField,
   InputAdornment
 } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import {DashComponentProps} from 'props';
+import {css} from '@emotion/react';
 
-const useStyles = makeStyles({
-  // remove updown arrow buttons from TextField
-  input: {
-    '& input': {
-      marginTop: '-5px',
-      textAlign: 'center',
-      padding: '0 0 2px 0'
-    }
-  },
-
-  // style adornments
-  adornment: {
-    margin: '0 0 7px 0',
-    '& p': {
-      fontSize: 'smaller'
-    }
+const inputStyle = css`
+  & input {
+    margintop: -5px;
+    textalign: center;
+    padding: 0 0 2px 0;
   }
-});
+`;
+
+const adornmentStyle = css`
+  margin: 0 0 7px 0;
+  & p {
+    fontsize: smaller;
+  }
+`;
 
 const validInput = (
   value: string,
@@ -81,7 +78,6 @@ const Slider = ({
   disabled = false,
   setProps
 }: SliderProps) => {
-  const classes = useStyles();
   // Initialize input value with correct precision
   const [inputValue, setInputValue] = useState<string>(
     String(selected.toFixed(inputType === 'float' ? precision : 0))
@@ -137,17 +133,17 @@ const Slider = ({
         value={inputValue}
         onChange={handleInputChange}
         variant="standard"
-        className={classes.input}
+        css={inputStyle}
         size="small"
         disabled={disabled}
         InputProps={{
           startAdornment: inputLeftAdornment ? (
-            <InputAdornment position="start" className={classes.adornment}>
+            <InputAdornment position="start" css={adornmentStyle}>
               {inputLeftAdornment}
             </InputAdornment>
           ) : null,
           endAdornment: inputRightAdornment ? (
-            <InputAdornment position="end" className={classes.adornment}>
+            <InputAdornment position="end" css={adornmentStyle}>
               {inputRightAdornment}
             </InputAdornment>
           ) : null

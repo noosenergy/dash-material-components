@@ -1,33 +1,28 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Grid} from '@mui/material';
 import {DashComponentProps} from 'props';
-import makeStyles from '@mui/styles/makeStyles';
+import {css} from '@emotion/react';
 
-const useStyles = makeStyles(() => ({
-  sectionInColumn: {
-    // Contain at max entire page length
-    maxHeight: '100%',
-    // Reset section element negative margins
-    padding: 0,
-    margin: 0
-  },
-  sectionInRow: {
-    // Contain at max entire page width
-    maxWidth: '100%',
-    // Reset section element negative margins
-    padding: 0,
-    margin: 0
-  }
-}));
+const sectionInColumnStyle = css`
+  maxheight: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+`;
+
+const sectionInRowStyle = css`
+  maxwidth: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+`;
 
 const SectionGrid = ({id = 'section', children, size, orientation = 'rows'}: SectionGridProps) => {
-  // props & state
-  const classes = useStyles();
-
   // Fetch section content
   const sectionSize = size == undefined ? true : size;
   const sectionDirection = orientation == 'columns' ? 'row' : 'column';
-  const sectionLayout = orientation == 'columns' ? classes.sectionInColumn : classes.sectionInRow;
+  const sectionLayoutStyle = orientation == 'columns' ? sectionInColumnStyle : sectionInRowStyle;
 
   return (
     <Grid
@@ -38,7 +33,7 @@ const SectionGrid = ({id = 'section', children, size, orientation = 'rows'}: Sec
       rowSpacing={2}
       columnSpacing={2}
       direction={sectionDirection}
-      className={`${sectionLayout}`}
+      css={sectionLayoutStyle}
     >
       {children}
     </Grid>

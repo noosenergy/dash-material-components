@@ -1,16 +1,15 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Box, Grid} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import Error from '../../fragments/Error';
 import {DashComponentProps} from 'props';
+import {css} from '@emotion/react';
 
-const useStyles = makeStyles(() => ({
-  pageLayout: {
-    // Contain the entire page
-    width: '100%',
-    height: '100%'
-  }
-}));
+const pageLayoutStyle = css`
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+`;
 
 /**
  * Page component, used to wrap section and card components
@@ -23,8 +22,6 @@ const Page = ({
   errorStatus = null,
   errorMessage = ''
 }: PageProps) => {
-  const classes = useStyles();
-
   // Variables
   const pageDirection = orientation === 'columns' ? 'row' : 'column';
 
@@ -39,7 +36,7 @@ const Page = ({
         rowSpacing={2}
         columnSpacing={2}
         direction={pageDirection}
-        className={classes.pageLayout}
+        css={pageLayoutStyle}
       >
         {elements}
       </Grid>

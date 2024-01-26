@@ -1,28 +1,26 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
 import {DashComponentProps} from 'props';
+import {css} from '@emotion/react';
 
-const useStyles = makeStyles(() => ({
-  tabpanelLayout: {
-    height: '100%'
-  },
-  tabpanelContentLayout: {
-    height: '100%'
-  }
-}));
+const tabpanelLayoutStyle = css`
+  height: 100%;
+`;
+
+const tabpanelContentLayoutStyle = css`
+  height: 100%;
+`;
 
 const TabPanel = ({children, value, index}: TabPanelProps) => {
-  const classes = useStyles();
-
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
       id={`tabpanel-${index}`}
       aria-labelledby={`card-tabpanel-${index}`}
-      className={classes.tabpanelLayout}
+      css={tabpanelLayoutStyle}
     >
-      {value === index && <div className={classes.tabpanelContentLayout}>{children}</div>}
+      {value === index && <div css={tabpanelContentLayoutStyle}>{children}</div>}
     </div>
   );
 };

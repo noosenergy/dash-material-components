@@ -1,15 +1,14 @@
+/** @jsxImportSource @emotion/react */
 import React, {useState} from 'react';
 import {Grid, Tab as MuiTab, Tabs} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import TabPanel from '../../fragments/TabPanel';
 import {DashComponentProps} from 'props';
+import {css} from '@emotion/react';
 
-const useStyles = makeStyles(() => ({
-  tabLayout: {
-    height: '100%',
-    width: '100%'
-  }
-}));
+const tabLayoutStyle = css`
+  height: 100%;
+  width: 100%;
+`;
 
 /**
  * Tab component
@@ -17,7 +16,6 @@ const useStyles = makeStyles(() => ({
  * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
 const Tab = ({id = 'tab', children, tabs}: TabProps) => {
-  const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleTabChange = (_: React.ChangeEvent, value: number) => {
@@ -40,7 +38,7 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
   }
 
   return (
-    <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
+    <Grid id={id} container direction="column" css={tabLayoutStyle} spacing={2}>
       <Grid
         item
         component={Tabs}
