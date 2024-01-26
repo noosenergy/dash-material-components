@@ -51,6 +51,6 @@ type TableBodyProps = {
   rowsPerPage: number;
 };
 
-type TableRowData = {[key: string]: string | number};
+export type TableRowData = {[key: string]: string | number};
 
 export {TableHead, TableBody};

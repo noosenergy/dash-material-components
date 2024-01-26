@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Box, Table as MuiTable, TableContainer, TablePagination} from '@mui/material';
-import {TableBody, TableHead} from '../../fragments/TableContent';
+import {TableBody, TableHead, TableRowData} from '../../fragments/TableContent';
 import {DashComponentProps} from 'props';
 
 /**
@@ -59,7 +59,7 @@ type TableProps = {
     width: number;
   }>;
   /** Array of table rows to render */
-  rows: Array<object>;
+  rows: TableRowData[];
   /** Table pagination setting */
   rowsPerPageOptions?: Array<number>;
 } & DashComponentProps;
