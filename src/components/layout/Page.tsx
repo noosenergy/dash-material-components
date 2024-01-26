@@ -30,7 +30,7 @@ const Page = ({
     errorStatus != null ? <Error status={errorStatus} message={errorMessage} /> : children;
 
   return (
-    <Box id={id} sx={{flexGrow: 1}}>
+    <Box id={id} sx={{flexGrow: 1, height: '100%'}}>
       <Grid
         container
         rowSpacing={2}

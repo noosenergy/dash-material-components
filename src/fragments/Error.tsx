@@ -6,11 +6,7 @@ import {css} from '@emotion/react';
 
 // NOTE is this global style correctly applied ?
 const globalStyle = css`
-  @global {
-    body {
-      background: linear-gradient(180deg, #fac505 30%, #fac505 50%, #e9e9e9 70%, #e9e9e9 100%);
-    }
-  }
+  background: linear-gradient(180deg, #fac505 30%, #fac505 50%, #e9e9e9 70%, #e9e9e9 100%);
 `;
 
 const errorLayoutStyle = css`
