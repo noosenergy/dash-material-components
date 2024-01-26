@@ -3,7 +3,6 @@ import {Box, Grid, Hidden, Typography} from '@mui/material';
 import {DashComponentProps} from 'props';
 import {css} from '@emotion/react';
 
-// NOTE is this global style correctly applied ?
 const globalStyle = css`
   background: linear-gradient(180deg, #fac505 30%, #fac505 50%, #e9e9e9 70%, #e9e9e9 100%);
 `;
