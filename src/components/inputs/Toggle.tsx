@@ -53,7 +53,6 @@ const Toggle = ({
   );
 };
 
-// TypeScript props type
 type ToggleProps = {
   /** Toggle orientation (horizontal or vertical) */
   orientation?: 'horizontal' | 'vertical';

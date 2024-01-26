@@ -80,7 +80,6 @@ const Dropdown = ({
   );
 };
 
-// TypeScript props type
 type DropdownProps = {
   /** Text to display in the dropdown form, when no items are selected */
   labelText?: string;

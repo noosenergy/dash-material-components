@@ -152,7 +152,6 @@ const Sidebar = ({
   );
 };
 
-// TypeScript props type
 type SidebarProps = {
   /** Array of settings to render as component children */
   settings?: string[];

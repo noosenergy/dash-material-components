@@ -56,7 +56,6 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
   );
 };
 
-// TypeScript props type
 type TabProps = {
   /** Array of tabs to render as component children */
   tabs: Array<{

@@ -29,7 +29,6 @@ const Typography = ({
   );
 };
 
-// TypeScript props type
 type TypographyProps = {
   /** Typography HTML node type */
   component?: React.ElementType;

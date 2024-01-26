@@ -53,7 +53,6 @@ const Section = ({
   );
 };
 
-// TypeScript props type
 type SectionProps = {
   /** Array of cards to render as component children */
   cards: Array<{

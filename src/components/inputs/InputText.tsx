@@ -103,7 +103,6 @@ const InputText = ({
   );
 };
 
-// TypeScript props type
 type InputTextProps = {
   /** The label text displayed for the input field */
   labelText?: string;

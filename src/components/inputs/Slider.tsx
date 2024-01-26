@@ -181,7 +181,6 @@ const Slider = ({
   );
 };
 
-// TypeScript props type
 type SliderProps = {
   /** Text to display above the slider form */
   labelText?: string;

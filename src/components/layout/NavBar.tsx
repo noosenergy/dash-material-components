@@ -24,7 +24,6 @@ const NavBar = ({id = 'navbar', title}: NavBarProps) => {
   );
 };
 
-// TypeScript props type
 type NavBarProps = {
   /** Dashboard navigation bar title */
   title?: string;

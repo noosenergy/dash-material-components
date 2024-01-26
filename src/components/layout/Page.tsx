@@ -44,7 +44,6 @@ const Page = ({
   );
 };
 
-// TypeScript props type
 type PageProps = {
   /** Page general orientation (rows or columns) */
   orientation?: 'columns' | 'rows';

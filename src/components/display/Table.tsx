@@ -49,7 +49,6 @@ const Table = ({
   );
 };
 
-// TypeScript props type
 type TableProps = {
   /** Array of table columns to render */
   columns: Array<{
