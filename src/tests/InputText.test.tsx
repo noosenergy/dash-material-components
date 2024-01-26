@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 const setPropsPlaceholder = () => true;
 
 describe('InputText', () => {
-  it.only('should render correctly', () => {
+  it('should render correctly', () => {
     render(<InputText value="Hello World!" setProps={undefined} />);
     const element: any = screen.getByRole('textbox');
     expect(element.value).toBe('Hello World!');
