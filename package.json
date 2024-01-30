@@ -25,8 +25,8 @@
     "build:js::dev": "webpack --mode development",
     "build:js": "webpack",
     "build:backends": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json --ignore \\.test\\.",
-    "build": "npm run build:js && npm run build:backends",
-    "watch": "npm run build:js::dev -- --watch"
+    "build": "yarn run build:js && yarn run build:backends",
+    "watch": "yarn run build:js::dev -- --watch"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
