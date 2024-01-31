@@ -1,16 +1,13 @@
 import React from 'react';
 
 import {CssBaseline} from '@mui/material';
-import {
-  ThemeProvider as MuiThemeProvider,
-  StyledEngineProvider,
-  Theme
-} from '@mui/material/styles';
+import {ThemeProvider as MuiThemeProvider, StyledEngineProvider} from '@mui/material/styles';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {frFR} from '@mui/x-date-pickers/locales';
 import {theme as defaultTheme} from './theme';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import {createTheme, responsiveFontSizes} from '@mui/material/styles';
+import {Theme} from '@emotion/react';
 
 const ThemeProvider = ({
   children,

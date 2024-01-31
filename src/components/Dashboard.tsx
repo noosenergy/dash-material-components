@@ -1,7 +1,8 @@
 import React from 'react';
-import {Box, Theme} from '@mui/material';
+import {Box} from '@mui/material';
 import ThemeProvider from '../utils/ThemeProvider';
 import {DashComponentProps} from 'props';
+import {Theme} from '@emotion/react';
 
 /**
  * Main dashboard component, initializing a Material UI theme
