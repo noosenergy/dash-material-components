@@ -19,13 +19,12 @@
     "lint:eslint": "eslint ./src",
     "lint:prettier": "prettier ./src --config .prettierrc --list-different",
     "lint": "yarn run lint:prettier && yarn run lint:eslint",
-    "build:py": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json",
+    "build:py": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json --ignore \\.test\\.",
     "postbuild": "es-check es7 dash_material_components/*.js",
     "test": "jest ./src",
     "build:js::dev": "webpack --mode development",
     "build:js": "webpack",
-    "build:backends": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json --ignore \\.test\\.",
-    "build": "yarn run build:js && yarn run build:backends",
+    "build": "yarn run build:js && yarn run build:py",
     "watch": "yarn run build:js::dev -- --watch"
   },
   "dependencies": {
