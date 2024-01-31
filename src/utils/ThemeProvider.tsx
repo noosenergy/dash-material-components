@@ -1,13 +1,15 @@
 import React from 'react';
 
 import {CssBaseline} from '@mui/material';
-import {ThemeProvider as MuiThemeProvider, StyledEngineProvider} from '@mui/material/styles';
+import {ThemeProvider as MuiThemeProvider} from '@mui/material/styles';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {frFR} from '@mui/x-date-pickers/locales';
 import {theme as defaultTheme} from './theme';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import {createTheme, responsiveFontSizes} from '@mui/material/styles';
 import {Theme} from '@emotion/react';
+import {CacheProvider} from '@emotion/react';
+import {createEmotionCache} from './createEmotionCache';
 
 const ThemeProvider = ({
   children,
@@ -23,8 +25,10 @@ const ThemeProvider = ({
   } as Theme);
   theme = responsiveFontSizes(theme);
 
+  const clientSideEmotionCache = createEmotionCache();
+
   return (
-    <StyledEngineProvider injectFirst>
+    <CacheProvider value={clientSideEmotionCache}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <LocalizationProvider
@@ -34,7 +38,7 @@ const ThemeProvider = ({
           {children}
         </LocalizationProvider>
       </MuiThemeProvider>
-    </StyledEngineProvider>
+    </CacheProvider>
   );
 };
 
