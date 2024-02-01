@@ -1,32 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {TextField, Box} from '@mui/material';
 import {Autocomplete as MuiAutocomplete} from '@mui/material';
 import {createFilterOptions} from '@mui/material/Autocomplete';
+import {DashComponentProps} from 'props';
 
 const filter = createFilterOptions();
 
 /**
  * Autocomplete component
  */
-const Autocomplete = (props) => {
-  const {
-    id,
-    labelText,
-    selected,
-    options,
-    freeSolo,
-    groupByField,
-    multiple,
-    variant,
-    size,
-    limitTags,
-    width,
-    margin,
-    disabled,
-    setProps
-  } = props;
-
+const Autocomplete = ({
+  id = 'autocomplete',
+  labelText,
+  selected = [],
+  options,
+  freeSolo = false,
+  groupByField,
+  multiple = false,
+  variant = 'outlined',
+  size = 'small',
+  limitTags,
+  width = '100%',
+  margin = 2,
+  disabled = false,
+  setProps
+}: AutocompleteProps) => {
   const handleChange = (event, selection) => {
     // Always treat input as an array
     if (!multiple) selection = selection ? [selection] : [];
@@ -87,68 +85,36 @@ const Autocomplete = (props) => {
   );
 };
 
-Autocomplete.defaultProps = {
-  id: 'autocomplete',
-  selected: [],
-  variant: 'outlined',
-  size: 'small',
-  multiple: false,
-  width: '100%',
-  margin: 2,
-  disabled: false
-};
+type AutocompleteProps = {
+  /** The label text displayed for the autocomplete input */
+  labelText?: string;
+  /** The size of the autocomplete input, can be 'small' or 'medium' */
+  size?: 'small' | 'medium';
+  /** The variant of the autocomplete input, can be 'filled', 'outlined', or 'standard' */
+  variant?: 'filled' | 'outlined' | 'standard';
+  /** Currently selected option(s), can be a single option or an array of options */
+  selected?: OptionType[] | OptionType;
+  /** Options available for selection in the autocomplete */
+  options: OptionType[];
+  /** Limit the number of tags displayed when `multiple` is enabled */
+  limitTags?: number;
+  /** Allow the user to enter a value not included in the options */
+  freeSolo?: boolean;
+  /** Field in the option object to group options by in the list */
+  groupByField?: string;
+  /** Allow multiple selections */
+  multiple?: boolean;
+  /** Width of the autocomplete box (CSS value as string) */
+  width?: string;
+  /** Margin around the autocomplete box (CSS value as string or number) */
+  margin?: string | number;
+  /** If true, the autocomplete input will be disabled */
+  disabled?: boolean;
+} & DashComponentProps;
 
-const optionsType = PropTypes.arrayOf(
-  PropTypes.shape({
-    /** Option label */
-    label: PropTypes.string.isRequired,
-    /** Option value */
-    value: PropTypes.string.isRequired
-  })
-);
-
-Autocomplete.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
-  /** Text to display above the slider form */
-  labelText: PropTypes.string,
-
-  /** Mui TextField size parameter */
-  size: PropTypes.oneOf(['small', 'medium']),
-
-  /** Variant of mui input style */
-  variant: PropTypes.oneOf(['filled', 'outlined', 'standard']),
-
-  /** Current value */
-  selected: optionsType,
-
-  /** Options to display */
-  options: optionsType,
-
-  /** Limit number of selected values */
-  limitTags: PropTypes.number,
-
-  /** Enable free solo */
-  freeSolo: PropTypes.bool,
-
-  /** Group options */
-  groupByField: PropTypes.string,
-
-  /** Enable multiple selection */
-  multiple: PropTypes.bool,
-
-  /** Component width */
-  width: PropTypes.string,
-
-  /** Component margin */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /** Disable the input */
-  disabled: PropTypes.bool
+type OptionType = {
+  label: string;
+  value: string;
 };
 
 export default Autocomplete;

@@ -1,18 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {Box, Table as MuiTable, TableContainer, TablePagination} from '@mui/material';
-import {TableBody, TableHead} from '../../fragments/TableContent';
+import {TableBody, TableHead, TableRowData} from '../../fragments/TableContent';
+import {DashComponentProps} from 'props';
 
 /**
  * Table component
  */
-const Table = (props) => {
-  const {id, columns, rowsPerPageOptions, rows: initialRows} = props;
+const Table = ({
+  id = 'table',
+  columns,
+  rows: initialRows,
+  rowsPerPageOptions = [10, 25, 50]
+}: TableProps) => {
   const [rows, setRows] = useState(initialRows);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
-  // Make sure state remain in sync with received props
+  // Make sure state remains in sync with received props
   useEffect(() => setRows(initialRows), [initialRows]);
 
   const handlePageChange = (event, value) => {
@@ -45,30 +49,18 @@ const Table = (props) => {
   );
 };
 
-Table.defaultProps = {
-  id: 'table',
-  rowsPerPageOptions: [10, 25, 50]
-};
-
-Table.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
+type TableProps = {
   /** Array of table columns to render */
-  columns: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Column field */
-      field: PropTypes.string,
-      /** Column width */
-      width: PropTypes.number
-    })
-  ).isRequired,
-
+  columns: Array<{
+    /** Column field */
+    field: string;
+    /** Column width */
+    width: number;
+  }>;
   /** Array of table rows to render */
-  rows: PropTypes.arrayOf(PropTypes.object),
-
+  rows: TableRowData[];
   /** Table pagination setting */
-  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
-};
+  rowsPerPageOptions?: Array<number>;
+} & DashComponentProps;
 
 export default Table;

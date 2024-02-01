@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 describe('Slider', () => {
   it('should render correctly', () => {
-    render(<Slider selected={50} />);
+    render(<Slider selected={50} setProps={undefined} />);
     const slider = screen.getByRole('slider');
     expect(slider).toBeInTheDocument();
 
@@ -28,6 +28,7 @@ describe('Slider', () => {
           {label: 'y', value: max}
         ]}
         inputType="integer"
+        setProps={undefined}
       />
     );
 
@@ -55,6 +56,7 @@ describe('Slider', () => {
         inputType="integer"
         inputLeftAdornment="left"
         inputRightAdornment="right"
+        setProps={undefined}
       />
     );
 

@@ -1,4 +1,4 @@
-"""Automatic upload of Dash Nepune Material components."""
+"""Automatic upload of Dash Material Components."""
 
 import sys as _sys
 from importlib import metadata as _metadata

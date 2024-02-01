@@ -1,24 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Box, Chip, FormControl, FormHelperText, InputLabel, MenuItem, Select} from '@mui/material';
+import {DashComponentProps} from 'props';
 
 /**
  * Dropdown component
  */
-const Dropdown = (props) => {
-  const {
-    id,
-    labelText,
-    helperText,
-    width,
-    margin,
-    options,
-    multiple,
-    selected,
-    setProps,
-    disabled
-  } = props;
-
+const Dropdown = ({
+  id = 'select',
+  labelText,
+  helperText,
+  width = '100%',
+  margin = 2,
+  options,
+  multiple = true,
+  selected = [],
+  setProps,
+  disabled = false
+}: DropdownProps) => {
   const handleDropdownChange = (event) => {
     // Enforce selection to be an array in all cases
     const selected = event.target.value;
@@ -39,7 +37,7 @@ const Dropdown = (props) => {
   // locals
   let menuLabel;
   let menuHelper;
-  let menuElements = [];
+  const menuElements: JSX.Element[] = [];
 
   // Fetch menu header
   if (labelText) {
@@ -82,45 +80,23 @@ const Dropdown = (props) => {
   );
 };
 
-Dropdown.defaultProps = {
-  id: 'select',
-  width: '100%',
-  margin: 2,
-  multiple: true,
-  // No option selected by default
-  selected: []
-};
-
-Dropdown.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
+type DropdownProps = {
   /** Text to display in the dropdown form, when no items are selected */
-  labelText: PropTypes.string,
-
+  labelText?: string;
   /** Text to display under the dropdown form */
-  helperText: PropTypes.string,
-
+  helperText?: string;
   /** Width of dropdown form */
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
+  width?: string | number;
   /** Margin of the component */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
+  margin?: string | number;
   /** Array of options to select in the dropdown form */
-  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
-
+  options: Array<string | number>;
   /** Allow multiple selections */
-  multiple: PropTypes.bool,
-
+  multiple?: boolean;
   /** Active option selection */
-  selected: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-
+  selected?: Array<string | number>;
   /** Disabled the component */
-  disabled: PropTypes.bool
-};
+  disabled?: boolean;
+} & DashComponentProps;
 
 export default Dropdown;

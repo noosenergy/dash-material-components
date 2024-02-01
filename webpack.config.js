@@ -1,63 +1,80 @@
 const path = require('path');
-const webpack = require('webpack');
-const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
 
-const packageJson = require('./package.json');
-const libraryName = packageJson.name.replace(/-/g, '_');
+const packagejson = require('./package.json');
 
-module.exports = (env, argv) => {
-  let mode;
+const dashLibraryName = packagejson.name.replace(/-/g, '_');
 
-  // if user specified mode flag take that value
-  if (argv && argv.mode) {
-    mode = argv.mode;
-  }
-  // else take webpack default (production)
-  else {
-    mode = 'production';
-  }
+module.exports = function (env, argv) {
+  const mode = argv?.mode || 'production';
+  const entry = [path.join(__dirname, 'src/index.ts')];
+  const output = {
+    path: path.join(__dirname, dashLibraryName),
+    filename: `${dashLibraryName}.js`,
+    library: dashLibraryName,
+    libraryTarget: 'umd'
+  };
 
-  const config = {
+  const externals = {
+    react: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react',
+      umd: 'react',
+      root: 'React'
+    },
+    'react-dom': {
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'react-dom',
+      umd: 'react-dom',
+      root: 'ReactDOM'
+    }
+  };
+
+  return {
+    output,
     mode,
-    entry: {
-      main: './src/index.js'
-    },
-    output: {
-      library: libraryName,
-      libraryTarget: 'window',
-      path: path.resolve(__dirname, libraryName),
-      filename: `${libraryName}.js`
-    },
-    devtool: 'source-map',
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      'plotly.js': 'Plotly',
-      'prop-types': 'PropTypes',
-    },
+    entry,
+    target: 'web',
+    externals,
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
     },
     module: {
       rules: [
         {
-          test: /\.(js|jsx)?$/,
-          use: 'babel-loader',
-          exclude: /node_modules/,
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/
         },
-      ],
-    },
-    optimization: {
-      minimize: true
-    },
-    plugins: [
-      new WebpackDashDynamicImport(),
-      new webpack.SourceMapDevToolPlugin({
-          filename: '[file].map',
-          exclude: ['async-plotlyjs']
-      })
-    ]
-  };
+        {
+          test: /\.css$/,
+          use: [
+            {
+              loader: 'style-loader',
+              options: {
+                insert: function insertAtTop(element) {
+                  var parent = document.querySelector('head');
+                  var lastInsertedElement = window._lastElementInsertedByStyleLoader;
 
-  return config;
+                  if (!lastInsertedElement) {
+                    parent.insertBefore(element, parent.firstChild);
+                  } else if (lastInsertedElement.nextSibling) {
+                    parent.insertBefore(element, lastInsertedElement.nextSibling);
+                  } else {
+                    parent.appendChild(element);
+                  }
+
+                  window._lastElementInsertedByStyleLoader = element;
+                }
+              }
+            },
+            {
+              loader: 'css-loader'
+            }
+          ]
+        }
+      ]
+    }
+  };
 };

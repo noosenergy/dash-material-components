@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {
   Box,
   FormControl,
@@ -8,28 +7,31 @@ import {
   TextField,
   InputAdornment
 } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import {DashComponentProps} from 'props';
+import {css} from '@emotion/react';
 
-const useStyles = makeStyles({
-  // remove updown arrow buttons from TextField
-  input: {
-    '& input': {
-      marginTop: '-5px',
-      textAlign: 'center',
-      padding: '0 0 2px 0'
-    }
-  },
-
-  // style adornments
-  adornment: {
-    margin: '0 0 7px 0',
-    '& p': {
-      fontSize: 'smaller'
-    }
+const inputStyle = css`
+  & input {
+    margintop: -5px;
+    textalign: center;
+    padding: 0 0 2px 0;
   }
-});
+`;
 
-const validInput = (value, inputType, minValue, maxValue, precision) => {
+const adornmentStyle = css`
+  margin: 0 0 7px 0;
+  & p {
+    fontsize: smaller;
+  }
+`;
+
+const validInput = (
+  value: string,
+  inputType: 'integer' | 'float',
+  minValue: number,
+  maxValue: number,
+  precision: number
+): boolean => {
   if (inputType === 'integer') {
     // not numeric or '-' sign
     if (!/^[-]?[0-9]+$/i.test(value)) return false;
@@ -45,43 +47,42 @@ const validInput = (value, inputType, minValue, maxValue, precision) => {
   // check for misplaced '-' sign
   if (value.split('-').length > 2) return false;
   // check if within range
-  value = Number(value);
-  if (value < minValue || value > maxValue) return false;
+  const valueNumber = Number(value);
+  if (valueNumber < minValue || valueNumber > maxValue) return false;
 
   return true;
 };
 
-const countUppercase = (str) => {
+const countUppercase = (str: string): number => {
   return (str.match(/[A-Z]/g) || []).length;
 };
 
 /**
  * Slider component
  */
-const Slider = (props) => {
-  const {
-    id,
-    labelText,
-    width,
-    margin,
-    minValue,
-    maxValue,
-    stepValue,
-    marks,
-    selected,
-    inputType,
-    precision,
-    inputLeftAdornment,
-    inputRightAdornment,
-    disabled,
-    setProps
-  } = props;
-
-  const classes = useStyles();
+const Slider = ({
+  id = 'slider',
+  labelText,
+  width = '100%',
+  margin = 2,
+  minValue = 0,
+  maxValue = 100,
+  stepValue = 10,
+  marks,
+  selected = 50,
+  inputType = null,
+  precision = 2,
+  inputLeftAdornment = null,
+  inputRightAdornment = null,
+  disabled = false,
+  setProps
+}: SliderProps) => {
   // Initialize input value with correct precision
-  const [inputValue, setInputValue] = useState(
+  const [inputValue, setInputValue] = useState<string>(
     String(selected.toFixed(inputType === 'float' ? precision : 0))
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [prevInputValue, setPrevInputValue] = useState(inputValue);
 
   const handleSliderChange = (event, value) => {
@@ -91,8 +92,8 @@ const Slider = (props) => {
     setProps({selected: value});
   };
 
-  const handleInputChange = (event) => {
-    let value = event.target.value;
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
 
     if (validInput(value, inputType, minValue, maxValue, precision)) {
       setPrevInputValue(value);
@@ -131,17 +132,17 @@ const Slider = (props) => {
         value={inputValue}
         onChange={handleInputChange}
         variant="standard"
-        className={classes.input}
+        css={inputStyle}
         size="small"
         disabled={disabled}
         InputProps={{
           startAdornment: inputLeftAdornment ? (
-            <InputAdornment position="start" className={classes.adornment}>
+            <InputAdornment position="start" css={adornmentStyle}>
               {inputLeftAdornment}
             </InputAdornment>
           ) : null,
           endAdornment: inputRightAdornment ? (
-            <InputAdornment position="end" className={classes.adornment}>
+            <InputAdornment position="end" css={adornmentStyle}>
               {inputRightAdornment}
             </InputAdornment>
           ) : null
@@ -180,73 +181,33 @@ const Slider = (props) => {
   );
 };
 
-Slider.defaultProps = {
-  id: 'slider',
-  width: '100%',
-  margin: 2,
-  maxValue: 100,
-  minValue: 0,
-  stepValue: 10,
-  selected: 50,
-  inputType: null,
-  precision: 2,
-  inputLeftAdornment: null,
-  inputRightAdornment: null,
-  disabled: false
-};
-
-Slider.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to enable Dash-assigned component callback */
-  setProps: PropTypes.func,
-
+type SliderProps = {
   /** Text to display above the slider form */
-  labelText: PropTypes.string,
-
+  labelText?: string;
   /** Width of slider form */
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
+  width?: string | number;
   /** Margin of the component */
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
+  margin?: string | number;
   /** Maximum selection allowed in the slider */
-  maxValue: PropTypes.number,
-
+  maxValue?: number;
   /** Minimum selection allowed in the slider */
-  minValue: PropTypes.number,
-
+  minValue?: number;
   /** Slider selection increment */
-  stepValue: PropTypes.number,
-
+  stepValue?: number;
   /** Array of selection marks to display below the slider form */
-  marks: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Mark value */
-      value: PropTypes.number,
-      /** Mark label */
-      label: PropTypes.string
-    })
-  ),
-
+  marks?: {value: number; label: string}[];
   /** Active slider selection */
-  selected: PropTypes.number,
-
+  selected?: number;
   /** Input type, if set an input text is displayed alongside the slider */
-  inputType: PropTypes.oneOf(['integer', 'float', null]),
-
+  inputType?: 'integer' | 'float' | null;
   /** Number of decimal places */
-  precision: PropTypes.number,
-
+  precision?: number;
   /** InputText LEFT adornment */
-  inputLeftAdornment: PropTypes.string,
-
+  inputLeftAdornment?: string;
   /** InputText RIGHT adornment */
-  inputRightAdornment: PropTypes.string,
-
+  inputRightAdornment?: string;
   /** Disable the component */
-  disabled: PropTypes.bool
-};
+  disabled?: boolean;
+} & DashComponentProps;
 
 export default Slider;

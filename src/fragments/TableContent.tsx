@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   TableBody as MuiTableBody,
   TableCell,
@@ -7,9 +6,7 @@ import {
   TableRow
 } from '@mui/material';
 
-const TableHead = (props) => {
-  const {columns} = props;
-
+const TableHead = ({columns}: TableHeadProps) => {
   const headerElements = columns.map((column, i) => (
     <TableCell key={i} style={{width: column.width}}>
       {column.field}
@@ -23,18 +20,17 @@ const TableHead = (props) => {
   );
 };
 
-TableHead.propTypes = {
-  columns: PropTypes.arrayOf(
-    PropTypes.exact({
-      field: PropTypes.string,
-      width: PropTypes.number
-    })
-  )
+// Type definition for TableHead's props
+type TableColumn = {
+  field?: string;
+  width?: number;
 };
 
-const TableBody = (props) => {
-  const {rows, page, rowsPerPage} = props;
+type TableHeadProps = {
+  columns: TableColumn[];
+};
 
+const TableBody = ({rows, page, rowsPerPage}: TableBodyProps) => {
   const startRow = rowsPerPage * page;
   const endRow = startRow + rowsPerPage;
 
@@ -49,10 +45,12 @@ const TableBody = (props) => {
   return <MuiTableBody>{bodyElements}</MuiTableBody>;
 };
 
-TableBody.propTypes = {
-  rows: PropTypes.arrayOf(PropTypes.object),
-  page: PropTypes.number,
-  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number)
+type TableBodyProps = {
+  rows: TableRowData[];
+  page: number;
+  rowsPerPage: number;
 };
+
+export type TableRowData = {[key: string]: string | number};
 
 export {TableHead, TableBody};

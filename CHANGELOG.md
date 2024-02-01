@@ -161,3 +161,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrate material-ui from v4 to v5 (@mui)
 - Install dependencies using yarn.lock file
 - Add .nvmrc file for local development
+
+## [2.0.0] - 2024-01-30
+
+### Changed
+
+- Migrate project to typescript
+- Migrate to emotion styling

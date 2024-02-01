@@ -1,35 +1,31 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {Grid, Tab as MuiTab, Tabs} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import TabPanel from '../../fragments/TabPanel';
+import {DashComponentProps} from 'props';
+import {css} from '@emotion/react';
 
-const useStyles = makeStyles((theme) => ({
-  tabLayout: {
-    height: '100%',
-    width: '100%'
-  }
-}));
+const tabLayoutStyle = css`
+  height: 100%;
+  width: 100%;
+`;
 
 /**
  * Tab component
  * Dashboard > Page > Section > Card > Tab
  * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
-const Tab = (props) => {
-  const {id, children, tabs} = props;
-  const classes = useStyles();
+const Tab = ({id = 'tab', children, tabs}: TabProps) => {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const handleTabChange = (event, value) => {
+  const handleTabChange = (_: React.ChangeEvent, value: number) => {
     setSelectedTab(value);
   };
 
-  let tabElements = [];
-  let tabpanelElements = [];
+  const tabElements: JSX.Element[] = [];
+  const tabpanelElements: JSX.Element[] = [];
 
   // Fetch cards or tabs
-  if (children) {
+  if (children && tabs) {
     React.Children.forEach(children, (child, i) => {
       tabpanelElements.push(
         <TabPanel key={i} value={selectedTab} index={i}>
@@ -41,7 +37,7 @@ const Tab = (props) => {
   }
 
   return (
-    <Grid id={id} container direction="column" className={classes.tabLayout} spacing={2}>
+    <Grid id={id} container direction="column" css={tabLayoutStyle} spacing={2}>
       <Grid
         item
         component={Tabs}
@@ -60,24 +56,12 @@ const Tab = (props) => {
   );
 };
 
-Tab.defaultProps = {
-  id: 'tab'
-};
-
-Tab.propTypes = {
-  /** Used to identify dash components in callbacks */
-  id: PropTypes.string,
-
-  /** Used to render elements inside the component */
-  children: PropTypes.node,
-
+type TabProps = {
   /** Array of tabs to render as component children */
-  tabs: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Element label */
-      label: PropTypes.string
-    })
-  )
-};
+  tabs: Array<{
+    /** Element label */
+    label: string;
+  }>;
+} & DashComponentProps;
 
 export default Tab;
