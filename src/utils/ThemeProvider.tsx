@@ -4,11 +4,25 @@ import {CssBaseline} from '@mui/material';
 import {ThemeProvider as MuiThemeProvider, StyledEngineProvider} from '@mui/material/styles';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {frFR} from '@mui/x-date-pickers/locales';
-import theme from './theme';
+import {theme as defaultTheme} from './theme';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
+import {createTheme, responsiveFontSizes} from '@mui/material/styles';
+import {Theme} from '@emotion/react';
 
-const ThemeProvider = ({children}: {children: JSX.Element}) => {
+const ThemeProvider = ({
+  children,
+  theme: themeOverrides
+}: {
+  children: JSX.Element;
+  theme: Partial<Theme>;
+}) => {
   // Enforce and reset a MUI-theme on the entire page
+  let theme = createTheme({
+    ...defaultTheme,
+    ...themeOverrides
+  } as Theme);
+  theme = responsiveFontSizes(theme);
+
   return (
     <StyledEngineProvider injectFirst>
       <MuiThemeProvider theme={theme}>
