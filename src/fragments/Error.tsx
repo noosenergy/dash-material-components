@@ -2,31 +2,29 @@ import React from 'react';
 import {Box, Grid, Hidden, Typography} from '@mui/material';
 import {DashComponentProps} from 'props';
 import {css} from '@emotion/react';
+import Page from '../components/layout/Page';
 
-const globalStyle = css`
-  background: linear-gradient(180deg, #fac505 30%, #fac505 50%, #e9e9e9 70%, #e9e9e9 100%);
-`;
+const globalStyle = css({
+  background: 'linear-gradient(180deg, #fac505 30%, #fac505 50%, #e9e9e9 70%, #e9e9e9 100%)',
+  height: '100%',
+  marginTop: '16px',
+  marginRight: '-16px'
+});
 
-const errorLayoutStyle = css`
-  display: flex;
-  alignitems: center;
-  height: 100%;
-  width: 100%;
-`;
+const errorLayoutStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  height: '100%',
+  width: '100%'
+});
 
-const errorStatusLayoutStyle = css`
-  justifycontent: right;
-`;
+const errorStatusLayoutStyle = css({
+  justifyContent: 'right'
+});
 
-const errorMessageLayoutStyle = css`
-  justifycontent: left;
-`;
-
-const pageLayoutStyle = css`
-  width: 100%;
-  height: 100%;
-  margin: 0;
-`;
+const errorMessageLayoutStyle = css({
+  justifyContent: 'left'
+});
 
 const Error = ({id = 'error', status, message}: ErrorProps) => {
   const errorStatus = (
@@ -49,10 +47,12 @@ const Error = ({id = 'error', status, message}: ErrorProps) => {
 
   return (
     <Box id={id} sx={{flexGrow: 1}} css={globalStyle}>
-      <Grid container spacing={2} direction="row" css={pageLayoutStyle}>
-        {errorStatus}
-        {errorMessage}
-      </Grid>
+      <Page orientation="columns">
+        <Grid container spacing={2} direction="row">
+          {errorStatus}
+          {errorMessage}
+        </Grid>
+      </Page>
     </Box>
   );
 };

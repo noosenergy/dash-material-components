@@ -168,3 +168,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Migrate project to typescript
 - Migrate to emotion styling
+
+## [2.0.1] - 2024-02-26
+
+### Changed
+
+- Prefix emotion generated css classes
+- Upgrade dependencies
