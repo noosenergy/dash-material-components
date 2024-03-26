@@ -175,3 +175,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Prefix emotion generated css classes
 - Upgrade dependencies
+
+## [2.0.2] - 2024-03-26
+
+### Changed
+
+- Fix calendar compoment problem causing previous day to be selected
