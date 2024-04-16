@@ -181,3 +181,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fix calendar compoment problem causing previous day to be selected
+
+## [2.0.3] - 2024-04-16
+
+### Changed
+
+- Add debounce and debouceSeconds props to InputText to delay dash callback
