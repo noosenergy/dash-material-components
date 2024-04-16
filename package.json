@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git://github.com/noosenergy/dash-material-components.git"
   },
-  "version": "2.0.2",
+  "version": "2.0.3",
   "engines": {
     "node": ">=18"
   },
