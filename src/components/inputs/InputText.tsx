@@ -52,25 +52,47 @@ const InputText = ({
   adornmentRight = null,
   disabled = false,
   error = false,
+  debounce = false,
+  debounceSeconds = 1,
   setProps
 }: InputTextProps) => {
   const [inputValue, setInputValue] = useState(value);
+  const [updateEvent, setUpdateEvent] = useState(0);
 
   const handleChange = (event) => {
     const nextValue = event.target.value;
-    // DEBUG PRINT: console.log(`nextValue: ${nextValue}, inputValue: ${inputValue}`);
     const isValid = validInput(nextValue, inputType, minValue, maxValue, precision, maxLength);
 
     if (isValid) {
       setInputValue(nextValue);
-      // Fire Dash-assigned callback
-      setProps({value: nextValue});
+      if (!debounce) {
+        // Fire Dash-assigned callback
+        setProps({value: nextValue});
+      } else {
+        debounceEvent(debounceSeconds, nextValue);
+      }
     }
     // Check if incomplete number
     else if (nextValue == '' || nextValue == '-') {
       setInputValue(nextValue);
     }
     // ELSE DO NOTHING, leave input value as is
+  };
+
+  const onBlur = () => {
+    if (debounce) {
+      window.clearTimeout(updateEvent);
+      setProps({value: inputValue});
+    }
+  };
+
+  const debounceEvent = (seconds: number, value: number | string) => {
+    window.clearTimeout(updateEvent);
+    const newEvent = window.setTimeout(() => {
+      // Fire Dash-assigned callback
+      setProps({value: value});
+    }, seconds * 1000);
+    setUpdateEvent(newEvent);
   };
 
   return (
@@ -98,6 +120,7 @@ const InputText = ({
         fullWidth={width !== null}
         disabled={disabled}
         error={error}
+        onBlur={onBlur}
       />
     </Box>
   );
@@ -138,6 +161,10 @@ type InputTextProps = {
   disabled?: boolean;
   /** If true, the input field will indicate an error */
   error?: boolean;
+  /** Delay dash update */
+  debounce?: boolean;
+  /** Dash update delay in seconds, must pass debounce=True as well*/
+  debounceSeconds?: number;
 } & DashComponentProps;
 
 export default InputText;
