@@ -17,6 +17,10 @@ const cardContentLayoutStyle = css`
   overflow: auto;
 `;
 
+const cardContainerLayoutStyle = css`
+  overflow: auto;
+`;
+
 const Card = ({
   id = 'card',
   children,
@@ -47,7 +51,15 @@ const Card = ({
 
   return (
     <Grid id={id} item xs={cardSize} container direction="column" css={cardLayoutStyle}>
-      <Grid item xs container direction="column" component={MuiCard} elevation={4}>
+      <Grid
+        item
+        xs
+        container
+        direction="column"
+        component={MuiCard}
+        elevation={4}
+        css={cardContainerLayoutStyle}
+      >
         {header ? <Grid item>{header}</Grid> : null}
         <Grid item xs component={CardContent} css={cardContentLayoutStyle}>
           {children}
