@@ -7,6 +7,7 @@ import {css} from '@emotion/react';
 const tabLayoutStyle = css`
   height: 100%;
   width: 100%;
+  flex-flow: column;
 `;
 
 /**
@@ -38,20 +39,18 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
 
   return (
     <Grid id={id} container direction="column" css={tabLayoutStyle} spacing={2}>
-      <Grid
-        item
-        component={Tabs}
-        value={selectedTab}
-        onChange={handleTabChange}
-        indicatorColor="primary"
-        aria-label="card-tabs"
-        selectionFollowsFocus
-      >
-        {tabElements}
+      <Grid item style={{height: 'auto'}}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleTabChange}
+          indicatorColor="primary"
+          aria-label="card-tabs"
+          selectionFollowsFocus
+        >
+          {tabElements}
+        </Tabs>
       </Grid>
-      <Grid item xs>
-        {tabpanelElements}
-      </Grid>
+      <Grid item>{tabpanelElements}</Grid>
     </Grid>
   );
 };
