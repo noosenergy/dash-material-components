@@ -187,3 +187,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add debounce and debouceSeconds props to InputText to delay dash callback
+
+## [2.0.4] - 2024-06-06
+
+### Changed
+
+- Make Card component horizontally scrollable
+- Fix Tabs & Graph alignment
