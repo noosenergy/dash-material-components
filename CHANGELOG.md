@@ -194,3 +194,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Make Card component horizontally scrollable
 - Fix Tabs & Graph alignment
+
+## [2.0.5] - 2024-09-18
+
+### Changed
+
+- Add debounce to autocomplete input, new prop debounceSeconds
