@@ -1,7 +1,7 @@
-import React from 'react';
-import {TextField, Box} from '@mui/material';
-import {Autocomplete as MuiAutocomplete} from '@mui/material';
+import React, {useMemo, useEffect, useState} from 'react';
+import {TextField, Box, Autocomplete as MuiAutocomplete} from '@mui/material';
 import {createFilterOptions} from '@mui/material/Autocomplete';
+import {debounce} from '@mui/material/utils';
 import {DashComponentProps} from 'props';
 
 const filter = createFilterOptions();
@@ -22,9 +22,34 @@ const Autocomplete = ({
   limitTags,
   width = '100%',
   margin = 2,
+  debounceSeconds = null,
   disabled = false,
   setProps
 }: AutocompleteProps) => {
+  // If debounceSeconds is not provided, default to 1 second for multiple selections
+  if (debounceSeconds === null) debounceSeconds = multiple ? 1 : 0;
+
+  // Local state to manage immediate UI updates
+  const [localSelection, setLocalSelection] = useState<OptionType[]>(
+    Array.isArray(selected) ? selected : [selected]
+  );
+
+  // Create a debounced version of setProps
+  const debouncedSetProps = useMemo(
+    () =>
+      debounce((newSelection: OptionType[]) => {
+        setProps({selected: newSelection});
+      }, debounceSeconds * 1000), // Convert to milliseconds
+    [setProps]
+  );
+
+  // Clear debounced calls on component unmount
+  useEffect(() => {
+    return () => {
+      debouncedSetProps.clear();
+    };
+  }, [debouncedSetProps]);
+
   const handleChange = (event, selection) => {
     // Always treat input as an array
     if (!multiple) selection = selection ? [selection] : [];
@@ -43,9 +68,11 @@ const Autocomplete = ({
       // User has selected an existing option
       else selection.push(newOption);
     }
+    // Update local state for immediate UI update
+    setLocalSelection(selection);
 
     // Fire Dash-assigned callback
-    setProps({selected: selection});
+    debouncedSetProps(selection);
   };
 
   return (
@@ -53,7 +80,7 @@ const Autocomplete = ({
       <MuiAutocomplete
         id={`${id}-input`}
         size={size}
-        value={multiple ? selected : selected[0] || null}
+        value={multiple ? localSelection : localSelection[0] || null}
         options={options}
         getOptionLabel={(option) => option.label || option}
         freeSolo={freeSolo}
@@ -110,6 +137,8 @@ type AutocompleteProps = {
   margin?: string | number;
   /** If true, the autocomplete input will be disabled */
   disabled?: boolean;
+  /** Seconds to wait to fire Dash callback */
+  debounceSeconds?: number;
 } & DashComponentProps;
 
 type OptionType = {
