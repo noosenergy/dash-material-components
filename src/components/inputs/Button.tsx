@@ -22,6 +22,7 @@ const Button = ({
   disableRipple,
   disableFocusRipple,
   disableElevation,
+  sx,
   href
 }: ButtonProps) => {
   const handleClick = () => {
@@ -46,6 +47,7 @@ const Button = ({
         disableRipple={disableRipple}
         disableElevation={disableElevation}
         href={href}
+        sx={sx}
       >
         {text}
       </MuiButton>
@@ -74,9 +76,9 @@ type ButtonProps = {
   disableFocusRipple?: boolean;
   /** Disable elevation */
   disableElevation?: boolean;
-  /** Material Icon name to display at start of button */
+  /** Material Icon name to display at start of button, https://mui.com/material-ui/material-icons/#search-material-icons */
   startIcon?: string;
-  /** Material Icon name to display at end of button */
+  /** Material Icon name to display at end of button, https://mui.com/material-ui/material-icons/#search-material-icons */
   endIcon?: string;
   /** Button link */
   href?: string;
@@ -84,6 +86,8 @@ type ButtonProps = {
   width?: string | null;
   /** Number of times the button has been clicked */
   nClicks?: number;
+  /** Custom style */
+  sx?: object;
 } & DashComponentProps;
 
 export default Button;
