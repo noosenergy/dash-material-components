@@ -22,6 +22,7 @@ const Button = ({
   disableRipple,
   disableFocusRipple,
   disableElevation,
+  sx,
   href
 }: ButtonProps) => {
   const handleClick = () => {
@@ -46,6 +47,7 @@ const Button = ({
         disableRipple={disableRipple}
         disableElevation={disableElevation}
         href={href}
+        sx={sx}
       >
         {text}
       </MuiButton>
@@ -84,6 +86,8 @@ type ButtonProps = {
   width?: string | null;
   /** Number of times the button has been clicked */
   nClicks?: number;
+  /** Custom style */
+  sx?: object;
 } & DashComponentProps;
 
 export default Button;
