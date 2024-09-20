@@ -200,3 +200,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add debounce to autocomplete input, new prop debounceSeconds
+
+## [2.0.5] - 2024-09-20
+
+### Changed
+
+- Add IconButton component wrapping MUI IconButton
