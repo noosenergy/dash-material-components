@@ -16,6 +16,7 @@ import Toggle from './components/inputs/Toggle';
 import InputText from './components/inputs/InputText';
 import Autocomplete from './components/inputs/Autocomplete';
 import Button from './components/inputs/Button';
+import IconButton from './components/inputs/IconButton';
 
 // Display components: component state managed by Dash renderer
 import Alert from './components/display/Alert';
@@ -39,6 +40,7 @@ export {
   InputText,
   Autocomplete,
   Button,
+  IconButton,
   // Display
   Alert,
   Box,
