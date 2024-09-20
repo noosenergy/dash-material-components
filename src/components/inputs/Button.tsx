@@ -74,9 +74,9 @@ type ButtonProps = {
   disableFocusRipple?: boolean;
   /** Disable elevation */
   disableElevation?: boolean;
-  /** Material Icon name to display at start of button */
+  /** Material Icon name to display at start of button, https://mui.com/material-ui/material-icons/#search-material-icons */
   startIcon?: string;
-  /** Material Icon name to display at end of button */
+  /** Material Icon name to display at end of button, https://mui.com/material-ui/material-icons/#search-material-icons */
   endIcon?: string;
   /** Button link */
   href?: string;

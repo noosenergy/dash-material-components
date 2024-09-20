@@ -47,7 +47,7 @@ const IconButton = ({
 };
 
 type IconButtonProps = {
-  /** IconButton icon */
+  /** Icon name from https://mui.com/material-ui/material-icons/#search-material-icons */
   icon?: string;
   /** Button color */
   color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
