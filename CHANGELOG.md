@@ -201,8 +201,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add debounce to autocomplete input, new prop debounceSeconds
 
-## [2.0.5] - 2024-09-20
+## [2.0.6] - 2024-09-20
 
 ### Changed
 
 - Add IconButton component wrapping MUI IconButton
+
+## [2.0.7] - 2024-09-30
+
+### Changed
+
+- Display table and tab content in full height
+- Add custom sx styling to the table with the prop tableStyle
