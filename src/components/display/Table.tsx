@@ -10,7 +10,8 @@ const Table = ({
   id = 'table',
   columns,
   rows: initialRows,
-  rowsPerPageOptions = [10, 25, 50]
+  rowsPerPageOptions = [10, 25, 50],
+  tableStyle = {}
 }: TableProps) => {
   const [rows, setRows] = useState(initialRows);
   const [page, setPage] = useState(0);
@@ -29,8 +30,22 @@ const Table = ({
   };
 
   return (
-    <Box id={id}>
-      <TableContainer sx={{height: '100%'}}>
+    <Box
+      id={id}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        overflow: 'hidden'
+      }}
+    >
+      <TableContainer
+        sx={{
+          flexGrow: 1,
+          overflowX: 'auto',
+          ...tableStyle
+        }}
+      >
         <MuiTable stickyHeader size="small" aria-label="data table">
           <TableHead columns={columns} />
           <TableBody rows={rows} page={page} rowsPerPage={rowsPerPage} />
@@ -61,6 +76,8 @@ type TableProps = {
   rows: TableRowData[];
   /** Table pagination setting */
   rowsPerPageOptions?: Array<number>;
+  /** Custom sx styles for TableContainer - https://mui.com/system/getting-started/the-sx-prop/ */
+  tableStyle?: object;
 } & DashComponentProps;
 
 export default Table;
