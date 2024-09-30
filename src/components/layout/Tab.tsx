@@ -50,7 +50,7 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
           {tabElements}
         </Tabs>
       </Grid>
-      <Grid item height={'inherit'}>
+      <Grid item style={{flexGrow: 1}}>
         {tabpanelElements}
       </Grid>
     </Grid>
