@@ -1,26 +1,21 @@
 import React from 'react';
 import {DashComponentProps} from 'props';
-import {css} from '@emotion/react';
+import {Box} from '@mui/material';
 
-const tabpanelLayoutStyle = css`
-  height: 100%;
-`;
-
-const tabpanelContentLayoutStyle = css`
-  height: 100%;
-`;
-
+/**
+ * TabPanel component
+ */
 const TabPanel = ({children, value, index}: TabPanelProps) => {
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`tabpanel-${index}`}
       aria-labelledby={`card-tabpanel-${index}`}
-      css={tabpanelLayoutStyle}
+      height={'100%'}
     >
-      {value === index && <div css={tabpanelContentLayoutStyle}>{children}</div>}
-    </div>
+      {value === index && <Box height={'100%'}>{children}</Box>}
+    </Box>
   );
 };
 
