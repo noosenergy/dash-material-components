@@ -39,7 +39,7 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
 
   return (
     <Grid id={id} container direction="column" css={tabLayoutStyle} spacing={2}>
-      <Grid item style={{height: 'auto'}}>
+      <Grid item>
         <Tabs
           value={selectedTab}
           onChange={handleTabChange}
@@ -50,7 +50,9 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
           {tabElements}
         </Tabs>
       </Grid>
-      <Grid item>{tabpanelElements}</Grid>
+      <Grid item height={'inherit'}>
+        {tabpanelElements}
+      </Grid>
     </Grid>
   );
 };
