@@ -44,7 +44,7 @@ dash = ">=2.10,<3.0"
 
 [tool.poetry.dev-dependencies]
 dash = { version = "*", extras = ["dev", "testing"] }
-selenium = "*"
+selenium = ">=4.0"
 # Format
 isort = "*"
 black = "*"
