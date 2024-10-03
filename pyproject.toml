@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 # Description
 name = "dash-material-components"
-version = "2.0.7"
+version = "2.0.8"
 description = "Dash Material Design components for the Noos platform."
 # Credentials
 license = "MIT"
@@ -40,11 +40,11 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.11"
 # https://github.com/GibbsConsulting/django-plotly-dash/blob/master/requirements.txt
-dash = ">=2.0,<2.10"
+dash = ">=2.10,<3.0"
 
 [tool.poetry.dev-dependencies]
 dash = { version = "*", extras = ["dev", "testing"] }
-selenium = "*"
+selenium = ">=4.0"
 # Format
 isort = "*"
 black = "*"
@@ -56,7 +56,6 @@ mypy = "*"
 ipdb = "*"
 ipython = "*"
 jupyterlab = "*"
-jupyter-dash = "*"
 
 [tool.black]
 line-length = 99

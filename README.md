@@ -70,10 +70,9 @@ As pre-requisite, install the Jupyter Lab extension [JupyterDash](https://medium
 Then, copy the Dash snippet above into a Jupyter notebook cell and replace the `Dash` class with the `JupyterDash` class:
 
 ```python
-import jupyter_dash
-
+from dash import Dash
 # Instantiate a Dash app
-app = jupyter_dash.JupyterDash(__name__)
+app = Dash(__name__)
 app.layout = layout
 
 app.run_server(mode='jupyterlab', host="0.0.0.0", port=8001)

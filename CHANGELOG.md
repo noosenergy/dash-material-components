@@ -213,3 +213,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Display table and tab content in full height
 - Add custom sx styling to the table with the prop tableStyle
+
+## [2.0.8] - 2024-10-02
+
+### Changed
+
+- Suport more Dash versions, from 2.0 to <3.0
