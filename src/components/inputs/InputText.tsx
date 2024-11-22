@@ -59,6 +59,11 @@ const InputText = ({
   const [inputValue, setInputValue] = useState(value);
   const [updateEvent, setUpdateEvent] = useState(0);
 
+  // Refresh input value when value prop changes
+  React.useEffect(() => {
+    setInputValue(value);
+  }, [value]);
+
   const handleChange = (event) => {
     const nextValue = event.target.value;
     const isValid = validInput(nextValue, inputType, minValue, maxValue, precision, maxLength);

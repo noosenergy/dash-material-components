@@ -219,3 +219,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Suport more Dash versions, from 2.0 to <3.0
+
+## [2.0.9] - 2024-11-22
+
+### Changed
+
+- Refresh InputText on value prop change making it usable as an output
