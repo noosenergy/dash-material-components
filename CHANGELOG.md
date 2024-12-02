@@ -225,3 +225,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Refresh InputText on value prop change making it usable as an output
+
+## [2.0.10] - 2024-12-02
+
+### Changed
+
+- Change watermark with infinity logo
+- Update noos-ci version
