@@ -218,7 +218,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Suport more Dash versions, from 2.0 to <3.0
+- Support more Dash versions, from 2.0 to <3.0
 
 ## [2.0.9] - 2024-11-22
 
@@ -232,3 +232,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change watermark with infinity logo
 - Update noos-ci version
+
+## [2.0.11] - 2025-01-23
+
+### Changed
+
+- Bump python to v3.12

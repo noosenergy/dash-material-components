@@ -17,7 +17,7 @@ default:
 # ----------------
 
 orbs:
-  noos-ci: noosenergy/noos-ci@0.4.0
+  noos-ci: noosenergy/noos-ci@0.4.1
 
 # --------------
 # Pipeline tasks
@@ -73,7 +73,7 @@ jobs:
           tests_directory: ./tests
           <<: *poetry_install
       - store_test_results:
-          path: ".pytest_results"
+          path: '.pytest_results'
 
   build_wheel:
     executor: noos-ci/default
