@@ -17,6 +17,7 @@
   },
   "npm.packageManager": "yarn",
   "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "explicit"
@@ -26,7 +27,6 @@
   "python.terminal.activateEnvironment": false,
   // Necessity to install below VSCode extensions
   "isort.importStrategy": "fromEnvironment",
-  "black-formatter.importStrategy": "fromEnvironment",
-  "flake8.importStrategy": "fromEnvironment",
+  "ruff.importStrategy": "fromEnvironment",
   "mypy-type-checker.importStrategy": "fromEnvironment"
 }

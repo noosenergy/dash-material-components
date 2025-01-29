@@ -2,10 +2,7 @@
 // https://containers.dev/implementors/json_reference/
 {
   "name": "dash-material-components",
-  "runArgs": [
-    "--name",
-    "dash-material-components_devcontainer"
-  ],
+  "runArgs": ["--name", "dash-material-components_devcontainer"],
   // Docker image setup
   "image": "noosenergy/circleci",
   "workspaceMount": "source=${localWorkspaceFolder},target=/home/circleci/project,type=bind,consistency=cached",
@@ -19,9 +16,7 @@
         "redhat.vscode-commons",
         "DavidAnson.vscode-markdownlint",
         "ms-python.python",
-        "ms-python.isort",
-        "ms-python.black-formatter",
-        "ms-python.flake8",
+        "ms-python.ruff",
         "ms-python.mypy-type-checker",
         "ms-toolsai.jupyter",
         "ms-toolsai.jupyter-keymap",
