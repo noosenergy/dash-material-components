@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 # Description
 name = "dash-material-components"
-version = "2.0.11"
+version = "2.0.12"
 description = "Dash Material Design components for the Noos platform."
 # Credentials
 license = "MIT"
@@ -45,30 +45,36 @@ dash = ">=2.10,<3.0"
 [tool.poetry.dev-dependencies]
 dash = { version = "*", extras = ["dev", "testing"] }
 selenium = ">=4.0"
-# Format
-isort = "*"
-black = "*"
 # Linter
-pydocstyle = "*"
-flake8 = "*"
+ruff = "*"
 mypy = "*"
 # Debugging
 ipdb = "*"
 ipython = "*"
 jupyterlab = "*"
 
-[tool.black]
+[tool.ruff]
 line-length = 99
-target_version = ['py312']
+src = ["src"]
 
-[tool.isort]
-line_length = 99
-profile = "black"
-multi_line_output = 3
-lines_after_imports = 2
-default_section = "THIRDPARTY"
-known_first_party = "dash_material_components,tests"
-sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+[tool.ruff.lint]
+ignore = [
+    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", # Pydocstyle
+    "F405", "W391", "E203", "E701" # Flake8
+]
+select = ["E", "I", "F"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+default-section = "third-party"
+known-first-party = ["dash_material_components", "tests"]
+section-order = ["standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.mypy]
 install_types = true
