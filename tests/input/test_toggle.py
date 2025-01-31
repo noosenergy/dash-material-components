@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable
 
 import pytest
 from dash import Dash, Input, Output
@@ -10,9 +10,9 @@ TOGGLE_OPTIONS = ["Content...", "Other content..."]
 
 
 @pytest.fixture
-def dash_app() -> Callable[[Optional[str]], Dash]:
-    def app_factory(selected: Optional[str] = None) -> Dash:
-        kwargs: Dict[str, Any] = {"options": TOGGLE_OPTIONS}
+def dash_app() -> Callable[[str | None], Dash]:
+    def app_factory(selected: str | None = None) -> Dash:
+        kwargs: dict[str, Any] = {"options": TOGGLE_OPTIONS}
         if selected is not None:
             kwargs["selected"] = selected
 

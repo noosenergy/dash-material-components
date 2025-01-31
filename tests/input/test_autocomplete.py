@@ -1,5 +1,5 @@
 import random
-from typing import Callable, List
+from typing import Callable
 
 import pytest
 from dash import Dash, Input, Output
@@ -17,9 +17,9 @@ NO_SELECTION_TEXT = "Please select an option"
 
 
 @pytest.fixture(scope="module")
-def dash_app() -> Callable[[List[dict], bool, bool], Dash]:
+def dash_app() -> Callable[[list[dict], bool, bool], Dash]:
     def app_factory(
-        selected: List[dict] = [], multiple: bool = False, free_solo: bool = False
+        selected: list[dict] = [], multiple: bool = False, free_solo: bool = False
     ) -> Dash:
         app = Dash(name=__name__)
         app.layout = mdc.Dashboard(
@@ -83,7 +83,7 @@ def test_single_selection(dash_duo, dash_app, index):
     # Select the option
     elements[index].click()
     # Test that the text is updated
-    dash_duo.wait_for_text_to_equal("#text", f'You have selected: {options[index]["label"]}')
+    dash_duo.wait_for_text_to_equal("#text", f"You have selected: {options[index]['label']}")
 
     assert dash_duo.get_logs() is None
 
@@ -99,15 +99,13 @@ def test_multiple_selection(dash_duo, dash_app):
     # select the options
     for index in rand_idxs:
         # Get list of options
-        elements = dash_duo.find_element(".MuiAutocomplete-popper").find_elements_by_tag_name(
-            "li"
-        )
+        elements = dash_duo.find_element(".MuiAutocomplete-popper").find_elements_by_tag_name("li")
         # Click on the option
         elements[index].click()
 
     dash_duo.wait_for_text_to_equal(
         "#text",
-        f'You have selected: {options[rand_idxs[0]]["label"]}, {options[rand_idxs[1]]["label"]}',
+        f"You have selected: {options[rand_idxs[0]]['label']}, {options[rand_idxs[1]]['label']}",
     )
 
     assert dash_duo.get_logs() is None
@@ -153,7 +151,7 @@ def test_multiple_allow_new_value_not_in_options(dash_duo, dash_app):
     dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
 
     dash_duo.wait_for_text_to_equal(
-        "#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}, new_value'
+        "#text", f"You have selected: {options[1]['label']}, {options[2]['label']}, new_value"
     )
 
     assert dash_duo.get_logs() is None
@@ -171,7 +169,7 @@ def test_multiple_not_allow_new_value_not_in_options(dash_duo, dash_app):
     dash_duo.find_element("#autocomplete-input").send_keys("\ue007")
 
     dash_duo.wait_for_text_to_equal(
-        "#text", f'You have selected: {options[1]["label"]}, {options[2]["label"]}'
+        "#text", f"You have selected: {options[1]['label']}, {options[2]['label']}"
     )
 
     assert dash_duo.get_logs() is None

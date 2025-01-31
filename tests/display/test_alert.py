@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from typing import Callable
 
 import pytest
 from dash import Dash, Input, Output, State, dcc, html
@@ -8,7 +8,7 @@ import dash_material_components as mdc
 
 @pytest.fixture
 def dash_app() -> Callable[[str], Dash]:
-    def app_factory(text_value: Optional[str] = None) -> Dash:
+    def app_factory(text_value: str | None = None) -> Dash:
         app = Dash(name=__name__)
         app.layout = mdc.Dashboard(
             children=[
