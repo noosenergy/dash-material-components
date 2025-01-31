@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable
 
 import pytest
 from dash import Dash, Input, Output
@@ -10,9 +10,9 @@ DROPDOWN_OPTIONS = ["Content...", "Other content..."]
 
 
 @pytest.fixture
-def dash_app() -> Callable[[List[str]], Dash]:
-    def app_factory(selected: List[str] = []) -> Dash:
-        kwargs: Dict[str, Any] = {"options": DROPDOWN_OPTIONS}
+def dash_app() -> Callable[[list[str]], Dash]:
+    def app_factory(selected: list[str] = []) -> Dash:
+        kwargs: dict[str, Any] = {"options": DROPDOWN_OPTIONS}
         if selected is not None:
             kwargs["selected"] = selected
 
@@ -35,7 +35,7 @@ def dash_app() -> Callable[[List[str]], Dash]:
             Output(component_id="text", component_property="text"),
             Input(component_id="dropdown", component_property="selected"),
         )
-        def on_change(values: List[str]) -> str:
+        def on_change(values: list[str]) -> str:
             if values:
                 return ", ".join(values)
             return "No content..."

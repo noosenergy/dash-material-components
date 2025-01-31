@@ -16,7 +16,7 @@
         "redhat.vscode-commons",
         "DavidAnson.vscode-markdownlint",
         "ms-python.python",
-        "ms-python.ruff",
+        "charliermarsh.ruff",
         "ms-python.mypy-type-checker",
         "ms-toolsai.jupyter",
         "ms-toolsai.jupyter-keymap",

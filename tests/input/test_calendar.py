@@ -1,5 +1,5 @@
 import datetime as dt
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable
 
 import pytest
 from dash import Dash, Input, Output
@@ -8,9 +8,9 @@ import dash_material_components as mdc
 
 
 @pytest.fixture
-def dash_app() -> Callable[[Optional[str]], Dash]:
-    def app_factory(selected: Optional[str] = None) -> Dash:
-        kwargs: Dict[str, Any] = {"id": "calendar"}
+def dash_app() -> Callable[[str | None], Dash]:
+    def app_factory(selected: str | None = None) -> Dash:
+        kwargs: dict[str, Any] = {"id": "calendar"}
         if selected is not None:
             kwargs["selected"] = selected
 

@@ -24,14 +24,12 @@ geckodriver.log
 # MyPy
 .mypy_cache
 
+# Ruff
+.ruff_cache
+
 # Poetry
 .venv
-
-# Shell
 .env
-
-# IDE
-.idea
 
 # MacOS
 .DS_Store

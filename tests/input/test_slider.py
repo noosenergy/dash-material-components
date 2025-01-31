@@ -1,5 +1,5 @@
 import random
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable
 
 import pytest
 from dash import Dash, Input, Output
@@ -13,9 +13,9 @@ SLIDER_OPTIONS = {"minValue": 0, "maxValue": 100, "stepValue": 1, "selected": 50
 
 
 @pytest.fixture
-def dash_app() -> Callable[[Optional[int], Optional[str]], Dash]:
-    def app_factory(selected: Optional[int] = None, input_type: Optional[str] = None) -> Dash:
-        kwargs: Dict[str, Any] = SLIDER_OPTIONS
+def dash_app() -> Callable[[int | None, str | None], Dash]:
+    def app_factory(selected: int | None = None, input_type: str | None = None) -> Dash:
+        kwargs: dict[str, Any] = SLIDER_OPTIONS
         if selected is not None:
             kwargs["selected"] = selected
         kwargs["inputType"] = input_type
@@ -74,6 +74,7 @@ def test_slide_action(dash_duo: DashComposite, dash_app):
     assert dash_duo.find_element("#text").text == str(initial_value + slide_amount)
 
     assert dash_duo.get_logs() is None
+
 
 def test_slider_render_float_input_text(dash_duo: DashComposite, dash_app):
     dash_duo.start_server(dash_app(input_type="float", selected=43.21))
