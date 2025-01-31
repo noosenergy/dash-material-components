@@ -56,13 +56,25 @@ jupyterlab = "*"
 [tool.ruff]
 line-length = 99
 src = ["src"]
+target-version = "py312"
 
 [tool.ruff.lint]
 ignore = [
-    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", # Pydocstyle
-    "F405", "W391", "E203", "E701" # Flake8
+    # Pydocstyle
+    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107",
+    # Incompatible rules with D211 & D212
+    "D203", "D213",
 ]
-select = ["E", "I", "F"]
+select = [
+    # Flake8
+    "F", "C90",
+    # Pycodestyle
+    "E", "W",
+    # Pydocstyle
+    "D",
+    # Isort
+    "I",
+]
 
 [tool.ruff.lint.isort]
 lines-after-imports = 2
