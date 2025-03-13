@@ -2,7 +2,15 @@
 // https://containers.dev/implementors/json_reference/
 {
   "name": "dash-material-components",
-  "runArgs": ["--name", "dash-material-components_devcontainer"],
+  "runArgs": [
+    "--name", 
+    "dash-material-components_devcontainer",
+    "--env-file",
+    "${localWorkspaceFolder}/.env"
+  ],
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:${containerWorkspaceFolder}/.venv/bin"
+  },
   // Docker image setup
   "image": "noosenergy/circleci",
   "workspaceMount": "source=${localWorkspaceFolder},target=/home/circleci/project,type=bind,consistency=cached",
@@ -24,7 +32,8 @@
         "esbenp.prettier-vscode"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "terminal.integrated.defaultProfile.linux": "bash"
       }
     }
   },
