@@ -1,24 +1,27 @@
-import { CompletionContext } from '@codemirror/autocomplete';
-import { pythonLanguage } from '@codemirror/lang-python';
-
+import {CompletionContext} from '@codemirror/autocomplete';
+import {pythonLanguage} from '@codemirror/lang-python';
 
 export interface CompletionItem {
   label: string;
-  type: 'class' | 'function' | 'method' | 'property' | 'variable' | 'module' | 'attribute' | 'object';
+  type:
+    | 'class'
+    | 'function'
+    | 'method'
+    | 'property'
+    | 'variable'
+    | 'module'
+    | 'attribute'
+    | 'object';
   info?: string;
   returns?: string;
+  items?: Record<string, CompletionItem>;
 }
 
 // Define individual module type
 export interface ModuleDefinition {
   [moduleName: string]: {
     importName?: string;
-    items: Record<string, {
-      type: CompletionItem['type'];
-      info?: string;
-      returns?: string;
-      items?: Record<string, any>;
-    }>;
+    items: Record<string, CompletionItem>;
   };
 }
 
@@ -28,38 +31,38 @@ export class AutocompleteManager {
   private index = {
     completions: {} as Record<string, CompletionItem[]>,
     returns: {} as Record<string, string>,
-    type: {} as Record<string, string>,
+    type: {} as Record<string, string>
   };
 
-  constructor(moduleDefinitions: ModuleDefinition[]) {
+  constructor(moduleDefinitions: ModuleDefinition) {
     this.buildIndex(moduleDefinitions);
   }
 
   // Build index from module definitions
-  private buildIndex(moduleDefinition: ModuleDefinition[]): void {
+  private buildIndex(moduleDefinition: ModuleDefinition): void {
     Object.entries(moduleDefinition).forEach(([moduleName, moduleData]) => {
       this.indexModule(moduleName, moduleData.items);
     });
   }
 
   // Index a module and its items recursively
-  private indexModule(path: string, items: Record<string, any>): void {
+  private indexModule(path: string, items: Record<string, CompletionItem>): void {
     // Index current path completions
     this.index.completions[path] = this.mapItems(items);
-    
+
     // Process each item
     Object.entries(items).forEach(([name, data]) => {
       const itemPath = `${path}.${name}`;
-      
+
       // Store the item's type and return type
       this.index.type[itemPath] = data.type;
       if (data.returns) this.index.returns[itemPath] = data.returns;
-      
+
       // Process nested items
       if (data.items) {
         // Index methods for classes
         if (data.type === 'class') this.index.completions[itemPath] = this.mapItems(data.items);
-        
+
         // Process submodules
         if (data.type === 'module') this.indexModule(itemPath, data.items);
 
@@ -68,9 +71,9 @@ export class AutocompleteManager {
       }
     });
   }
-  
+
   // Map items to completion items
-  private mapItems(items: Record<string, any>): CompletionItem[] {
+  private mapItems(items: Record<string, CompletionItem>): CompletionItem[] {
     return Object.entries(items).map(([name, data]) => ({
       label: name,
       type: data.type,
@@ -78,9 +81,9 @@ export class AutocompleteManager {
       returns: data.returns
     }));
   }
-  
+
   // Store return types for methods
-  private mapReturnTypes(basePath: string, items: Record<string, any>): void {
+  private mapReturnTypes(basePath: string, items: Record<string, CompletionItem>): void {
     Object.entries(items).forEach(([name, data]) => {
       this.index.type[`${basePath}.${name}`] = data.type;
       if (data.returns) this.index.returns[`${basePath}.${name}`] = data.returns;
@@ -92,25 +95,25 @@ export class AutocompleteManager {
     const parts = [];
     let current = '';
     let parenLevel = 0;
-    let last_trigger = ""
+    let last_trigger = '';
 
     for (let i = 0; i < expr.length; i++) {
       const char = expr.charAt(i);
       if (char === '(') {
-        if (last_trigger === ")" && parenLevel === 0){
-            // Start of call case! new part starting with __call__
-            parts.push(current);
-            current = '__call__';
+        if (last_trigger === ')' && parenLevel === 0) {
+          // Start of call case! new part starting with __call__
+          parts.push(current);
+          current = '__call__';
         }
         parenLevel++;
-        last_trigger = "("
+        last_trigger = '(';
       } else if (char === ')') {
         parenLevel--;
-        last_trigger = ")"
+        last_trigger = ')';
       } else if (char === '.' && parenLevel === 0) {
         parts.push(current);
         current = '';
-        last_trigger = "";
+        last_trigger = '';
         continue;
       }
       current += char;
@@ -142,24 +145,22 @@ export class AutocompleteManager {
       const fullPath = `${path}.${methodName}`;
       const member_type = this.index.type[fullPath] || null;
 
-      
-      if (member_type == "module") {
+      if (member_type == 'module') {
         path = fullPath || null;
-      } else if (member_type == "class"){
+      } else if (member_type == 'class') {
         path = fullPath || null;
-      } else if (member_type === 'function'){
+      } else if (member_type === 'function') {
         // catch function case, need to always ends with parenthesis
-        if (part.endsWith(')')){
-            path = this.index.returns[fullPath] || null;
+        if (part.endsWith(')')) {
+          path = this.index.returns[fullPath] || null;
         } else {
-            path = null;
+          path = null;
         }
       } else if (part.endsWith(')') && ObjectTypes.includes(member_type)) {
         // catch class instance call case
         const object_type = this.index.returns[fullPath] || null;
-        path = this.index.returns[`${object_type}.__call__`] || null;     
-      } 
-      else {
+        path = this.index.returns[`${object_type}.__call__`] || null;
+      } else {
         path = this.index.returns[fullPath] || null;
       }
     }
@@ -171,15 +172,15 @@ export class AutocompleteManager {
   private findVariables(code: string): Record<string, string> {
     const variables = {};
     const pattern = /^\s*(\w+)\s*=\s*(.+?)(?:$|#)/;
-    
-    code.split('\n').forEach(line => {
+
+    code.split('\n').forEach((line) => {
       const match = line.match(pattern);
       if (!match) return;
-      
+
       const type = this.resolveType(match[2].trim(), variables);
       if (type) variables[match[1]] = type;
     });
-    
+
     return variables;
   }
 
@@ -189,7 +190,7 @@ export class AutocompleteManager {
       autocomplete: (context: CompletionContext) => {
         const code = context.state.doc.toString();
         const variables = this.findVariables(code);
-        
+
         // Dot completion
         const dotMatch = context.matchBefore(/(\w+(?:\.\w+(?:\([^)]*\))*)*)\.(\w*)$/);
         if (dotMatch && (context.explicit || dotMatch.from !== dotMatch.to)) {
@@ -197,46 +198,47 @@ export class AutocompleteManager {
           const beforeDot = dotMatch.text.substring(0, lastDot);
           const afterDot = dotMatch.text.substring(lastDot + 1);
           const from = dotMatch.to - afterDot.length;
-          
+
           // Get completions path
           const path = this.resolveType(beforeDot, variables);
           if (!path || !this.index.completions[path]) return null;
-          
+
           // Filter and return completions
           const completions = this.index.completions[path];
           return {
             from,
             options: afterDot
-              ? completions.filter(item => 
-                  item.label.toLowerCase().startsWith(afterDot.toLowerCase()))
-              : completions
+              ? Object.values(completions).filter((item) =>
+                  item.label?.toLowerCase().startsWith(afterDot.toLowerCase())
+                )
+              : Object.values(completions)
           };
         }
-        
+
         // Word completion
         const wordMatch = context.matchBefore(/\b(\w+)$/);
         if (wordMatch && (context.explicit || wordMatch.text.length > 0)) {
           const word = wordMatch.text.toLowerCase();
-          
+
           const options = [
             // Root modules
             ...Object.keys(this.index.completions)
-              .filter(path => !path.includes('.') && path.toLowerCase().startsWith(word))
-              .map(name => ({ label: name, type: "module" as const })),
-            
+              .filter((path) => !path.includes('.') && path.toLowerCase().startsWith(word))
+              .map((name) => ({label: name, type: 'module' as const})),
+
             // Variables
             ...Object.entries(variables)
               .filter(([name]) => name.toLowerCase().startsWith(word))
-              .map(([name, type]) => ({ 
-                label: name, 
-                type: "variable" as const, 
-                info: `Type: ${type}` 
+              .map(([name, type]) => ({
+                label: name,
+                type: 'variable' as const,
+                info: `Type: ${type}`
               }))
           ];
-          
-          if (options.length) return { from: wordMatch.from, options };
+
+          if (options.length) return {from: wordMatch.from, options};
         }
-        
+
         return null;
       }
     });

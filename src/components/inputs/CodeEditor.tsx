@@ -26,7 +26,7 @@ const CodeEditor = ({
   tabSize = 2,
   highlightActiveLine = true,
   darkTheme = false,
-  moduleDefinitions = [],
+  moduleDefinitions = {},
   setProps
 }: CodeEditorProps) => {
   const [editorLoaded, setEditorLoaded] = useState(false);
@@ -126,7 +126,7 @@ type CodeEditorProps = {
   /** If true, use dark theme instead of light theme */
   darkTheme?: boolean;
   /** Module definitions for code completion */
-  moduleDefinitions?: ModuleDefinition[];
+  moduleDefinitions?: ModuleDefinition;
 } & DashComponentProps;
 
 // Re-export types from Autocomplete for external use
