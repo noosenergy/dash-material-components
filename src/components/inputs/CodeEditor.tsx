@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Box } from '@mui/material';
-import { DashComponentProps } from 'props';
+import React, {useState, useEffect, useCallback} from 'react';
+import {Box} from '@mui/material';
+import {DashComponentProps} from 'props';
 import CodeMirror from '@uiw/react-codemirror';
-import { python } from '@codemirror/lang-python';
-import { vscodeLight, vscodeDark } from '@uiw/codemirror-theme-vscode';
-import { AutocompleteManager, ModuleDefinition, CompletionItem } from '../../fragments/Autocomplete';
-import { indentUnit } from '@codemirror/language';
-import { EditorState } from '@codemirror/state';
+import {python} from '@codemirror/lang-python';
+import {vscodeLight, vscodeDark} from '@uiw/codemirror-theme-vscode';
+import {
+  AutocompleteManager,
+  ModuleDefinition,
+  CompletionItem
+} from '../../fragments/CodeEditorAutocomplete';
+import {indentUnit} from '@codemirror/language';
+import {EditorState} from '@codemirror/state';
 
 /**
  * Code Editor component with configurable Python module autocompletion.
@@ -26,30 +30,33 @@ const CodeEditor = ({
   setProps
 }: CodeEditorProps) => {
   const [editorLoaded, setEditorLoaded] = useState(false);
-  
+
   // Check if we're in the browser environment
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setEditorLoaded(true);
     }
   }, []);
-  
+
   // Handle changes
-  const handleChange = useCallback((newValue: string) => {
-    if (setProps) {
-      setProps({ value: newValue });
-    }
-  }, [setProps]);
+  const handleChange = useCallback(
+    (newValue: string) => {
+      if (setProps) {
+        setProps({value: newValue});
+      }
+    },
+    [setProps]
+  );
 
   // Create autocomplete manager
   const autocompleteManager = new AutocompleteManager(moduleDefinitions);
-  
+
   // Configure extensions with custom completions
   const extensions = [
     python(),
     autocompleteManager.createCompletionExtension(),
-    indentUnit.of(" ".repeat(tabSize)), // Set tab size
-    EditorState.tabSize.of(tabSize)     // Set tab size for tab character
+    indentUnit.of(' '.repeat(tabSize)), // Set tab size
+    EditorState.tabSize.of(tabSize) // Set tab size for tab character
   ];
 
   return (
@@ -85,7 +92,7 @@ const CodeEditor = ({
             historyKeymap: true,
             foldKeymap: true,
             completionKeymap: true,
-            lintKeymap: true,
+            lintKeymap: true
           }}
         />
       ) : (
@@ -123,5 +130,5 @@ type CodeEditorProps = {
 } & DashComponentProps;
 
 // Re-export types from Autocomplete for external use
-export type { ModuleDefinition, CompletionItem };
+export type {ModuleDefinition, CompletionItem};
 export default CodeEditor;
