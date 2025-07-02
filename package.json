@@ -20,7 +20,7 @@
     "lint:prettier": "prettier ./src --config .prettierrc --list-different",
     "lint": "yarn run lint:prettier && yarn run lint:eslint",
     "build:py": "poetry run dash-generate-components ./src/components dash_material_components -p package-info.json --ignore \\.test\\.",
-    "postbuild": "es-check es7 dash_material_components/*.js",
+    "postbuild": "es-check es2020 dash_material_components/*.js",
     "test": "jest ./src",
     "build:js::dev": "webpack --mode development",
     "build:js": "webpack",
