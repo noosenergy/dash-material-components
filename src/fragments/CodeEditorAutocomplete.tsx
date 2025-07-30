@@ -1,5 +1,15 @@
-import {CompletionContext} from '@codemirror/autocomplete';
-import {pythonLanguage} from '@codemirror/lang-python';
+// Check if optional dependencies are available
+let CompletionContext: unknown = null;
+let pythonLanguage: unknown = null;
+
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  CompletionContext = require('@codemirror/autocomplete').CompletionContext;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  pythonLanguage = require('@codemirror/lang-python').pythonLanguage;
+} catch (error) {
+  // Don't set any values, let the component throw an error when used
+}
 
 export interface CompletionItem {
   label: string;
@@ -186,8 +196,18 @@ export class AutocompleteManager {
 
   // Create the completion extension
   createCompletionExtension() {
-    return pythonLanguage.data.of({
-      autocomplete: (context: CompletionContext) => {
+    // If dependencies are not available, throw an error
+    if (!pythonLanguage || !CompletionContext) {
+      throw new Error(
+        'CodeEditor autocomplete requires optional CodeMirror dependencies. ' +
+          'Please install them with: yarn add @codemirror/autocomplete @codemirror/lang-python'
+      );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (pythonLanguage as any).data.of({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      autocomplete: (context: any) => {
         const code = context.state.doc.toString();
         const variables = this.findVariables(code);
 
