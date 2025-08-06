@@ -1773,7 +1773,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@plotly/dash-component-plugins@^1.2.0":
+"@plotly/dash-component-plugins@^1.2.3":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@plotly/dash-component-plugins/-/dash-component-plugins-1.2.3.tgz#3694ea3abeb5af11cbab9cb78e06c21efb60d437"
   integrity sha512-BjcGvqS+sbp15rnETIWyuPg8imvxboSrHyOlEBGBUurF5v1nHZpfbk4PAYpk8Q6K20ofScbNf1aXp/lOLHAemA==
