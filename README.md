@@ -18,7 +18,6 @@ The python package is available from the [PyPi repository](https://pypi.org/proj
 pip install dash-material-components
 ```
 
-
 ### Usage as a library
 
 Once installed, start using the Python components exactly like you would use other [Dash component libraries](https://dash.plotly.com/layout),
@@ -109,24 +108,6 @@ And thanks to `poetry` python package manager, create a virtual environnement,
 ```shell
 ~$ poetry install
 ```
-
-#### Skip optional dependencies
-
-The package has optional dependencies out of the box, that provide extra components, such as the `CodeEditor`.
-The `CodeEditor` component provides a code editor with syntax highlighting and autocompletion when optional CodeMirror dependencies are installed.
-
-We can skip them for a lighter build without the CodeEditor dependencies.
-```sh
-# ignore optional dependencies
-yarn install --frozen-lockfile --ignore-optional
-
-# rebuild
-yarn build
-
-# Now re-install dash-material-components or restart the jupyter notebook using it.
-```
-
-**Without these dependencies**: The CodeEditor component will throw an error when used
 
 ### Write a new React component
 

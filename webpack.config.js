@@ -38,20 +38,7 @@ module.exports = function (env, argv) {
     target: 'web',
     externals,
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-      fallback: {
-        // Optional CodeMirror dependencies - fallback to empty modules if not installed
-        '@uiw/react-codemirror': false,
-        '@codemirror/lang-python': false,
-        '@uiw/codemirror-theme-vscode': false,
-        '@codemirror/language': false,
-        '@codemirror/state': false,
-        '@codemirror/autocomplete': false,
-        '@codemirror/view': false,
-        '@codemirror/lint': false,
-        '@codemirror/search': false,
-        'codemirror': false
-      }
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
     },
     module: {
       rules: [
