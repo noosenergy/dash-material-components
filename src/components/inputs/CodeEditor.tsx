@@ -1,5 +1,5 @@
 // src/components/CodeEditor.tsx
-import React, {Suspense} from 'react';
+import React, {memo, Suspense} from 'react';
 import {asyncDecorator} from '@plotly/dash-component-plugins';
 import codeeditor from '../../utils/LazyLoader/CodeEditor';
 import type {ModuleDefinition, CompletionItem} from '../../fragments/CodeEditorAutocomplete';
@@ -67,13 +67,26 @@ const RealCodeEditor = asyncDecorator(CodeEditor, () =>
 );
 
 // Controlled version with Suspense (internal)
-const ControlledCodeEditor: React.FC<CodeEditorPropsType> = (props) => {
+const ControlledCodeEditor = memo<CodeEditorPropsType>((props) => {
+  const {id, className} = props;
+
+  const extendedClassName = className ? 'dash-code-editor ' + className : 'dash-code-editor';
+
   return (
-    <Suspense fallback={<div>Loading code editor...</div>}>
-      <RealCodeEditor {...props} />
+    <Suspense
+      fallback={
+        <div id={id} key={id} className={`${extendedClassName} dash-code-editor--pending`}>
+          Loading code editor...
+        </div>
+      }
+    >
+      <RealCodeEditor {...props} className={extendedClassName} />
     </Suspense>
   );
-};
+});
+
+// Mandatory for memoization debugging
+ControlledCodeEditor.displayName = 'ControlledCodeEditor';
 
 // Export the original component AND the types AND the default props
 export default CodeEditor;
