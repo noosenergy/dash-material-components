@@ -1,71 +1,9 @@
-import React from 'react';
-import {Box} from '@mui/material';
-import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import React, {memo, Suspense} from 'react';
+import {asyncDecorator} from '@plotly/dash-component-plugins';
+import calendar from '../../utils/LazyLoader/Calendar';
 import {DashComponentProps} from 'props';
 
-// Accepted format for parsing calendar dates
-const dateFormat = 'yyyy-MM-dd';
-
-/**
- * Calendar component
- */
-const Calendar = ({
-  id = 'calendar',
-  labelText,
-  helperText,
-  width = '100%',
-  margin = 2,
-  maxDate = '2100-01-01',
-  minDate = '1900-01-01',
-  disableFuture = true,
-  disablePast = false,
-  selected = null,
-  disableToolbar = false,
-  disabled = false,
-  setProps
-}: CalendarProps) => {
-  const handleCalendarChange = (value: Date) => {
-    // Fire Dash-assigned callback
-    if (value) {
-      console.log(value);
-      console.log(typeof value);
-      const selected = value.toISOString().split('T')[0];
-      setProps({selected});
-    }
-  };
-
-  const calendarControls = {
-    autoOk: true,
-    disableToolbar: disableToolbar,
-    value: new Date(selected),
-    onChange: handleCalendarChange,
-    format: dateFormat,
-    maxDate: maxDate ? new Date(maxDate) : undefined,
-    minDate: minDate ? new Date(minDate) : undefined,
-    disableFuture: disableFuture,
-    disablePast: disablePast
-  };
-
-  return (
-    <Box id={id} m={margin} width={width}>
-      <DatePicker
-        label={labelText}
-        slotProps={{
-          textField: {
-            helperText,
-            id: `${id}-input`,
-            variant: 'outlined',
-            fullWidth: true
-          }
-        }}
-        disabled={disabled}
-        {...calendarControls}
-      />
-    </Box>
-  );
-};
-
-type CalendarProps = {
+type CalendarPropsType = {
   /** The label text displayed for the calendar input */
   labelText?: string;
   /** The helper text that appears below the calendar input */
@@ -90,4 +28,42 @@ type CalendarProps = {
   disabled?: boolean;
 } & DashComponentProps;
 
+/**
+ * Calendar component
+ *
+ * Wrapper for the lazy loaded calendar component
+ */
+const Calendar = (props: CalendarPropsType) => {
+  return <ControlledCalendar {...props} />;
+};
+
+// Async-decorated version (internal)
+const RealCalendar = asyncDecorator(Calendar, () =>
+  Promise.all([calendar()]).then(([calendar]) => calendar)
+);
+
+// Controlled version with Suspense (internal)
+const ControlledCalendar = memo<CalendarPropsType>((props) => {
+  const {id, className} = props;
+
+  const extendedClassName = className ? 'dash-calendar ' + className : 'dash-calendar';
+
+  return (
+    <Suspense
+      fallback={
+        <div id={id} key={id} className={`${extendedClassName} dash-calendar--pending`}>
+          Loading calendar...
+        </div>
+      }
+    >
+      <RealCalendar {...props} className={extendedClassName} />
+    </Suspense>
+  );
+});
+
+// Mandatory for memoization debugging
+ControlledCalendar.displayName = 'ControlledCalendar';
+
+// Export the original component AND the types
 export default Calendar;
+export type {CalendarPropsType};

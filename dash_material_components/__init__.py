@@ -26,7 +26,7 @@ if not hasattr(_dash, "__plotly_dash") and not hasattr(_dash, "development"):
 
 
 # Define async resources (dynamic chunks)
-async_resources = ["codeeditor"]
+async_resources = ["codeeditor", "calendar"]
 
 _js_dist = []
 
