@@ -52,12 +52,12 @@ def test_open_close(dash_duo: DashComposite, dash_app):
 
     # open
     dash_duo.find_element("#sidebar-toggle").click()
-    dash_duo.wait_for_element("#close-sidebar-chevron")
+    dash_duo.wait_for_element("#close-sidebar-chevron", timeout=1)
 
     # close
     dash_duo.find_element("#close-sidebar-chevron").click()
-    with pytest.raises(NoSuchElementException):
-        dash_duo.find_element("#close-sidebar-chevron")
+    # check sidebar disappears
+    dash_duo.wait_for_no_elements("#close-sidebar-chevron", timeout=1)
 
     assert dash_duo.get_logs() is None
 
