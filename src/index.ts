@@ -17,7 +17,7 @@ import InputText from './components/inputs/InputText';
 import Autocomplete from './components/inputs/Autocomplete';
 import Button from './components/inputs/Button';
 import IconButton from './components/inputs/IconButton';
-
+import CodeEditor from './components/inputs/CodeEditor';
 // Display components: component state managed by Dash renderer
 import Alert from './components/display/Alert';
 import Box from './components/display/Box';
@@ -41,6 +41,7 @@ export {
   Autocomplete,
   Button,
   IconButton,
+  CodeEditor,
   // Display
   Alert,
   Box,

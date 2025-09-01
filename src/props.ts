@@ -24,4 +24,8 @@ export type DashComponentProps = {
    * Component children
    */
   children?: ReactNode;
+  /**
+   * Additional CSS class for the root DOM node
+   */
+  className?: string;
 };

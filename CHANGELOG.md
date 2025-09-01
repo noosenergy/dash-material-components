@@ -245,3 +245,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use ruff linter.
 - Update noos-ci version
+
+## [2.1.0] - 2025-09-01
+
+### Changed
+
+- Add Code Editor component
+- Add lazy loading for CodeEditor and Calendar components. Components and its dependencies split into different chunks and only loaded when needed
