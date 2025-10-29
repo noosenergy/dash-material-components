@@ -27,7 +27,7 @@ geckodriver.log
 # Ruff
 .ruff_cache
 
-# Poetry
+# UV
 .venv
 .env
 

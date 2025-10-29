@@ -103,10 +103,10 @@ The project is shipped with off-the-shelf scripts to manage node packages as wel
 
 > :warning: the Dash material components has only been tested against Node.js v18.
 
-And thanks to `poetry` python package manager, create a virtual environnement,
+Install [uv](https://docs.astral.sh/uv/), then install the project dependencies using:
 
 ```shell
-~$ poetry install
+~$ uv sync --dev
 ```
 
 ### Write a new React component
