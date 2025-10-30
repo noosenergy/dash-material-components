@@ -41,6 +41,9 @@ dev = [
 ignore-vcs = true
 only-include = ["dash_material_components", "LICENSE", "package.json"]
 
+[tool.hatch.build.targets.sdist]
+only-include = ["dash_material_components", "LICENSE", "package.json"]
+
 [tool.ruff]
 line-length = 99
 src = ["src"]
