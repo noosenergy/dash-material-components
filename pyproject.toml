@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "dash-material-components"
@@ -37,22 +37,9 @@ dev = [
     "jupyterlab>=4.2.0",
 ]
 
-[tool.setuptools.dynamic]
-readme = {file = ["README.md"]}
-
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["dash_material_components"]
-
-[tool.setuptools.package-data]
-dash_material_components = [
-    "*.py",
-    "*.js",
-    "*.js.map",
-    "metadata.json",
-    "package-info.json",
-    "themes/static/*.png",
-]
+[tool.hatch.build]
+ignore-vcs = true
+only-include = ["dash_material_components", "LICENSE", "package.json"]
 
 [tool.ruff]
 line-length = 99
