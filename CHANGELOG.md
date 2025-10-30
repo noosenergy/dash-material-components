@@ -252,3 +252,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add Code Editor component
 - Add lazy loading for CodeEditor and Calendar components. Components and its dependencies split into different chunks and only loaded when needed
+
+## [2.2.0] - 2025-10-29
+
+### Changed
+
+- Migrate project from Poetry to UV for dependency management

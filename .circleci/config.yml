@@ -2,9 +2,9 @@
 version: 2.1
 
 default:
-  install: &poetry_install
-    pkg_manager: poetry
-    install_args: --no-ansi --with dev
+  install: &uv_install
+    pkg_manager: uv
+    install_args: --dev
   filter: &release_filters
     filters:
       tags:
@@ -17,7 +17,7 @@ default:
 # ----------------
 
 orbs:
-  noos-ci: noosenergy/noos-ci@0.4.2
+  noos-ci: noosenergy/noos-ci@0.4.5
 
 # --------------
 # Pipeline tasks
@@ -45,7 +45,7 @@ jobs:
     steps:
       - checkout
       - noos-ci/python_configure_venv:
-          <<: *poetry_install
+          <<: *uv_install
       - run:
           name: Build JavaScript library
           command: yarn install --frozen-lockfile && yarn build
@@ -61,7 +61,7 @@ jobs:
       - checkout
       - noos-ci/python_lint_package:
           src_directory: ./dash_material_components
-          <<: *poetry_install
+          <<: *uv_install
 
   test_package:
     executor: noos-ci/default
@@ -71,7 +71,7 @@ jobs:
           at: .
       - noos-ci/python_test_package:
           tests_directory: ./tests
-          <<: *poetry_install
+          <<: *uv_install
       - store_test_results:
           path: '.pytest_results'
 
@@ -82,7 +82,7 @@ jobs:
       - attach_workspace:
           at: .
       - noos-ci/python_build_wheel:
-          <<: *poetry_install
+          <<: *uv_install
       - store_artifacts:
           path: dist
           destination: wheel
@@ -94,7 +94,7 @@ jobs:
       - attach_workspace:
           at: .
       - noos-ci/python_publish_wheel:
-          <<: *poetry_install
+          <<: *uv_install
 
 # -----------------
 # Pipeline workflow

@@ -1,57 +1,45 @@
 [build-system]
-requires = ["poetry>=1.0.0"]
-build-backend = "poetry.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
-# Description
+[project]
 name = "dash-material-components"
-version = "2.1.0"
+version = "2.2.0"
 description = "Dash Material Design components for the Noos platform."
 # Credentials
-license = "MIT"
-authors = ["Noos Energy <contact@noos.energy>"]
-homepage = "https://github.com/noosenergy/dash-material-components"
-# Package data
+authors = [{ name = "Noos Energy", email = "contact@noos.energy" }]
+requires-python = ">=3.12,<3.13"
 readme = "README.md"
-packages = [
-    { include = "dash_material_components"},
-]
-include = [
-    "dash_material_components/*.py",
-    "dash_material_components/*.js",
-    "dash_material_components/*.js.map",
-    "dash_material_components/metadata.json",
-    "dash_material_components/package-info.json",
-    "dash_material_components/themes/static/*.png",
-    "README.md",
-    "LICENSE",
-    "package.json",
-]
-# Distribution
+license = "MIT"
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.12",
     "Typing :: Typed",
 ]
+dependencies = [
+    # https://github.com/GibbsConsulting/django-plotly-dash/blob/master/requirements.txt
+    "dash>=2.10,<3.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-# https://github.com/GibbsConsulting/django-plotly-dash/blob/master/requirements.txt
-dash = ">=2.10,<3.0"
+[dependency-groups]
+dev = [
+    # Testing
+    "dash[dev,testing]",
+    "selenium>=4.0",
+    # Linter
+    "ruff>=0.9.3",
+    "mypy>=1.0.0",
+    # Debugging
+    "ipdb>=0.13.0",
+    "ipython>=8.26.0",
+    "jupyterlab>=4.2.0",
+]
 
-[tool.poetry.dev-dependencies]
-dash = { version = "*", extras = ["dev", "testing"] }
-selenium = ">=4.0"
-# Linter
-ruff = "*"
-mypy = "*"
-# Debugging
-ipdb = "*"
-ipython = "*"
-jupyterlab = "*"
+[tool.hatch.build]
+ignore-vcs = true
+only-include = ["dash_material_components", "LICENSE", "package.json"]
 
 [tool.ruff]
 line-length = 99

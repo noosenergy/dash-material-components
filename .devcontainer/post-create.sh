@@ -11,7 +11,7 @@ yarn install --frozen-lockfile
 # Install py libs
 # ---------------
 echo "$(date) - installing python libraries"
-poetry install --with dev
+uv sync --frozen --dev
 
 # Build Dash assets
 # -----------------
