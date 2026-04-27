@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Box, Table as MuiTable, TableContainer, TablePagination} from '@mui/material';
+import {Card, Table as MuiTable, TableContainer, TablePagination} from '@mui/material';
 import {TableBody, TableHead, TableRowData} from '../../fragments/TableContent';
 import {DashComponentProps} from 'props';
 
@@ -17,38 +17,31 @@ const Table = ({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
-  // Make sure state remains in sync with received props
   useEffect(() => setRows(initialRows), [initialRows]);
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-  };
+  const handlePageChange = (_: unknown, value: number) => setPage(value);
 
-  const handleRowsPerPageChange = (event) => {
+  const handleRowsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
   return (
-    <Box
+    <Card
       id={id}
       sx={{
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        width: 'fit-content',
+        maxWidth: '100%'
       }}
     >
-      <TableContainer
-        sx={{
-          flexGrow: 1,
-          overflowX: 'auto',
-          ...tableStyle
-        }}
-      >
-        <MuiTable stickyHeader size="small" aria-label="data table">
+      <TableContainer sx={{flexGrow: 1, overflow: 'auto', minHeight: 0, ...tableStyle}}>
+        <MuiTable stickyHeader aria-label="data table">
           <TableHead columns={columns} />
-          <TableBody rows={rows} page={page} rowsPerPage={rowsPerPage} />
+          <TableBody columns={columns} rows={rows} page={page} rowsPerPage={rowsPerPage} />
         </MuiTable>
       </TableContainer>
       <TablePagination
@@ -60,7 +53,7 @@ const Table = ({
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleRowsPerPageChange}
       />
-    </Box>
+    </Card>
   );
 };
 
