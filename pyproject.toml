@@ -35,6 +35,8 @@ dev = [
     "ipdb>=0.13.0",
     "ipython>=8.26.0",
     "jupyterlab>=4.2.0",
+    "pandas",
+    "pyarrow",
 ]
 
 [tool.hatch.build]
