@@ -8,22 +8,6 @@ import {
   InputAdornment
 } from '@mui/material';
 import {DashComponentProps} from 'props';
-import {css} from '@emotion/react';
-
-const inputStyle = css`
-  & input {
-    margintop: -5px;
-    textalign: center;
-    padding: 0 0 2px 0;
-  }
-`;
-
-const adornmentStyle = css`
-  margin: 0 0 7px 0;
-  & p {
-    fontsize: smaller;
-  }
-`;
 
 const validInput = (
   value: string,
@@ -132,17 +116,17 @@ const Slider = ({
         value={inputValue}
         onChange={handleInputChange}
         variant="standard"
-        css={inputStyle}
         size="small"
         disabled={disabled}
+        sx={{'& input': {textAlign: 'center', padding: '0 0 2px 0'}}}
         InputProps={{
           startAdornment: inputLeftAdornment ? (
-            <InputAdornment position="start" css={adornmentStyle}>
+            <InputAdornment position="start" sx={{mb: '7px', '& p': {fontSize: 'smaller'}}}>
               {inputLeftAdornment}
             </InputAdornment>
           ) : null,
           endAdornment: inputRightAdornment ? (
-            <InputAdornment position="end" css={adornmentStyle}>
+            <InputAdornment position="end" sx={{mb: '7px', '& p': {fontSize: 'smaller'}}}>
               {inputRightAdornment}
             </InputAdornment>
           ) : null

@@ -1,5 +1,15 @@
 import React from 'react';
-import {Box, Chip, FormControl, FormHelperText, InputLabel, MenuItem, Select} from '@mui/material';
+import {
+  Box,
+  Checkbox,
+  Chip,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  Select
+} from '@mui/material';
 import {DashComponentProps} from 'props';
 
 /**
@@ -17,64 +27,50 @@ const Dropdown = ({
   setProps,
   disabled = false
 }: DropdownProps) => {
-  const handleDropdownChange = (event) => {
-    // Enforce selection to be an array in all cases
-    const selected = event.target.value;
-    // Fire Dash-assigned callback
-    setProps({selected: multiple ? selected : [selected]});
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setProps({selected: multiple ? value : [value]});
   };
 
-  const buildDropdownSelect = (selected) => {
-    return (
-      <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 1}}>
-        {selected.map((option, i) => (
-          <Chip key={i} label={option} />
-        ))}
-      </Box>
-    );
-  };
-
-  // locals
-  let menuLabel;
-  let menuHelper;
-  const menuElements: JSX.Element[] = [];
-
-  // Fetch menu header
-  if (labelText) {
-    menuLabel = <InputLabel id={`${id}-label`}>{labelText}</InputLabel>;
-  }
-
-  // Fetch menu footer
-  if (helperText) {
-    menuHelper = <FormHelperText>{helperText}</FormHelperText>;
-  }
-
-  // Fetch menu items
-  options.forEach((option, i) => {
-    menuElements.push(
-      <MenuItem key={i} value={option}>
-        {option}
-      </MenuItem>
-    );
-  });
-
-  // Configure menu controls
-  const menuControls = {
-    value: selected,
-    multiple: multiple,
-    onChange: handleDropdownChange,
-    renderValue: buildDropdownSelect
-  };
-
-  // Render form control
   return (
     <Box id={id} m={margin} width={width}>
       <FormControl variant="outlined" fullWidth disabled={disabled}>
-        {menuLabel ? menuLabel : null}
-        <Select labelId={`${id}-label`} label={labelText} id={`${id}-select`} {...menuControls}>
-          {menuElements}
+        {labelText && (
+          <InputLabel id={`${id}-label`} shrink>
+            {labelText}
+          </InputLabel>
+        )}
+        <Select
+          labelId={`${id}-label`}
+          label={labelText}
+          id={`${id}-select`}
+          value={selected}
+          multiple={multiple}
+          displayEmpty
+          onChange={handleChange}
+          renderValue={(selected: Array<string | number>) => (
+            <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
+              {selected.map((option) => (
+                <Chip key={option} label={option} />
+              ))}
+            </Box>
+          )}
+        >
+          {options.map((option) => (
+            <MenuItem key={option} value={option}>
+              {multiple && (
+                <Checkbox
+                  size="small"
+                  checked={selected.includes(option)}
+                  color="secondary"
+                  sx={{p: 0.5, mr: 0.5}}
+                />
+              )}
+              <ListItemText primary={option} />
+            </MenuItem>
+          ))}
         </Select>
-        {menuHelper ? menuHelper : null}
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
     </Box>
   );

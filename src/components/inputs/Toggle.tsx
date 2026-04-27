@@ -41,7 +41,6 @@ const Toggle = ({
   return (
     <Box id={id} m={margin}>
       <ToggleButtonGroup
-        size="small"
         orientation={orientation}
         value={selected}
         exclusive
