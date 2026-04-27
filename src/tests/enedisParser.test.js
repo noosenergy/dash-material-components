@@ -25,8 +25,8 @@ function buildM021(timestamps, values = [0, 0, 0]) {
     ...timestamps.map((ts, i) => ({
       'Identifiant PRM': ts,
       'Valeur Brute': values[i],
-      'Pas en minutes': '',
-    })),
+      'Pas en minutes': ''
+    }))
   ];
   return {rows, fields};
 }
@@ -38,7 +38,7 @@ function buildM022(entries, values = [0, 0, 0]) {
     'Date de la mesure': date,
     'Heure de la mesure': time,
     Valeur: values[i],
-    PRM: i === 0 ? '1234' : '',
+    PRM: i === 0 ? '1234' : ''
   }));
   return {rows, fields};
 }
@@ -50,7 +50,7 @@ function buildM023(timestamps, values = [0, 0, 0]) {
     'Identifiant PRM': '123456',
     Horodate: ts,
     Valeur: values[i],
-    Unité: 'W',
+    Unité: 'W'
   }));
   return {rows, fields};
 }
@@ -59,24 +59,40 @@ function buildM023(timestamps, values = [0, 0, 0]) {
 
 // tz-aware timestamps for Simple / M021
 const UTC_TS = ['2025-01-01T00:00:00Z', '2025-01-01T01:00:00Z', '2025-01-01T02:00:00Z'];
-const CET_TS = ['2025-01-01T01:00:00+01:00', '2025-01-01T02:00:00+01:00', '2025-01-01T03:00:00+01:00'];
-const CEST_TS = ['2025-07-01T02:00:00+02:00', '2025-07-01T03:00:00+02:00', '2025-07-01T04:00:00+02:00'];
+const CET_TS = [
+  '2025-01-01T01:00:00+01:00',
+  '2025-01-01T02:00:00+01:00',
+  '2025-01-01T03:00:00+01:00'
+];
+const CEST_TS = [
+  '2025-07-01T02:00:00+02:00',
+  '2025-07-01T03:00:00+02:00',
+  '2025-07-01T04:00:00+02:00'
+];
 const NAIVE_TS = ['2025-01-01 00:00:00', '2025-01-01 01:00:00', '2025-01-01 02:00:00'];
 
-const UTC_3H = ['2025-01-01T00:00:00.000Z', '2025-01-01T01:00:00.000Z', '2025-01-01T02:00:00.000Z'];
-const UTCSUMMER_3H = ['2025-07-01T00:00:00.000Z', '2025-07-01T01:00:00.000Z', '2025-07-01T02:00:00.000Z'];
+const UTC_3H = [
+  '2025-01-01T00:00:00.000Z',
+  '2025-01-01T01:00:00.000Z',
+  '2025-01-01T02:00:00.000Z'
+];
+const UTCSUMMER_3H = [
+  '2025-07-01T00:00:00.000Z',
+  '2025-07-01T01:00:00.000Z',
+  '2025-07-01T02:00:00.000Z'
+];
 
 // French date/time entries (naive Paris CET, UTC+1 in winter)
 const M022_WINTER = [
   {date: '01/01/2025', time: '00:00:00'}, // UTC+1 → 2024-12-31T23:00:00.000Z
   {date: '01/01/2025', time: '01:00:00'}, //       → 2025-01-01T00:00:00.000Z
-  {date: '01/01/2025', time: '02:00:00'}, //       → 2025-01-01T01:00:00.000Z
+  {date: '01/01/2025', time: '02:00:00'} //       → 2025-01-01T01:00:00.000Z
 ];
 // French date/time entries (naive Paris CEST, UTC+2 in summer)
 const M022_SUMMER = [
   {date: '01/07/2025', time: '02:00:00'}, // UTC+2 → 2025-07-01T00:00:00.000Z
   {date: '01/07/2025', time: '03:00:00'}, //       → 2025-07-01T01:00:00.000Z
-  {date: '01/07/2025', time: '04:00:00'}, //       → 2025-07-01T02:00:00.000Z
+  {date: '01/07/2025', time: '04:00:00'} //       → 2025-07-01T02:00:00.000Z
 ];
 
 // Naive Paris timestamps for M023 (YYYY-MM-DD HH:MM:SS)
@@ -149,7 +165,7 @@ describe('Simple', () => {
     const {rows, fields} = buildSimple([
       '2025-01-01T00:00:00Z',
       '2025-01-01T00:00:00Z',
-      '2025-01-01T01:00:00Z',
+      '2025-01-01T01:00:00Z'
     ]);
     const result = parse(rows, fields);
     expect(result.success).toBe(false);
@@ -159,7 +175,7 @@ describe('Simple', () => {
   for (const [label, values, expected] of [
     ['integers', [1, 2, 3], [1, 2, 3]],
     ['negative integers', [1, -2, 3], [1, -2, 3]],
-    ['floats', [1.5, 2.5, -3.5], [1.5, 2.5, -3.5]],
+    ['floats', [1.5, 2.5, -3.5], [1.5, 2.5, -3.5]]
   ]) {
     test(`values: ${label} (no unit conversion, already MW)`, () => {
       const {rows, fields} = buildSimple(UTC_TS, values);
@@ -171,7 +187,7 @@ describe('Simple', () => {
     ['null value', [1, null, 3], /Null values detected/],
     ['empty string', [1, '', 3], /Null values detected/],
     ['non-numeric string', ['1', 'string', '3'], /Invalid numeric value/],
-    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/],
+    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/]
   ]) {
     test(`invalid values: ${label} → error`, () => {
       const {rows, fields} = buildSimple(UTC_TS, values);
@@ -216,7 +232,7 @@ describe('M021', () => {
     const {rows, fields} = buildM021([
       '2025-01-01T00:00:00Z',
       '2025-01-01T00:00:00Z',
-      '2025-01-01T01:00:00Z',
+      '2025-01-01T01:00:00Z'
     ]);
     const result = parse(rows, fields);
     expect(result.success).toBe(false);
@@ -226,7 +242,7 @@ describe('M021', () => {
   for (const [label, values, expected] of [
     ['integers', [1e6, 2e6, 3e6], [1, 2, 3]],
     ['negative', [1e6, -2e6, 3e6], [1, -2, 3]],
-    ['floats', [1e6, 2.5e6, -3.5e6], [1, 2.5, -3.5]],
+    ['floats', [1e6, 2.5e6, -3.5e6], [1, 2.5, -3.5]]
   ]) {
     test(`values W→MW: ${label}`, () => {
       const {rows, fields} = buildM021(UTC_TS, values);
@@ -238,7 +254,7 @@ describe('M021', () => {
     ['null value', [1, null, 3], /Null values detected/],
     ['empty string', [1, '', 3], /Null values detected/],
     ['non-numeric string', ['1', 'string', '3'], /Invalid numeric value/],
-    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/],
+    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/]
   ]) {
     test(`invalid values: ${label} → error`, () => {
       const {rows, fields} = buildM021(UTC_TS, values);
@@ -262,7 +278,7 @@ describe('M022', () => {
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual([
       '2024-12-31T23:00:00.000Z',
       '2025-01-01T00:00:00.000Z',
-      '2025-01-01T01:00:00.000Z',
+      '2025-01-01T01:00:00.000Z'
     ]);
   });
 
@@ -271,7 +287,7 @@ describe('M022', () => {
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual([
       '2025-07-01T00:00:00.000Z',
       '2025-07-01T01:00:00.000Z',
-      '2025-07-01T02:00:00.000Z',
+      '2025-07-01T02:00:00.000Z'
     ]);
   });
 
@@ -280,7 +296,7 @@ describe('M022', () => {
     const entries = [
       {date: '30/03/2025', time: '01:30:00'},
       {date: '30/03/2025', time: '02:30:00'},
-      {date: '30/03/2025', time: '03:30:00'},
+      {date: '30/03/2025', time: '03:30:00'}
     ];
     const {rows, fields} = buildM022(entries);
     const result = parse(rows, fields);
@@ -293,7 +309,7 @@ describe('M022', () => {
     const entries = [
       {date: '26/10/2025', time: '01:30:00'}, // CEST (UTC+2) → 2025-10-25T23:30:00.000Z
       {date: '26/10/2025', time: '02:30:00'}, // ambiguous → resolved to CET (UTC+1) → 2025-10-26T01:30:00.000Z
-      {date: '26/10/2025', time: '03:30:00'}, // CET  (UTC+1) → 2025-10-26T02:30:00.000Z
+      {date: '26/10/2025', time: '03:30:00'} // CET  (UTC+1) → 2025-10-26T02:30:00.000Z
     ];
     const {rows, fields} = buildM022(entries);
     const result = parse(rows, fields);
@@ -301,7 +317,7 @@ describe('M022', () => {
     expect(result.data.map((r) => r.delivery_from)).toEqual([
       '2025-10-25T23:30:00.000Z',
       '2025-10-26T01:30:00.000Z',
-      '2025-10-26T02:30:00.000Z',
+      '2025-10-26T02:30:00.000Z'
     ]);
   });
 
@@ -309,7 +325,7 @@ describe('M022', () => {
     const entries = [
       {date: '01/01/2025', time: '00:00:00'},
       {date: '01/01/2025', time: '00:00:00'},
-      {date: '01/01/2025', time: '01:00:00'},
+      {date: '01/01/2025', time: '01:00:00'}
     ];
     const {rows, fields} = buildM022(entries);
     const result = parse(rows, fields);
@@ -320,7 +336,7 @@ describe('M022', () => {
   for (const [label, values, expected] of [
     ['integers', [1e6, 2e6, 3e6], [1, 2, 3]],
     ['negative', [1e6, -2e6, 3e6], [1, -2, 3]],
-    ['floats', [1e6, 2.5e6, -3.5e6], [1, 2.5, -3.5]],
+    ['floats', [1e6, 2.5e6, -3.5e6], [1, 2.5, -3.5]]
   ]) {
     test(`values W→MW: ${label}`, () => {
       const {rows, fields} = buildM022(M022_WINTER, values);
@@ -332,7 +348,7 @@ describe('M022', () => {
     ['null value', [1, null, 3], /Null values detected/],
     ['empty string', [1, '', 3], /Null values detected/],
     ['non-numeric string', ['1', 'string', '3'], /Invalid numeric value/],
-    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/],
+    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/]
   ]) {
     test(`invalid values: ${label} → error`, () => {
       const {rows, fields} = buildM022(M022_WINTER, values);
@@ -356,7 +372,7 @@ describe('M023', () => {
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual([
       '2024-12-31T23:00:00.000Z',
       '2025-01-01T00:00:00.000Z',
-      '2025-01-01T01:00:00.000Z',
+      '2025-01-01T01:00:00.000Z'
     ]);
   });
 
@@ -365,7 +381,7 @@ describe('M023', () => {
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual([
       '2025-07-01T00:00:00.000Z',
       '2025-07-01T01:00:00.000Z',
-      '2025-07-01T02:00:00.000Z',
+      '2025-07-01T02:00:00.000Z'
     ]);
   });
 
@@ -375,7 +391,7 @@ describe('M023', () => {
       {'Identifiant PRM': '123456', Horodate: '2025-01-01 01:00:00', Valeur: 1e6, Unité: 'W'},
       {'Identifiant PRM': '123456', Horodate: '2025-01-01 01:00:00', Valeur: 500, Unité: 'VAr'},
       {'Identifiant PRM': '123456', Horodate: '2025-01-01 02:00:00', Valeur: 2e6, Unité: 'W'},
-      {'Identifiant PRM': '123456', Horodate: '2025-01-01 02:00:00', Valeur: 300, Unité: 'VAr'},
+      {'Identifiant PRM': '123456', Horodate: '2025-01-01 02:00:00', Valeur: 300, Unité: 'VAr'}
     ];
     const result = parse(rows, fields);
     expect(result.success).toBe(true);
@@ -388,7 +404,7 @@ describe('M023', () => {
     const {rows, fields} = buildM023([
       '2025-03-30 01:30:00',
       '2025-03-30 02:30:00',
-      '2025-03-30 03:30:00',
+      '2025-03-30 03:30:00'
     ]);
     const result = parse(rows, fields);
     expect(result.success).toBe(false);
@@ -399,7 +415,7 @@ describe('M023', () => {
     const {rows, fields} = buildM023([
       '2025-01-01 00:00:00',
       '2025-01-01 00:00:00',
-      '2025-01-01 01:00:00',
+      '2025-01-01 01:00:00'
     ]);
     const result = parse(rows, fields);
     expect(result.success).toBe(false);
@@ -409,7 +425,7 @@ describe('M023', () => {
   for (const [label, values, expected] of [
     ['integers', [1e6, 2e6, 3e6], [1, 2, 3]],
     ['negative', [1e6, -2e6, 3e6], [1, -2, 3]],
-    ['floats', [1e6, 2.5e6, -3.5e6], [1, 2.5, -3.5]],
+    ['floats', [1e6, 2.5e6, -3.5e6], [1, 2.5, -3.5]]
   ]) {
     test(`values W→MW: ${label}`, () => {
       const {rows, fields} = buildM023(M023_WINTER, values);
@@ -421,7 +437,7 @@ describe('M023', () => {
     ['null value', [1, null, 3], /Null values detected/],
     ['empty string', [1, '', 3], /Null values detected/],
     ['non-numeric string', ['1', 'string', '3'], /Invalid numeric value/],
-    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/],
+    ['"null" string', ['1', 'null', '3'], /Invalid numeric value/]
   ]) {
     test(`invalid values: ${label} → error`, () => {
       const {rows, fields} = buildM023(M023_WINTER, values);
@@ -442,7 +458,7 @@ describe('CSV fixtures', () => {
     const {data: rows, meta} = Papa.parse(content, {
       header: true,
       dynamicTyping: true, // mirrors CsvUploader: auto-casts numbers; ISO+tz strings → Date
-      skipEmptyLines: true,
+      skipEmptyLines: true
     });
     return parse(rows, meta.fields);
   }

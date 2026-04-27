@@ -31,8 +31,8 @@
   window.DashCsvParsers['enedis'] = function (rows, fields) {
     try {
       if (fields.length === 2) return parseSimple(rows, fields);
-      if (fields.includes('PRM')) return parseM022(rows, fields);
-      if (fields.includes('Horodate') && fields.includes('Valeur')) return parseM023(rows, fields);
+      if (fields.includes('PRM')) return parseM022(rows);
+      if (fields.includes('Horodate') && fields.includes('Valeur')) return parseM023(rows);
       if (fields.includes('Identifiant PRM')) return parseM021(rows, fields);
 
       return {
@@ -90,7 +90,7 @@
    * M022 — separate date/time columns, naive Europe/Paris local time, values in W.
    * Date column format: DD/MM/YYYY  |  Time column format: HH:MM:SS
    */
-  function parseM022(rows, fields) {
+  function parseM022(rows) {
     var meterpointId = rows[0]['PRM'];
     var timestamps = rows.map(function (r) {
       var iso = frenchToIso(String(r['Date de la mesure']), String(r['Heure de la mesure']));
@@ -106,7 +106,7 @@
    * M023 — multi-measurement rows; retain only Watt rows, naive Europe/Paris
    * Horodate (ISO format: YYYY-MM-DD HH:MM:SS), values in W.
    */
-  function parseM023(rows, fields) {
+  function parseM023(rows) {
     var meterpointId = rows[0]['Identifiant PRM'];
     // Ignore reactive power rows (VAr) — keep active power only
     var wRows = rows.filter(function (r) {
