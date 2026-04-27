@@ -1,61 +1,9 @@
 import React, {useState} from 'react';
-import {
-  Box,
-  Divider,
-  Drawer,
-  Fab,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Theme,
-  Tooltip,
-  Typography
-} from '@mui/material';
+import {Box, Drawer, Fab, IconButton, List, ListItem, Tooltip, Typography} from '@mui/material';
 import {ChevronLeft, Settings} from '@mui/icons-material';
 import {DashComponentProps} from 'props';
-import {Interpolation, css, useTheme} from '@emotion/react';
 
-const drawerWidth = 360;
-
-const useSidebarStyles = (theme: Theme) => {
-  const fabLayout = css`
-    position: absolute;
-    bottom: ${theme.spacing(5)};
-    left: ${theme.spacing(5)};
-    z-index: ${theme.zIndex.drawer - 50};
-  `;
-
-  const drawerLayout = css`
-    width: ${drawerWidth}px; // NOTE px was added in @emotion/react
-    flex-shrink: 0;
-    '&:.muidrawer-paper': {
-      width: ${drawerWidth}px; // NOTE px was added in @emotion/react
-      background: ${theme.palette.secondary.main};
-    }
-  `;
-
-  const drawerHeaderLayout = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(0, 2),
-    ...theme.mixins.toolbar
-  } as Interpolation<Theme>;
-
-  const drawerContentLayout = css`
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  `;
-
-  return {
-    fabLayout,
-    drawerLayout,
-    drawerHeaderLayout,
-    drawerContentLayout
-  };
-};
+const DRAWER_WIDTH = 360;
 
 /**
  * Sidebar component
@@ -66,87 +14,115 @@ const Sidebar = ({
   settings,
   title = 'Dashboard Settings'
 }: SidebarProps) => {
-  const theme = useTheme() as Theme;
-  const {fabLayout, drawerLayout, drawerHeaderLayout, drawerContentLayout} =
-    useSidebarStyles(theme);
+  const [open, setOpen] = useState(false);
 
-  const [toggledDrawer, setToggledDrawer] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setToggledDrawer(true);
-  };
-
-  const handleDrawerClose = (event) => {
-    // To prevent the drawer from closing
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setToggledDrawer(false);
-  };
-
-  // locals
-  let drawerHeader;
-  const drawerElements: JSX.Element[] = [];
-
-  // Fetch drawer button
-  const drawerButton = (
-    <Tooltip title="Open sidebar">
-      <Fab
-        onClick={handleDrawerOpen}
-        aria-label="open-sidebar"
-        size="medium"
-        color="primary"
-        css={fabLayout}
-        id="sidebar-toggle"
-      >
-        <Settings />
-      </Fab>
-    </Tooltip>
-  );
-
-  // Fetch drawer header
-  if (title) {
-    drawerHeader = (
-      <Box css={drawerHeaderLayout}>
-        <Typography component="p" variant="h3" color="inherit">
-          {title}
-        </Typography>
-        <Tooltip title="Close sidebar">
-          <IconButton
-            id="close-sidebar-chevron"
-            color="inherit"
-            onClick={handleDrawerClose}
-            size="large"
-          >
-            <ChevronLeft />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    );
-  }
-
-  // Fetch drawer elements
+  const items: JSX.Element[] = [];
   if (children) {
-    let listElement;
     React.Children.forEach(children, (child, i) => {
+      const label = settings?.[i];
       const itemId = `sidebar-item-${i + 1}`;
-      listElement = (
-        <ListItem id={itemId} key={itemId}>
-          <ListItemText id={`${itemId}-text`} primary={settings[i]} />
-          {child}
+      items.push(
+        <ListItem
+          key={itemId}
+          id={itemId}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 2,
+            px: 3,
+            py: 1.5,
+            borderRadius: 0,
+            ...(label && {borderTop: (t) => `1px solid ${t.palette.divider}`})
+          }}
+        >
+          {label && (
+            <Typography
+              sx={{
+                minWidth: 130,
+                flexShrink: 0,
+                fontSize: '0.7rem',
+                fontWeight: 600,
+                letterSpacing: '0.07em',
+                textTransform: 'uppercase',
+                color: 'text.secondary',
+                lineHeight: 1.3
+              }}
+            >
+              {label}
+            </Typography>
+          )}
+          <Box sx={{flex: 1}}>{child}</Box>
         </ListItem>
       );
-      drawerElements.push(listElement);
     });
   }
 
   return (
     <Box id={id}>
-      {drawerButton}
-      <Drawer anchor="left" open={toggledDrawer} onClose={handleDrawerClose} css={drawerLayout}>
-        {drawerHeader}
-        <Divider />
-        <List css={drawerContentLayout}>{drawerElements}</List>
+      <Tooltip title="Open settings" placement="right">
+        <Fab
+          onClick={() => setOpen(true)}
+          aria-label="open-sidebar"
+          size="medium"
+          color="primary"
+          id="sidebar-toggle"
+          sx={{
+            position: 'absolute',
+            bottom: 40,
+            left: 40,
+            zIndex: (t) => t.zIndex.drawer - 30
+          }}
+        >
+          <Settings fontSize="small" />
+        </Fab>
+      </Tooltip>
+
+      <Drawer
+        anchor="left"
+        open={open}
+        onClose={() => setOpen(false)}
+        PaperProps={{sx: {width: 'auto', minWidth: DRAWER_WIDTH, maxWidth: '85vw'}}}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            px: 3,
+            py: 2,
+            borderBottom: (t) => `3px solid ${t.palette.secondary.main}`,
+            flexShrink: 0
+          }}
+        >
+          <Typography
+            sx={{
+              fontWeight: 700,
+              fontSize: '0.9rem',
+              color: 'text.primary',
+              letterSpacing: '-0.01em'
+            }}
+          >
+            {title}
+          </Typography>
+          <Tooltip title="Close">
+            <IconButton
+              id="close-sidebar-chevron"
+              onClick={() => setOpen(false)}
+              size="small"
+              sx={{
+                color: 'rgba(0, 0, 0, 0.35)',
+                '&:hover': {color: 'text.primary', backgroundColor: 'rgba(0, 0, 0, 0.05)'}
+              }}
+            >
+              <ChevronLeft />
+            </IconButton>
+          </Tooltip>
+        </Box>
+
+        <List disablePadding sx={{overflowY: 'auto', flexGrow: 1}}>
+          {items}
+        </List>
       </Drawer>
     </Box>
   );
