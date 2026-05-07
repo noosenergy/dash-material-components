@@ -81,7 +81,7 @@ def test_table(dash_duo, dash_app):
     rows = dash_duo.find_element("#table").find_elements_by_tag_name("tr")
 
     assert len(rows) == row_per_page + 1
-    assert rows[0].text == "Name Age Gender Salary"
+    assert rows[0].text == "NAME AGE GENDER SALARY"
     for i in range(1, len(rows)):
         assert rows[i].text == " ".join(str(e) for e in DATA[i - 1].values())
 
@@ -89,7 +89,7 @@ def test_table(dash_duo, dash_app):
     rows = dash_duo.find_element("#table").find_elements_by_tag_name("tr")
 
     assert len(rows) == len(DATA) - row_per_page + 1
-    assert rows[0].text == "Name Age Gender Salary"
+    assert rows[0].text == "NAME AGE GENDER SALARY"
     for i in range(1, len(rows)):
         assert rows[i].text == " ".join(str(e) for e in DATA[row_per_page + i - 1].values())
 
