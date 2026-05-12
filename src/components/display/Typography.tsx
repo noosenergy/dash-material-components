@@ -6,7 +6,7 @@ import {DashComponentProps} from 'props';
 type VariantStyleMap = Partial<Record<TypographyVariant, SxProps<Theme>>>;
 
 // Per-variant accent treatments that follow the theme's design language:
-// h1 → gold accent bar (matches card borderLeft / table header borderBottom)
+// h1 → gold accent bar (matches table header borderBottom and input focus state)
 // h2 → subtle divider underline
 // h3 → muted secondary color
 const VARIANT_STYLES: VariantStyleMap = {

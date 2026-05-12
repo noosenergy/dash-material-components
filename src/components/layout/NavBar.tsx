@@ -3,6 +3,10 @@ import {AppBar, Box, Divider, Toolbar, Typography} from '@mui/material';
 import NoosIcon from '../../fragments/NoosIcon';
 import {DashComponentProps} from 'props';
 
+/**
+ * Dashboard navigation bar component
+ * https://mui.com/components/app-bar/
+ */
 const NavBar = ({id = 'navbar', title}: NavBarProps) => {
   return (
     <Box id={id}>

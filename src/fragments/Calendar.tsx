@@ -6,6 +6,9 @@ import {CalendarPropsType} from '../components/inputs/Calendar';
 
 const DATE_FORMAT = 'yyyy-MM-dd';
 
+/**
+ * Calendar component
+ */
 const Calendar = ({
   id = 'calendar',
   labelText,
