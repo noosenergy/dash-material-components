@@ -3,6 +3,9 @@ import {Box, Grid} from '@mui/material';
 import Error from '../../fragments/Error';
 import {DashComponentProps} from 'props';
 
+const pageStyle = {flexGrow: 1, height: '100%', p: 3};
+const pageLayoutStyle = {width: '100%', height: '100%', maxHeight: '100%'};
+
 /**
  * Page component, used to wrap section and card components
  * Dashboard > Page
@@ -22,13 +25,13 @@ const Page = ({
     errorStatus != null ? <Error status={errorStatus} message={errorMessage} /> : children;
 
   return (
-    <Box id={id} sx={{flexGrow: 1, height: '100%', p: 3}}>
+    <Box id={id} sx={pageStyle}>
       <Grid
         container
         rowSpacing={2}
         columnSpacing={2}
         direction={pageDirection}
-        sx={{width: '100%', height: '100%', maxHeight: '100%'}}
+        sx={pageLayoutStyle}
       >
         {elements}
       </Grid>

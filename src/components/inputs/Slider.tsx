@@ -9,6 +9,9 @@ import {
 } from '@mui/material';
 import {DashComponentProps} from 'props';
 
+const inputStyle = {'& input': {textAlign: 'center', padding: '0 0 2px 0'}};
+const adornmentStyle = {mb: '7px', '& p': {fontSize: 'smaller'}};
+
 const validInput = (
   value: string,
   inputType: 'integer' | 'float',
@@ -118,15 +121,15 @@ const Slider = ({
         variant="standard"
         size="small"
         disabled={disabled}
-        sx={{'& input': {textAlign: 'center', padding: '0 0 2px 0'}}}
+        sx={inputStyle}
         InputProps={{
           startAdornment: inputLeftAdornment ? (
-            <InputAdornment position="start" sx={{mb: '7px', '& p': {fontSize: 'smaller'}}}>
+            <InputAdornment position="start" sx={adornmentStyle}>
               {inputLeftAdornment}
             </InputAdornment>
           ) : null,
           endAdornment: inputRightAdornment ? (
-            <InputAdornment position="end" sx={{mb: '7px', '& p': {fontSize: 'smaller'}}}>
+            <InputAdornment position="end" sx={adornmentStyle}>
               {inputRightAdornment}
             </InputAdornment>
           ) : null
