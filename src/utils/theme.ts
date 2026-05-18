@@ -19,8 +19,13 @@ export const C = {
   error: '#DC2626',
   warning: '#F59E0B',
   info: '#2563EB',
-  success: '#16A34A'
+  success: '#16A34A',
+  accentGrey: '#c9cfd9'
 } as const;
+
+// Shared left-accent stripe used on elevated surfaces (cards, calendar popper).
+// Uses ink rather than gold so it doesn't read as a "selected/focused" cue, which gold signals on inputs.
+const accentBorder = `2px solid ${C.accentGrey}`;
 
 // Custom MUI theme — https://mui.com/customization/default-theme/
 export const theme: ThemeOptions = {
@@ -51,13 +56,13 @@ export const theme: ThemeOptions = {
     button: {textTransform: 'none', fontWeight: 600, letterSpacing: 0}
   },
   components: {
-    // Cards — used by Table and other content sections: flat elevation with a gold left accent border
+    // Cards — used by Table and other content sections: flat elevation with an ink left accent border
     MuiCard: {
       defaultProps: {elevation: 0},
       styleOverrides: {
         root: {
           background: C.bgPaper,
-          borderLeft: `2px solid ${C.gold}`,
+          borderLeft: accentBorder,
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04)',
           transition: 'box-shadow 0.25s ease',
           '&:hover': {boxShadow: '0 8px 28px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04)'}
@@ -277,7 +282,7 @@ export const theme: ThemeOptions = {
         paper: {
           borderRadius: '16px',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06)',
-          borderLeft: `2px solid ${C.gold}`
+          borderLeft: accentBorder
         }
       }
     },
