@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dash-material-components"
-version = "2.2.0"
+version = "2.2.1"
 description = "Dash Material Design components for the Noos platform."
 # Credentials
 authors = [{ name = "Noos Energy", email = "contact@noos.energy" }]
