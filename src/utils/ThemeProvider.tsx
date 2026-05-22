@@ -16,12 +16,12 @@ const ThemeProvider = ({
   theme: themeOverrides
 }: {
   children: JSX.Element;
-  theme: Record<string, unknown>;
+  theme: ThemeOptions;
 }) => {
   let theme = createTheme({
     ...defaultTheme,
     ...themeOverrides
-  } as ThemeOptions);
+  });
   theme = responsiveFontSizes(theme);
 
   const clientSideEmotionCache = createEmotionCache();
