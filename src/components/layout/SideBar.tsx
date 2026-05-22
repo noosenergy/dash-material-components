@@ -1,9 +1,68 @@
 import React, {useState} from 'react';
 import {Box, Drawer, Fab, IconButton, List, ListItem, Tooltip, Typography} from '@mui/material';
+import {Theme} from '@mui/material/styles';
 import {ChevronLeft, Settings} from '@mui/icons-material';
 import {DashComponentProps} from 'props';
 
 const DRAWER_WIDTH = 360;
+
+const fabStyle = {
+  position: 'absolute',
+  bottom: 40,
+  left: 40,
+  zIndex: (t: Theme) => t.zIndex.drawer - 30
+};
+
+const drawerPaperStyle = {width: 'auto', minWidth: DRAWER_WIDTH, maxWidth: '85vw'};
+
+const drawerHeaderStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  px: 3,
+  py: 2,
+  borderBottom: (t: Theme) => `3px solid ${t.palette.secondary.main}`,
+  flexShrink: 0
+};
+
+const drawerTitleStyle = {
+  fontWeight: 700,
+  fontSize: '0.9rem',
+  color: 'text.primary',
+  letterSpacing: '-0.01em'
+};
+
+const closeButtonStyle = {
+  color: 'rgba(0, 0, 0, 0.35)',
+  '&:hover': {color: 'text.primary', backgroundColor: 'rgba(0, 0, 0, 0.05)'}
+};
+
+const drawerListStyle = {overflowY: 'auto', flexGrow: 1};
+
+const listItemStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 2,
+  px: 3,
+  py: 1.5,
+  borderRadius: 0
+};
+
+const listItemDividerStyle = {borderTop: (t: Theme) => `1px solid ${t.palette.divider}`};
+
+const listItemLabelStyle = {
+  minWidth: 130,
+  flexShrink: 0,
+  fontSize: '0.7rem',
+  fontWeight: 600,
+  letterSpacing: '0.07em',
+  textTransform: 'uppercase',
+  color: 'text.secondary',
+  lineHeight: 1.3
+};
+
+const listItemContentStyle = {flex: 1};
 
 /**
  * Sidebar component
@@ -25,34 +84,10 @@ const Sidebar = ({
         <ListItem
           key={itemId}
           id={itemId}
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 2,
-            px: 3,
-            py: 1.5,
-            borderRadius: 0,
-            ...(label && {borderTop: (t) => `1px solid ${t.palette.divider}`})
-          }}
+          sx={{...listItemStyle, ...(label && listItemDividerStyle)}}
         >
-          {label && (
-            <Typography
-              sx={{
-                minWidth: 130,
-                flexShrink: 0,
-                fontSize: '0.7rem',
-                fontWeight: 600,
-                letterSpacing: '0.07em',
-                textTransform: 'uppercase',
-                color: 'text.secondary',
-                lineHeight: 1.3
-              }}
-            >
-              {label}
-            </Typography>
-          )}
-          <Box sx={{flex: 1}}>{child}</Box>
+          {label && <Typography sx={listItemLabelStyle}>{label}</Typography>}
+          <Box sx={listItemContentStyle}>{child}</Box>
         </ListItem>
       );
     });
@@ -67,12 +102,7 @@ const Sidebar = ({
           size="medium"
           color="primary"
           id="sidebar-toggle"
-          sx={{
-            position: 'absolute',
-            bottom: 40,
-            left: 40,
-            zIndex: (t) => t.zIndex.drawer - 30
-          }}
+          sx={fabStyle}
         >
           <Settings fontSize="small" />
         </Fab>
@@ -82,45 +112,23 @@ const Sidebar = ({
         anchor="left"
         open={open}
         onClose={() => setOpen(false)}
-        PaperProps={{sx: {width: 'auto', minWidth: DRAWER_WIDTH, maxWidth: '85vw'}}}
+        PaperProps={{sx: drawerPaperStyle}}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            px: 3,
-            py: 2,
-            borderBottom: (t) => `3px solid ${t.palette.secondary.main}`,
-            flexShrink: 0
-          }}
-        >
-          <Typography
-            sx={{
-              fontWeight: 700,
-              fontSize: '0.9rem',
-              color: 'text.primary',
-              letterSpacing: '-0.01em'
-            }}
-          >
-            {title}
-          </Typography>
+        <Box sx={drawerHeaderStyle}>
+          <Typography sx={drawerTitleStyle}>{title}</Typography>
           <Tooltip title="Close">
             <IconButton
               id="close-sidebar-chevron"
               onClick={() => setOpen(false)}
               size="small"
-              sx={{
-                color: 'rgba(0, 0, 0, 0.35)',
-                '&:hover': {color: 'text.primary', backgroundColor: 'rgba(0, 0, 0, 0.05)'}
-              }}
+              sx={closeButtonStyle}
             >
               <ChevronLeft />
             </IconButton>
           </Tooltip>
         </Box>
 
-        <List disablePadding sx={{overflowY: 'auto', flexGrow: 1}}>
+        <List disablePadding sx={drawerListStyle}>
           {items}
         </List>
       </Drawer>
