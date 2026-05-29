@@ -1,10 +1,10 @@
 import React from 'react';
 import {Box} from '@mui/material';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import {parseISO, format, isValid} from 'date-fns';
 import {CalendarPropsType} from '../components/inputs/Calendar';
 
-// Accepted format for parsing calendar dates
-const dateFormat = 'yyyy-MM-dd';
+const DATE_FORMAT = 'yyyy-MM-dd';
 
 /**
  * Calendar component
@@ -20,46 +20,37 @@ const Calendar = ({
   disableFuture = true,
   disablePast = false,
   selected = null,
-  disableToolbar = false,
+  disableToolbar = true,
   disabled = false,
   setProps
 }: CalendarPropsType) => {
-  const handleCalendarChange = (value: Date) => {
-    // Fire Dash-assigned callback
-    if (value) {
-      console.log(value);
-      console.log(typeof value);
-      const selected = value.toISOString().split('T')[0];
-      setProps({selected});
+  const handleChange = (value: Date | null) => {
+    if (value && isValid(value)) {
+      setProps({selected: format(value, DATE_FORMAT)});
     }
-  };
-
-  const calendarControls = {
-    autoOk: true,
-    disableToolbar: disableToolbar,
-    value: new Date(selected),
-    onChange: handleCalendarChange,
-    format: dateFormat,
-    maxDate: maxDate ? new Date(maxDate) : undefined,
-    minDate: minDate ? new Date(minDate) : undefined,
-    disableFuture: disableFuture,
-    disablePast: disablePast
   };
 
   return (
     <Box id={id} m={margin} width={width}>
       <DatePicker
         label={labelText}
+        value={selected ? parseISO(selected) : null}
+        onChange={handleChange}
+        format={DATE_FORMAT}
+        disabled={disabled}
+        disableFuture={disableFuture}
+        disablePast={disablePast}
+        maxDate={maxDate ? parseISO(maxDate) : undefined}
+        minDate={minDate ? parseISO(minDate) : undefined}
         slotProps={{
           textField: {
             helperText,
             id: `${id}-input`,
             variant: 'outlined',
             fullWidth: true
-          }
+          },
+          toolbar: {hidden: disableToolbar}
         }}
-        disabled={disabled}
-        {...calendarControls}
       />
     </Box>
   );

@@ -1,31 +1,22 @@
 import React, {useState} from 'react';
-import {Grid, Tab as MuiTab, Tabs} from '@mui/material';
+import {Box, Tab as MuiTab, Tabs} from '@mui/material';
 import TabPanel from '../../fragments/TabPanel';
 import {DashComponentProps} from 'props';
-import {css} from '@emotion/react';
-
-const tabLayoutStyle = css`
-  height: 100%;
-  width: 100%;
-  flex-flow: column;
-`;
 
 /**
  * Tab component
  * Dashboard > Page > Section > Card > Tab
- * https://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js
  */
 const Tab = ({id = 'tab', children, tabs}: TabProps) => {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const handleTabChange = (_: React.ChangeEvent, value: number) => {
+  const handleTabChange = (_: React.SyntheticEvent, value: number) => {
     setSelectedTab(value);
   };
 
   const tabElements: JSX.Element[] = [];
   const tabpanelElements: JSX.Element[] = [];
 
-  // Fetch cards or tabs
   if (children && tabs) {
     React.Children.forEach(children, (child, i) => {
       tabpanelElements.push(
@@ -38,22 +29,19 @@ const Tab = ({id = 'tab', children, tabs}: TabProps) => {
   }
 
   return (
-    <Grid id={id} container direction="column" css={tabLayoutStyle} spacing={2}>
-      <Grid item>
-        <Tabs
-          value={selectedTab}
-          onChange={handleTabChange}
-          indicatorColor="primary"
-          aria-label="card-tabs"
-          selectionFollowsFocus
-        >
-          {tabElements}
-        </Tabs>
-      </Grid>
-      <Grid item style={{flexGrow: 1}}>
+    <Box id={id} display="flex" flexDirection="column" height="100%" width="100%">
+      <Tabs
+        value={selectedTab}
+        onChange={handleTabChange}
+        aria-label="card-tabs"
+        selectionFollowsFocus
+      >
+        {tabElements}
+      </Tabs>
+      <Box flexGrow={1} pt={2}>
         {tabpanelElements}
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 

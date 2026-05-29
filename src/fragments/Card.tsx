@@ -2,24 +2,11 @@ import React from 'react';
 import {Card as MuiCard, CardContent, CardHeader, Grid, IconButton, Tooltip} from '@mui/material';
 import {GetApp} from '@mui/icons-material';
 import {DashComponentProps} from 'props';
-import {css} from '@emotion/react';
 
-const cardInColumnStyle = css`
-  maxheight: 100%;
-`;
-
-const cardInRowStyle = css`
-  maxwidth: 100%;
-`;
-
-const cardContentLayoutStyle = css`
-  height: 100%;
-  overflow: auto;
-`;
-
-const cardContainerLayoutStyle = css`
-  overflow: auto;
-`;
+const cardInColumnStyle = {maxHeight: '100%'};
+const cardInRowStyle = {maxWidth: '100%'};
+const cardContentLayoutStyle = {height: '100%', overflow: 'auto'};
+const cardContainerLayoutStyle = {overflow: 'auto'};
 
 const Card = ({
   id = 'card',
@@ -50,18 +37,10 @@ const Card = ({
   const cardLayoutStyle = orientation == 'columns' ? cardInColumnStyle : cardInRowStyle;
 
   return (
-    <Grid id={id} item xs={cardSize} container direction="column" css={cardLayoutStyle}>
-      <Grid
-        item
-        xs
-        container
-        direction="column"
-        component={MuiCard}
-        elevation={4}
-        css={cardContainerLayoutStyle}
-      >
+    <Grid id={id} item xs={cardSize} container direction="column" sx={cardLayoutStyle}>
+      <Grid item xs container direction="column" component={MuiCard} sx={cardContainerLayoutStyle}>
         {header ? <Grid item>{header}</Grid> : null}
-        <Grid item xs component={CardContent} css={cardContentLayoutStyle}>
+        <Grid item xs component={CardContent} sx={cardContentLayoutStyle}>
           {children}
         </Grid>
       </Grid>

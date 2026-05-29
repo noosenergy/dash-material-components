@@ -2,13 +2,9 @@ import React from 'react';
 import {Box, Grid} from '@mui/material';
 import Error from '../../fragments/Error';
 import {DashComponentProps} from 'props';
-import {css} from '@emotion/react';
 
-const pageLayoutStyle = css`
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-`;
+const pageStyle = {flexGrow: 1, height: '100%', p: 3};
+const pageLayoutStyle = {width: '100%', height: '100%', maxHeight: '100%'};
 
 /**
  * Page component, used to wrap section and card components
@@ -29,13 +25,13 @@ const Page = ({
     errorStatus != null ? <Error status={errorStatus} message={errorMessage} /> : children;
 
   return (
-    <Box id={id} sx={{flexGrow: 1, height: '100%'}}>
+    <Box id={id} sx={pageStyle}>
       <Grid
         container
         rowSpacing={2}
         columnSpacing={2}
         direction={pageDirection}
-        css={pageLayoutStyle}
+        sx={pageLayoutStyle}
       >
         {elements}
       </Grid>

@@ -23,9 +23,7 @@ const Alert = ({id = 'alert', severity = 'error', autoHide = 5000, message, setP
           horizontal: 'right'
         }}
       >
-        <MuiAlert severity={severity} variant="filled">
-          {message}
-        </MuiAlert>
+        <MuiAlert severity={severity}>{message}</MuiAlert>
       </Snackbar>
     </Box>
   );

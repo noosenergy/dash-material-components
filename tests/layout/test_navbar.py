@@ -8,7 +8,7 @@ import dash_material_components as mdc
     "title_kwarg,title_prop",
     [
         (None, ""),
-        ("Custom dash", "Custom dash"),
+        ("Custom dash", "CUSTOM DASH"),
     ],
 )
 def test_render_navbar(dash_duo, title_kwarg, title_prop):

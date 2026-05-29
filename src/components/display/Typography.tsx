@@ -1,6 +1,37 @@
 import React, {useState, useEffect} from 'react';
-import {Box, Typography as MuiTypography, TypographyVariant} from '@mui/material';
+import {Box, SxProps, Typography as MuiTypography, TypographyVariant} from '@mui/material';
+import {Theme} from '@mui/material/styles';
 import {DashComponentProps} from 'props';
+
+type VariantStyleMap = Partial<Record<TypographyVariant, SxProps<Theme>>>;
+
+// Per-variant accent treatments that follow the theme's design language:
+// h1 → gold accent bar (matches table header borderBottom and input focus state)
+// h2 → subtle divider underline
+// h3 → muted secondary color
+const VARIANT_STYLES: VariantStyleMap = {
+  h1: {
+    position: 'relative',
+    pb: 1.5,
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      width: 32,
+      height: 3,
+      borderRadius: 1,
+      bgcolor: 'secondary.main'
+    }
+  },
+  h2: {
+    pb: 0.5,
+    borderBottom: (theme: Theme) => `1px solid ${theme.palette.divider}`
+  },
+  h3: {
+    color: 'text.secondary'
+  }
+};
 
 /**
  * Typography component from Material UI
@@ -14,15 +45,18 @@ const Typography = ({
 }: TypographyProps) => {
   const [text, setText] = useState<string>(initialText);
 
-  // Make sure state remain in sync with received props
   useEffect(() => {
     setText(initialText);
   }, [initialText]);
 
-  // Render text
   return (
     <Box id={id}>
-      <MuiTypography component={component} variant={variant} gutterBottom>
+      <MuiTypography
+        component={component}
+        variant={variant}
+        gutterBottom
+        sx={VARIANT_STYLES[variant]}
+      >
         {text}
       </MuiTypography>
     </Box>

@@ -6,51 +6,52 @@ import {
   TableRow
 } from '@mui/material';
 
-const TableHead = ({columns}: TableHeadProps) => {
-  const headerElements = columns.map((column, i) => (
-    <TableCell key={i} style={{width: column.width}}>
-      {column.field}
-    </TableCell>
-  ));
-
-  return (
-    <MuiTableHead>
-      <TableRow>{headerElements}</TableRow>
-    </MuiTableHead>
-  );
-};
-
-// Type definition for TableHead's props
 type TableColumn = {
-  field?: string;
+  field: string;
   width?: number;
 };
 
-type TableHeadProps = {
-  columns: TableColumn[];
-};
+export type TableRowData = {[key: string]: string | number};
 
-const TableBody = ({rows, page, rowsPerPage}: TableBodyProps) => {
-  const startRow = rowsPerPage * page;
-  const endRow = startRow + rowsPerPage;
-
-  const bodyElements = rows.slice(startRow, endRow).map((row, i) => (
-    <TableRow hover key={i}>
-      {Object.keys(row).map((key, j) => (
-        <TableCell key={j}>{row[key]}</TableCell>
+const TableHead = ({columns}: {columns: TableColumn[]}) => (
+  <MuiTableHead>
+    <TableRow>
+      {columns.map((col, i) => (
+        <TableCell key={i} style={{width: col.width}}>
+          {col.field}
+        </TableCell>
       ))}
     </TableRow>
-  ));
+  </MuiTableHead>
+);
 
-  return <MuiTableBody>{bodyElements}</MuiTableBody>;
+const getValue = (row: TableRowData, field: string): string | number => {
+  if (field in row) return row[field];
+  const key = Object.keys(row).find((k) => k.toLowerCase() === field.toLowerCase());
+  return key !== undefined ? row[key] : '';
+};
+
+const TableBody = ({columns, rows, page, rowsPerPage}: TableBodyProps) => {
+  const start = rowsPerPage * page;
+
+  return (
+    <MuiTableBody>
+      {rows.slice(start, start + rowsPerPage).map((row, i) => (
+        <TableRow hover key={i}>
+          {columns.map((col, j) => (
+            <TableCell key={j}>{getValue(row, col.field)}</TableCell>
+          ))}
+        </TableRow>
+      ))}
+    </MuiTableBody>
+  );
 };
 
 type TableBodyProps = {
+  columns: TableColumn[];
   rows: TableRowData[];
   page: number;
   rowsPerPage: number;
 };
-
-export type TableRowData = {[key: string]: string | number};
 
 export {TableHead, TableBody};

@@ -258,3 +258,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrate project from Poetry to UV for dependency management
+
+## [2.2.1] - 2026-05-22
+
+### Added
+
+- New `CsvUploader` component with Enedis pricing template parsers and tests
+- Test notebook for `CsvUploader`
+
+### Changed
+
+- Refresh overall theme (typography, palette, shadows, MUI component overrides)
+- Improve `Table` component with sticky first row and first column
+- Replace Emotion `css` styling with MUI `sx` across components for consistency
+- Simplify inputs (`Dropdown`, `Slider`, `Toggle`), layout (`NavBar`, `Page`, `SideBar`, `Tab`) and display (`Alert`, `Typography`) components

@@ -6,8 +6,8 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {frFR} from '@mui/x-date-pickers/locales';
 import {theme as defaultTheme} from './theme';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
-import {createTheme, responsiveFontSizes} from '@mui/material/styles';
-import {Theme} from '@emotion/react';
+import {fr} from 'date-fns/locale';
+import {createTheme, responsiveFontSizes, ThemeOptions} from '@mui/material/styles';
 import {CacheProvider} from '@emotion/react';
 import {createEmotionCache} from './createEmotionCache';
 
@@ -16,13 +16,12 @@ const ThemeProvider = ({
   theme: themeOverrides
 }: {
   children: JSX.Element;
-  theme: Partial<Theme>;
+  theme: ThemeOptions;
 }) => {
-  // Enforce and reset a MUI-theme on the entire page
   let theme = createTheme({
     ...defaultTheme,
     ...themeOverrides
-  } as Theme);
+  });
   theme = responsiveFontSizes(theme);
 
   const clientSideEmotionCache = createEmotionCache();
@@ -33,6 +32,7 @@ const ThemeProvider = ({
         <CssBaseline />
         <LocalizationProvider
           dateAdapter={AdapterDateFns}
+          adapterLocale={fr}
           localeText={frFR.components.MuiLocalizationProvider.defaultProps.localeText}
         >
           {children}
