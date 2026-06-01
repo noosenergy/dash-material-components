@@ -14,6 +14,8 @@ import {DashComponentProps} from 'props';
 
 /**
  * Dropdown component
+ * menuLabel, menuHelper, menuElements, menuControls, buildDropdownSelect from previous version
+ * removed because they were single-use intermediates. Use inlining forms instead (DRYer form).
  */
 const Dropdown = ({
   id = 'select',
