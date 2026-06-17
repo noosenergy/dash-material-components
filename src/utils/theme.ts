@@ -393,13 +393,17 @@ export const theme: ThemeOptions = {
         head: {
           fontWeight: 600,
           fontSize: '0.7rem',
-          textTransform: 'uppercase',
           letterSpacing: '0.07em',
           color: C.textSecondary,
           backgroundColor: C.bgSurface,
-          borderBottom: `2px solid ${C.gold}`, // gold separator between header and body rows
+          // box-shadow, not border-bottom: with stickyHeader MUI sets border-collapse:separate,
+          // which drops cell bottom-borders on the sticky header row. An inset shadow paints reliably.
+          boxShadow: `inset 0 -1px 0 0 ${C.divider}`, // gold separator between header and body rows
           whiteSpace: 'nowrap',
-          '&:first-of-type': {zIndex: 3} // stacks above sticky body cells during horizontal scroll
+          '&:first-of-type': {
+            zIndex: 3, // stacks above sticky body cells during horizontal scroll
+            borderRight: '1px solid rgba(0, 0, 0, 0.08)' // vertical bar separating row-header column title
+          }
         },
         body: {
           fontSize: '0.875rem',
