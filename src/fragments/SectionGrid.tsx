@@ -16,8 +16,8 @@ const SectionGrid = ({id = 'section', children, size, orientation = 'rows'}: Sec
       item
       xs={sectionSize}
       container
-      rowSpacing={2}
-      columnSpacing={2}
+      rowSpacing={0.75}
+      columnSpacing={0.75}
       direction={sectionDirection}
       sx={sectionLayoutStyle}
     >

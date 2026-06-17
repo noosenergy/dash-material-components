@@ -3,7 +3,7 @@ import {Box, Grid} from '@mui/material';
 import Error from '../../fragments/Error';
 import {DashComponentProps} from 'props';
 
-const pageStyle = {flexGrow: 1, height: '100%', p: 3};
+const pageStyle = {flexGrow: 1, height: '100%', p: 1};
 const pageLayoutStyle = {width: '100%', height: '100%', maxHeight: '100%'};
 
 /**
