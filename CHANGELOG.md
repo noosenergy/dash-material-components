@@ -272,3 +272,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improve `Table` component with sticky first row and first column
 - Replace Emotion `css` styling with MUI `sx` across components for consistency
 - Simplify inputs (`Dropdown`, `Slider`, `Toggle`), layout (`NavBar`, `Page`, `SideBar`, `Tab`) and display (`Alert`, `Typography`) components
+
+## [2.2.2] - 2026-06-24
+
+### Changed
+
+- Make `Table` fill its parent width with a fixed layout: sticky first column keeps its declared width, remaining columns share the leftover space
+- Align table cells (row headers left, data right) and fix the sticky-header separator
+- Reduce `Page` padding and `Section` grid spacing for a tighter layout

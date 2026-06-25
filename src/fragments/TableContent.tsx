@@ -13,17 +13,36 @@ type TableColumn = {
 
 export type TableRowData = {[key: string]: string | number};
 
-const TableHead = ({columns}: {columns: TableColumn[]}) => (
-  <MuiTableHead>
-    <TableRow>
-      {columns.map((col, i) => (
-        <TableCell key={i} style={{width: col.width}}>
-          {col.field}
-        </TableCell>
-      ))}
-    </TableRow>
-  </MuiTableHead>
-);
+const TableHead = ({columns}: {columns: TableColumn[]}) => {
+  // With table-layout: fixed, column widths are taken from the header cells.
+  // The first column (sticky row header) keeps its exact declared px width; the
+  // remaining columns share the leftover space (100% - firstWidth) proportionally
+  // to their declared widths - so they fill the parent and are even when equal.
+  const firstWidth = columns[0]?.width || 0;
+  const restTotal = columns.slice(1).reduce((sum, col) => sum + (col.width || 0), 0);
+
+  const getWidth = (col: TableColumn, i: number): string | undefined => {
+    if (i === 0) return firstWidth ? `${firstWidth}px` : undefined;
+    if (!col.width || !restTotal) return undefined;
+    return `calc((100% - ${firstWidth}px) * ${col.width / restTotal})`;
+  };
+
+  return (
+    <MuiTableHead>
+      <TableRow>
+        {columns.map((col, i) => (
+          <TableCell
+            key={i}
+            align={i === 0 ? 'center' : 'right'}
+            style={{width: getWidth(col, i)}}
+          >
+            {col.field}
+          </TableCell>
+        ))}
+      </TableRow>
+    </MuiTableHead>
+  );
+};
 
 const getValue = (row: TableRowData, field: string): string | number => {
   if (field in row) return row[field];
@@ -39,7 +58,9 @@ const TableBody = ({columns, rows, page, rowsPerPage}: TableBodyProps) => {
       {rows.slice(start, start + rowsPerPage).map((row, i) => (
         <TableRow hover key={i}>
           {columns.map((col, j) => (
-            <TableCell key={j}>{getValue(row, col.field)}</TableCell>
+            <TableCell key={j} align={j === 0 ? 'left' : 'right'}>
+              {getValue(row, col.field)}
+            </TableCell>
           ))}
         </TableRow>
       ))}

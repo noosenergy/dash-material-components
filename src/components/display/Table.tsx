@@ -19,6 +19,10 @@ const Table = ({
 
   useEffect(() => setRows(initialRows), [initialRows]);
 
+  // Sum of declared column widths; used as a min so the table scrolls (not squishes)
+  // when the parent is narrower than the content.
+  const totalWidth = columns.reduce((sum, col) => sum + (col.width || 0), 0);
+
   const handlePageChange = (_: unknown, value: number) => setPage(value);
 
   const handleRowsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +38,15 @@ const Table = ({
         flexDirection: 'column',
         height: '100%',
         overflow: 'hidden',
-        width: 'fit-content',
-        maxWidth: '100%'
+        width: '100%'
       }}
     >
       <TableContainer sx={{flexGrow: 1, overflow: 'auto', minHeight: 0, ...tableStyle}}>
-        <MuiTable stickyHeader aria-label="data table">
+        <MuiTable
+          stickyHeader
+          aria-label="data table"
+          sx={{tableLayout: 'fixed', width: '100%', minWidth: totalWidth || undefined}}
+        >
           <TableHead columns={columns} />
           <TableBody columns={columns} rows={rows} page={page} rowsPerPage={rowsPerPage} />
         </MuiTable>
