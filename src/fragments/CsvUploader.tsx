@@ -121,22 +121,29 @@ const CsvUploader = ({
   // Refs to track latest values without triggering re-renders (used in auto-upload effect)
   const nSubmitsRef = useRef(nSubmits);
   nSubmitsRef.current = nSubmits;
-  const prevSuccessCountRef = useRef(0);
+  // Ids of successfully-parsed files already pushed to Dash. Tracking ids (not a
+  // count) lets us detect a single-file replacement, whose count stays constant.
+  const emittedIdsRef = useRef<Set<string>>(new Set());
 
   // ── Auto-upload effect ────────────────────────────────────────────────────
   // In 'auto-upload' mode, push data to Dash each time a new file parses successfully
 
   useEffect(() => {
-    if (files.length === 0) {
-      prevSuccessCountRef.current = 0;
-      return;
-    }
     if (variant !== 'auto-upload') return;
 
     const successFiles = files.filter((f) => f.status === 'success' && f.parsedData);
-    if (successFiles.length <= prevSuccessCountRef.current) return;
+    const currentIds = new Set(successFiles.map((f) => f.id));
 
-    prevSuccessCountRef.current = successFiles.length;
+    // Forget ids whose files are gone (deleted or replaced / re-parsing), so a
+    // re-uploaded file counts as new again.
+    emittedIdsRef.current.forEach((emittedId) => {
+      if (!currentIds.has(emittedId)) emittedIdsRef.current.delete(emittedId);
+    });
+
+    // Fire only when a not-yet-emitted successful file is present
+    if (!successFiles.some((f) => !emittedIdsRef.current.has(f.id))) return;
+
+    successFiles.forEach((f) => emittedIdsRef.current.add(f.id));
     setProps({
       nSubmits: nSubmitsRef.current + 1,
       contents: successFiles.map((f) => f.parsedData!)
