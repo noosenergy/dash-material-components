@@ -280,3 +280,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make `Table` fill its parent width with a fixed layout: sticky first column keeps its declared width, remaining columns share the leftover space
 - Align table cells (row headers left, data right) and fix the sticky-header separator
 - Reduce `Page` padding and `Section` grid spacing for a tighter layout
+
+## [2.2.3] - 2026-07-10
+
+### Changed
+
+- Improve the `CsvUploader` auto-upload flow so a newly parsed file is emitted only once and replacement files trigger a fresh upload
+- Refine the Enedis parser output and timezone handling for the pricing template import paths
+- Update parser tests to reflect the simplified Enedis payload structure
