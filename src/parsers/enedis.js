@@ -7,10 +7,9 @@
  *   M022    — French date/time columns, naive Europe/Paris local time, values in W
  *   M023    — multi-row export, naive Europe/Paris Horodate, W-unit rows only
  *
- * Output rows carry three fields:
+ * Output rows carry two fields:
  *   delivery_from  — UTC ISO-8601 string  (e.g. "2022-01-01T00:00:00.000Z")
  *   load_value     — float, in MW
- *   meterpoint_id  — PRM identifier; populated only on the first row, null elsewhere
  *
  * Register as: window.DashCsvParsers["enedis"] (done below).
  * Place this file in your Dash assets/ folder; it is auto-served and injected
@@ -58,7 +57,7 @@
     var values = rows.map(function (r) {
       return parseValue(r[fields[1]]); // no unit conversion — already MW
     });
-    return buildResult(timestamps, values, '0');
+    return buildResult(timestamps, values);
   }
 
   /**
@@ -68,8 +67,6 @@
    *   rows 2+: time series — col[0] = tz-aware ISO timestamp, col[1] = W value
    */
   function parseM021(rows, fields) {
-    var meterpointId = rows[0][fields[0]];
-
     // Validate the expected sub-header row to catch misidentified files early
     if (rows[1][fields[0]] !== 'Horodate' || rows[1][fields[1]] !== 'Valeur')
       throw new Error("M021: unexpected sub-header layout (expected 'Horodate' / 'Valeur').");
@@ -83,7 +80,7 @@
     var values = dataRows.map(function (r) {
       return parseValue(r[fields[1]]) * 1e-6; // W → MW
     });
-    return buildResult(timestamps, values, meterpointId);
+    return buildResult(timestamps, values);
   }
 
   /**
@@ -91,15 +88,14 @@
    * Date column format: DD/MM/YYYY  |  Time column format: HH:MM:SS
    */
   function parseM022(rows) {
-    var meterpointId = rows[0]['PRM'];
-    var timestamps = rows.map(function (r) {
-      var iso = frenchToIso(String(r['Date de la mesure']), String(r['Heure de la mesure']));
-      return parisNaiveToUTC(iso).toISOString();
+    var isos = rows.map(function (r) {
+      return frenchToIso(String(r['Date de la mesure']), String(r['Heure de la mesure']));
     });
+    var timestamps = parisNaiveSeriesToUTC(isos);
     var values = rows.map(function (r) {
       return parseValue(r['Valeur']) * 1e-6; // W → MW
     });
-    return buildResult(timestamps, values, meterpointId);
+    return buildResult(timestamps, values);
   }
 
   /**
@@ -107,19 +103,18 @@
    * Horodate (ISO format: YYYY-MM-DD HH:MM:SS), values in W.
    */
   function parseM023(rows) {
-    var meterpointId = rows[0]['Identifiant PRM'];
     // Ignore reactive power rows (VAr) — keep active power only
     var wRows = rows.filter(function (r) {
       return r['Unité'] === 'W';
     });
-    var timestamps = wRows.map(function (r) {
-      var iso = String(r['Horodate']).replace(' ', 'T');
-      return parisNaiveToUTC(iso).toISOString();
+    var isos = wRows.map(function (r) {
+      return String(r['Horodate']).replace(' ', 'T');
     });
+    var timestamps = parisNaiveSeriesToUTC(isos);
     var values = wRows.map(function (r) {
       return parseValue(r['Valeur']) * 1e-6; // W → MW
     });
-    return buildResult(timestamps, values, meterpointId);
+    return buildResult(timestamps, values);
   }
 
   // ── Result builder ────────────────────────────────────────────────────────
@@ -128,10 +123,8 @@
    * Validates parsed timestamps/values, then packages them into the
    * { success, data, fields } contract expected by CsvUploader.
    * Checks for nulls and duplicate UTC timestamps, then sorts ascending.
-   * meterpoint_id is written only on the first row to minimise transfer size;
-   * reconstruct server-side with df['meterpoint_id'].ffill() or .iloc[0].
    */
-  function buildResult(timestamps, values, meterpointId) {
+  function buildResult(timestamps, values) {
     // Null / NaN guard (parseValue already threw for truly invalid entries;
     // this catches any null that slipped through from optional columns)
     for (var i = 0; i < values.length; i++) {
@@ -154,9 +147,9 @@
       return a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0;
     });
 
-    var outFields = ['delivery_from', 'load_value', 'meterpoint_id'];
-    var outRows = pairs.map(function (p, i) {
-      return {delivery_from: p.ts, load_value: p.v, meterpoint_id: i === 0 ? meterpointId : null};
+    var outFields = ['delivery_from', 'load_value'];
+    var outRows = pairs.map(function (p) {
+      return {delivery_from: p.ts, load_value: p.v};
     });
 
     return {success: true, data: outRows, fields: outFields};
@@ -201,40 +194,55 @@
     return offset;
   }
 
+  // Europe/Paris only ever uses two offsets: CEST (+2h) and CET (+1h).
+  var PARIS_OFFSETS = [7200000, 3600000]; // ordered so the earlier UTC instant comes first
+
   /**
-   * Converts a naive datetime ISO string (YYYY-MM-DDTHH:MM:SS) assumed to be in
-   * Europe/Paris to a UTC Date object.
+   * Returns every UTC instant (ms) whose Paris local time equals the naive ISO
+   * input, ascending. Normal times yield one candidate; an autumn fall-back hour
+   * yields two (CEST then CET); a non-existent spring-forward time yields none.
    *
-   * Algorithm (DST-safe, no external library):
-   *   1. Measure the Paris UTC offset at the naive timestamp treated as UTC.
-   *   2. Subtract the offset to get a first UTC estimate.
-   *   3. Refine once — the corrected UTC may fall in a different DST regime,
-   *      so we measure the offset again at the estimate and re-subtract.
-   *   4. Round-trip check: paris_local(utc) must reproduce the original input
-   *      (within 1 min). Uses the cached offset so no extra Intl call is needed.
-   *      Non-existent spring-forward times cause a mismatch and throw.
-   *
-   * Ambiguous fall-back times (same clock hour repeated twice) are silently
-   * resolved to the post-transition occurrence (CET, UTC+1).
+   * A candidate `naiveMs - off` is real only if Paris actually uses `off` there,
+   * which we confirm by re-measuring the offset at the candidate instant.
    */
-  function parisNaiveToUTC(iso) {
-    var naiveMs = Date.parse(iso + 'Z'); // treat naive as UTC to get a ms baseline
+  function parisNaiveCandidates(iso) {
+    var naiveMs = Date.parse(iso + 'Z'); // treat naive as UTC for a ms baseline
     if (isNaN(naiveMs)) throw new Error('Invalid datetime: ' + iso);
 
-    // Two-pass correction (one pass is sufficient for most dates; two covers DST edges)
-    var utc = naiveMs - parisOffsetMs(naiveMs);
-    utc = naiveMs - parisOffsetMs(utc);
+    var utcs = PARIS_OFFSETS.filter(function (off) {
+      return parisOffsetMs(naiveMs - off) === off;
+    }).map(function (off) {
+      return naiveMs - off;
+    });
 
-    // Detect non-existent times: paris_local(utc) = utc + offset must equal the input
-    if (Math.abs(utc + parisOffsetMs(utc) - naiveMs) > 60000)
+    if (!utcs.length)
       throw new Error('Non-existent local time in Europe/Paris (spring-forward gap): ' + iso);
+    return utcs;
+  }
 
-    return new Date(utc);
+  /**
+   * Converts an ordered array of naive Europe/Paris ISO strings to UTC ISO
+   * strings. Chronological input order resolves the autumn fall-back ambiguity:
+   * for a repeated clock hour, the earliest not-yet-used instant is taken, so the
+   * first 02:00 maps to CEST (UTC+2) and the second to CET (UTC+1) instead of
+   * both collapsing onto the same UTC timestamp.
+   */
+  function parisNaiveSeriesToUTC(isos) {
+    var prevMs = -Infinity;
+    return isos.map(function (iso) {
+      var utcs = parisNaiveCandidates(iso);
+      var chosen = utcs.find(function (ms) {
+        return ms > prevMs;
+      });
+      if (chosen === undefined) chosen = utcs[utcs.length - 1];
+      prevMs = chosen;
+      return new Date(chosen).toISOString();
+    });
   }
 
   /**
    * Converts French-formatted date ("DD/MM/YYYY") and time ("HH:MM:SS") strings
-   * to an ISO string "YYYY-MM-DDTHH:MM:SS" for parisNaiveToUTC.
+   * to an ISO string "YYYY-MM-DDTHH:MM:SS" for parisNaiveSeriesToUTC.
    */
   function frenchToIso(dateStr, timeStr) {
     var parts = dateStr.split('/');

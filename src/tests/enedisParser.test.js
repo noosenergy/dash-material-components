@@ -132,13 +132,6 @@ describe('dispatch', () => {
 // ── Simple ────────────────────────────────────────────────────────────────────
 
 describe('Simple', () => {
-  test('meterpoint_id is "0", only set on first row', () => {
-    const {rows, fields} = buildSimple(UTC_TS);
-    const data = parse(rows, fields).data;
-    expect(data[0].meterpoint_id).toBe('0');
-    expect(data[1].meterpoint_id).toBe(null);
-  });
-
   test('UTC timestamps → preserved as UTC', () => {
     const {rows, fields} = buildSimple(UTC_TS);
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual(UTC_3H);
@@ -201,11 +194,6 @@ describe('Simple', () => {
 // ── M021 ──────────────────────────────────────────────────────────────────────
 
 describe('M021', () => {
-  test('meterpoint_id extracted from header row', () => {
-    const {rows, fields} = buildM021(UTC_TS);
-    expect(parse(rows, fields).data[0].meterpoint_id).toBe('12345');
-  });
-
   test('UTC timestamps → preserved as UTC', () => {
     const {rows, fields} = buildM021(UTC_TS);
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual(UTC_3H);
@@ -268,11 +256,6 @@ describe('M021', () => {
 // ── M022 ──────────────────────────────────────────────────────────────────────
 
 describe('M022', () => {
-  test('meterpoint_id extracted from first row PRM column', () => {
-    const {rows, fields} = buildM022(M022_WINTER);
-    expect(parse(rows, fields).data[0].meterpoint_id).toBe('1234');
-  });
-
   test('naive Paris CET → UTC (winter, UTC+1)', () => {
     const {rows, fields} = buildM022(M022_WINTER);
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual([
@@ -305,10 +288,11 @@ describe('M022', () => {
   });
 
   test('fall-back ambiguous hour resolved to post-transition (CET, UTC+1)', () => {
-    // On 2025-10-26, clocks fall back from 03:00 CEST to 02:00 CET — 02:30 is ambiguous
+    // On 2025-10-26, clocks fall back from 03:00 CEST to 02:00 CET — 02:30 is ambiguous.
+    // The parser resolves the repeated hour to the earlier UTC instant (CEST, UTC+2).
     const entries = [
       {date: '26/10/2025', time: '01:30:00'}, // CEST (UTC+2) → 2025-10-25T23:30:00.000Z
-      {date: '26/10/2025', time: '02:30:00'}, // ambiguous → resolved to CET (UTC+1) → 2025-10-26T01:30:00.000Z
+      {date: '26/10/2025', time: '02:30:00'}, // ambiguous → resolved to CEST (UTC+2) → 2025-10-26T00:30:00.000Z
       {date: '26/10/2025', time: '03:30:00'} // CET  (UTC+1) → 2025-10-26T02:30:00.000Z
     ];
     const {rows, fields} = buildM022(entries);
@@ -316,7 +300,7 @@ describe('M022', () => {
     expect(result.success).toBe(true);
     expect(result.data.map((r) => r.delivery_from)).toEqual([
       '2025-10-25T23:30:00.000Z',
-      '2025-10-26T01:30:00.000Z',
+      '2025-10-26T00:30:00.000Z',
       '2025-10-26T02:30:00.000Z'
     ]);
   });
@@ -362,11 +346,6 @@ describe('M022', () => {
 // ── M023 ──────────────────────────────────────────────────────────────────────
 
 describe('M023', () => {
-  test('meterpoint_id extracted from first row', () => {
-    const {rows, fields} = buildM023(M023_WINTER);
-    expect(parse(rows, fields).data[0].meterpoint_id).toBe('123456');
-  });
-
   test('naive Paris CET → UTC (winter, UTC+1)', () => {
     const {rows, fields} = buildM023(M023_WINTER);
     expect(parse(rows, fields).data.map((r) => r.delivery_from)).toEqual([
@@ -463,50 +442,45 @@ describe('CSV fixtures', () => {
     return parse(rows, meta.fields);
   }
 
-  test('Simple: 2-column, tz-aware UTC timestamps, meterpoint_id "0"', () => {
+  test('Simple: 2-column, tz-aware UTC timestamps', () => {
     const result = parseFile('pricing_template_simple.csv');
     expect(result.success).toBe(true);
-    expect(result.fields).toEqual(['delivery_from', 'load_value', 'meterpoint_id']);
+    expect(result.fields).toEqual(['delivery_from', 'load_value']);
     expect(result.data.length).toBe(96); // 2 days × 48 half-hour slots
-    expect(result.data[0].meterpoint_id).toBe('0');
     expect(result.data[0].delivery_from).toBe('2024-12-10T00:00:00.000Z');
     expect(result.data[0].load_value).toBeCloseTo(1.1548881401319515, 10);
     expect(result.data[95].delivery_from).toBe('2024-12-11T23:30:00.000Z');
-    // meterpoint_id is set only on the first row
-    expect(result.data[1].meterpoint_id).toBe(null);
+    expect(result.data[0]).not.toHaveProperty('meterpoint_id');
   });
 
-  test('M021: multi-header, CET→UTC, meterpoint_id from header row', () => {
+  test('M021: multi-header, CET→UTC', () => {
     const result = parseFile('pricing_template_m021.csv');
     expect(result.success).toBe(true);
-    // PapaParse dynamicTyping converts the numeric PRM to a JS number
-    expect(result.data[0].meterpoint_id).toBe(12345);
+    expect(result.fields).toEqual(['delivery_from', 'load_value']);
     // 2022-01-01T00:00:00+01:00 → PapaParse Date object → toISOString() = UTC
     expect(result.data[0].delivery_from).toBe('2021-12-31T23:00:00.000Z');
     expect(result.data[0].load_value).toBeCloseTo(0.005, 10); // 5000 W → MW
-    expect(result.data[1].meterpoint_id).toBe(null);
+    expect(result.data[0]).not.toHaveProperty('meterpoint_id');
   });
 
-  test('M022: French date/time, PRM from first row, Paris CET→UTC', () => {
+  test('M022: French date/time, Paris CET→UTC', () => {
     const result = parseFile('pricing_template_m022.csv');
     expect(result.success).toBe(true);
-    // PapaParse dynamicTyping converts PRM cell "1234" to number 1234
-    expect(result.data[0].meterpoint_id).toBe(1234);
+    expect(result.fields).toEqual(['delivery_from', 'load_value']);
     // 01/11/2021 00:00:00 Paris CET (UTC+1) → 2021-10-31T23:00:00Z
     expect(result.data[0].delivery_from).toBe('2021-10-31T23:00:00.000Z');
     expect(result.data[0].load_value).toBeCloseTo(0.018, 10); // 18 000 W → MW
-    expect(result.data[1].meterpoint_id).toBe(null);
+    expect(result.data[0]).not.toHaveProperty('meterpoint_id');
   });
 
-  test('M023: W rows only (VAr filtered), meterpoint_id 123456, Paris CET→UTC', () => {
+  test('M023: W rows only (VAr filtered), Paris CET→UTC', () => {
     const result = parseFile('pricing_template_m023.csv');
     expect(result.success).toBe(true);
-    // PapaParse dynamicTyping converts "123456" to number 123456
-    expect(result.data[0].meterpoint_id).toBe(123456);
+    expect(result.fields).toEqual(['delivery_from', 'load_value']);
     // 2022-11-01 00:00:00 Paris CET (UTC+1) → 2022-10-31T23:00:00Z
     expect(result.data[0].delivery_from).toBe('2022-10-31T23:00:00.000Z');
     expect(result.data[0].load_value).toBeCloseTo(294e-6, 10); // 294 W → MW
-    expect(result.data[1].meterpoint_id).toBe(null);
+    expect(result.data[0]).not.toHaveProperty('meterpoint_id');
     // No raw-watt values should have slipped through unfilterd
     expect(result.data.every((r) => r.load_value < 1)).toBe(true);
   });
